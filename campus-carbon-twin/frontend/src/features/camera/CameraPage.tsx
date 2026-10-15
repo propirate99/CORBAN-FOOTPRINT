@@ -9,7 +9,7 @@ export const CameraPage: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [detection, setDetection] = useState<DetectionResult>({ personCount: 1, confidenceScore: 0.94 });
-  const [isPublishing, setIsPublishing] = useState<boolean>(true);
+  const [isPublishing] = useState<boolean>(true);
   const [lastSync, setLastSync] = useState<string>(new Date().toISOString());
 
   useEffect(() => {

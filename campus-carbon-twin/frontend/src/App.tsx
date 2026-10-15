@@ -2,14 +2,37 @@ import React, { useState } from 'react';
 import { CampusPage } from './features/campus/CampusPage';
 import { RoomPage } from './features/rooms/RoomPage';
 import { CameraPage } from './features/camera/CameraPage';
+import { CameraStation } from './features/camera-station/CameraStation';
 import { ScenarioPage } from './features/scenarios/ScenarioPage';
 import { ActionTimeline } from './features/actions/ActionTimeline';
 import { PersonalCalculatorPage } from './features/calculator/PersonalCalculatorPage';
+import { Room } from './types/api';
 
-type Tab = 'campus' | 'room' | 'camera' | 'scenarios' | 'actions' | 'calculator';
+type Tab = 'campus' | 'room' | 'camera-station' | 'camera' | 'scenarios' | 'actions' | 'calculator';
 
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('campus');
+  const [liveRooms, setLiveRooms] = useState<Room[] | undefined>(undefined);
+
+  // Local callback updating dashboard state for same-device demonstration
+  const handleLocalObservation = (roomId: string, count: number, timestamp: string) => {
+    setLiveRooms((prevRooms) => {
+      if (!prevRooms) return undefined;
+      return prevRooms.map((r) => {
+        if (r.id === roomId) {
+          const isOccupied = count > 0;
+          return {
+            ...r,
+            currentOccupancy: count,
+            observationState: isOccupied ? 'OCCUPIED' : 'NO_PERSON_DETECTED',
+            lastReceivedAt: timestamp,
+            status: !isOccupied && r.powerDrawKw > 1.5 ? 'WASTEFUL' : isOccupied ? 'IN_USE' : 'OPTIMAL',
+          };
+        }
+        return r;
+      });
+    });
+  };
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc', color: '#0f172a', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
@@ -33,7 +56,8 @@ export const App: React.FC = () => {
           {[
             { id: 'campus', label: 'Campus Overview' },
             { id: 'room', label: 'Room Inspection' },
-            { id: 'camera', label: 'Live Edge Camera' },
+            { id: 'camera-station', label: '📷 Camera Station' },
+            { id: 'camera', label: 'Edge Camera (Prototype)' },
             { id: 'scenarios', label: 'Scenario Simulator' },
             { id: 'actions', label: 'Action Timeline' },
             { id: 'calculator', label: 'Personal Footprint' },
@@ -50,6 +74,7 @@ export const App: React.FC = () => {
                 padding: '0.75rem 1rem',
                 cursor: 'pointer',
                 fontSize: '0.875rem',
+                whiteSpace: 'nowrap',
               }}
             >
               {tab.label}
@@ -60,8 +85,14 @@ export const App: React.FC = () => {
 
       {/* Main Container */}
       <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1.5rem' }}>
-        {activeTab === 'campus' && <CampusPage />}
+        {activeTab === 'campus' && <CampusPage rooms={liveRooms} />}
         {activeTab === 'room' && <RoomPage />}
+        {activeTab === 'camera-station' && (
+          <CameraStation
+            initialRoomId="A-101"
+            onLocalObservation={handleLocalObservation}
+          />
+        )}
         {activeTab === 'camera' && <CameraPage />}
         {activeTab === 'scenarios' && <ScenarioPage />}
         {activeTab === 'actions' && <ActionTimeline />}

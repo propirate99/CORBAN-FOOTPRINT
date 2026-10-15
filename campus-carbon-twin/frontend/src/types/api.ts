@@ -11,6 +11,8 @@ export interface Equipment {
   wattageWatts: number;
 }
 
+export type ObservationState = 'UNKNOWN' | 'OCCUPIED' | 'NO_PERSON_DETECTED' | 'VACANCY_CANDIDATE' | 'STALE';
+
 export interface Room {
   id: string;
   name: string;
@@ -23,7 +25,13 @@ export interface Room {
   equipment?: Equipment[];
   lastObservationTimestamp?: string;
   confidenceScore?: number;
+  observationState?: ObservationState;
+  lastReceivedAt?: string;
+  source?: string;
+  coverage?: string;
+  equipmentState?: string;
 }
+
 
 export interface Building {
   id: string;

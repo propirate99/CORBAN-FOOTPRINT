@@ -10,8 +10,11 @@ export class EdgeDetector {
   async loadModel(): Promise<boolean> {
     // Simulated lightweight client-side TFLite/WASM model loader
     await new Promise((resolve) => setTimeout(resolve, 300));
-    this.isModelLoaded = true;
     return true;
+  }
+
+  get isLoaded(): boolean {
+    return this.isModelLoaded;
   }
 
   detectFrame(videoElement: HTMLVideoElement | null): DetectionResult {
