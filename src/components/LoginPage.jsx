@@ -1,78 +1,101 @@
 import React, { useState } from 'react';
 import {
   Leaf, Lock, Mail, ShieldCheck, Eye, EyeOff, CheckCircle2,
-  AlertCircle, Building2, Zap, ArrowRight, UserCheck, Key
+  AlertCircle, Building2, Zap, ArrowRight, User, Briefcase
 } from 'lucide-react';
 
 export default function LoginPage({ onLoginSuccess }) {
-  const [email, setEmail] = useState('director@carbontwin.edu');
-  const [password, setPassword] = useState('admin123');
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [department, setDepartment] = useState('');
+  const [role, setRole] = useState('Chief Sustainability Officer');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-
-  const demoPersonas = [
-    {
-      name: 'Dr. Elena Vance',
-      role: 'Chief Sustainability Officer',
-      badge: 'CSO',
-      email: 'director@carbontwin.edu',
-      pass: 'admin123',
-      dept: 'Campus Sustainability Office'
-    },
-    {
-      name: 'Marcus Chen',
-      role: 'Facility Operations Engineer',
-      badge: 'Operations',
-      email: 'facilities@carbontwin.edu',
-      pass: 'energy2024',
-      dept: 'Physical Plant & Hardware Relay'
-    },
-    {
-      name: 'Sarah Jenkins',
-      role: 'Campus Energy Auditor',
-      badge: 'ESG Audit',
-      email: 'auditor@carbontwin.edu',
-      pass: 'audit2024',
-      dept: 'Environmental Compliance'
-    }
-  ];
-
-  const handleSelectPersona = (p) => {
-    setEmail(p.email);
-    setPassword(p.pass);
-    setErrorMessage('');
-  };
+  const [infoMessage, setInfoMessage] = useState('');
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
     setLoading(true);
     setErrorMessage('');
+    setInfoMessage('');
 
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
+      if (isSignUp) {
+        if (!fullName.trim()) {
+          throw new Error('Please enter your full name.');
+        }
+        if (!email.trim()) {
+          throw new Error('Please enter your institutional email address.');
+        }
+        if (password.length < 6) {
+          throw new Error('Password must be at least 6 characters long.');
+        }
+        if (password !== confirmPassword) {
+          throw new Error('Passwords do not match. Please re-enter.');
+        }
 
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Authentication failed');
-      }
+        const res = await fetch('/api/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: fullName.trim(),
+            email: email.trim(),
+            password,
+            role,
+            department: department.trim() || 'Campus Facilities & Sustainability'
+          })
+        });
 
-      // Successful login
-      if (rememberMe) {
-        localStorage.setItem('carbontwin_user', JSON.stringify(data.user));
-        localStorage.setItem('carbontwin_token', data.token);
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || 'Account registration failed.');
+        }
+
+        // Store user and token
+        if (rememberMe) {
+          localStorage.setItem('carbontwin_user', JSON.stringify(data.user));
+          localStorage.setItem('carbontwin_token', data.token);
+        } else {
+          sessionStorage.setItem('carbontwin_user', JSON.stringify(data.user));
+        }
+
+        onLoginSuccess(data.user);
       } else {
-        sessionStorage.setItem('carbontwin_user', JSON.stringify(data.user));
-      }
+        if (!email.trim() || !password) {
+          throw new Error('Please provide both your institutional email and password.');
+        }
 
-      onLoginSuccess(data.user);
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email.trim(),
+            password
+          })
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || 'Authentication failed. Please verify credentials.');
+        }
+
+        // Store user and token
+        if (rememberMe) {
+          localStorage.setItem('carbontwin_user', JSON.stringify(data.user));
+          localStorage.setItem('carbontwin_token', data.token);
+        } else {
+          sessionStorage.setItem('carbontwin_user', JSON.stringify(data.user));
+        }
+
+        onLoginSuccess(data.user);
+      }
     } catch (err) {
-      setErrorMessage(err.message || 'Invalid credentials. Please verify your email and password.');
+      setErrorMessage(err.message || 'Authentication error. Please check your network and credentials.');
     } finally {
       setLoading(false);
     }
@@ -239,7 +262,7 @@ export default function LoginPage({ onLoginSuccess }) {
                 <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 10px #10b981' }} />
                 <div>
                   <div style={{ fontSize: '0.7rem', color: '#6ee7b7', textTransform: 'uppercase', fontWeight: 700 }}>Telemetry Status</div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#ffffff' }}>St. Jude Campus Edge Stream</div>
+                  <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#ffffff' }}>Live Institutional Edge Stream</div>
                 </div>
               </div>
               <div style={{ textAlign: 'right' }}>
@@ -257,59 +280,74 @@ export default function LoginPage({ onLoginSuccess }) {
         </div>
       </div>
 
-      {/* RIGHT COLUMN: Interactive Login Form */}
+      {/* RIGHT COLUMN: Interactive Login / Signup Form */}
       <div style={{
         flex: 1,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '2.5rem'
+        padding: '2.5rem',
+        overflowY: 'auto'
       }}>
         <div style={{ width: '100%', maxWidth: '440px' }}>
-          {/* Header */}
-          <div style={{ marginBottom: '1.75rem' }}>
-            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em', marginBottom: '0.4rem' }}>
-              Sign in to Carbon Twin
-            </h2>
-            <p style={{ fontSize: '0.875rem', color: '#64748b' }}>
-              Enter your institutional credentials or select a verified demo persona below.
-            </p>
+          {/* Top Auth Mode Tabs */}
+          <div style={{
+            display: 'flex',
+            background: '#e2e8f0',
+            borderRadius: '10px',
+            padding: '4px',
+            marginBottom: '1.75rem'
+          }}>
+            <button
+              type="button"
+              onClick={() => { setIsSignUp(false); setErrorMessage(''); setInfoMessage(''); }}
+              style={{
+                flex: 1,
+                padding: '0.55rem',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '0.875rem',
+                fontWeight: !isSignUp ? 700 : 500,
+                background: !isSignUp ? '#ffffff' : 'transparent',
+                color: !isSignUp ? '#065f46' : '#64748b',
+                boxShadow: !isSignUp ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              Sign In
+            </button>
+            <button
+              type="button"
+              onClick={() => { setIsSignUp(true); setErrorMessage(''); setInfoMessage(''); }}
+              style={{
+                flex: 1,
+                padding: '0.55rem',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '0.875rem',
+                fontWeight: isSignUp ? 700 : 500,
+                background: isSignUp ? '#ffffff' : 'transparent',
+                color: isSignUp ? '#065f46' : '#64748b',
+                boxShadow: isSignUp ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              Create Account
+            </button>
           </div>
 
-          {/* QUICK DEMO PERSONA SELECTOR */}
+          {/* Header */}
           <div style={{ marginBottom: '1.5rem' }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: '#64748b', marginBottom: '0.65rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-              <UserCheck size={14} color="#059669" />
-              Quick Select Demo Persona:
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem' }}>
-              {demoPersonas.map((p) => {
-                const isSelected = email === p.email;
-                return (
-                  <button
-                    key={p.email}
-                    type="button"
-                    onClick={() => handleSelectPersona(p)}
-                    style={{
-                      background: isSelected ? '#ecfdf5' : '#ffffff',
-                      border: `1px solid ${isSelected ? '#059669' : '#e2e8f0'}`,
-                      borderRadius: '8px',
-                      padding: '0.6rem 0.5rem',
-                      textAlign: 'left',
-                      cursor: 'pointer',
-                      transition: 'all 0.15s ease'
-                    }}
-                  >
-                    <div style={{ fontSize: '0.75rem', fontWeight: 700, color: isSelected ? '#065f46' : '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                      {p.name.split(' ')[1] || p.name}
-                    </div>
-                    <div style={{ fontSize: '0.65rem', color: isSelected ? '#047857' : '#64748b' }}>
-                      {p.badge}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
+            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em', marginBottom: '0.4rem' }}>
+              {isSignUp ? 'Register Campus Account' : 'Sign in to Carbon Twin'}
+            </h2>
+            <p style={{ fontSize: '0.875rem', color: '#64748b' }}>
+              {isSignUp
+                ? 'Create your institutional credentials to monitor facility energy and carbon footprints.'
+                : 'Enter your institutional credentials to access live facility intelligence.'}
+            </p>
           </div>
 
           {/* Error Banner */}
@@ -331,12 +369,123 @@ export default function LoginPage({ onLoginSuccess }) {
             </div>
           )}
 
+          {/* Info Banner */}
+          {infoMessage && (
+            <div style={{
+              background: '#f0fdf4',
+              border: '1px solid #bbf7d0',
+              borderRadius: '8px',
+              padding: '0.75rem',
+              marginBottom: '1.25rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              color: '#166534',
+              fontSize: '0.825rem'
+            }}>
+              <CheckCircle2 size={16} />
+              <span>{infoMessage}</span>
+            </div>
+          )}
+
           {/* Form */}
           <form onSubmit={handleSubmit}>
-            {/* Work Email */}
+            {isSignUp && (
+              <>
+                {/* Full Name */}
+                <div style={{ marginBottom: '1rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '0.35rem' }}>
+                    Full Name
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <div style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}>
+                      <User size={16} />
+                    </div>
+                    <input
+                      type="text"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="e.g. Dr. Elena Vance"
+                      required
+                      style={{
+                        width: '100%',
+                        padding: '0.65rem 0.85rem 0.65rem 2.5rem',
+                        border: '1px solid #cbd5e1',
+                        borderRadius: '8px',
+                        fontSize: '0.875rem',
+                        outline: 'none',
+                        transition: 'border-color 0.15s ease'
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* Role / Position */}
+                <div style={{ marginBottom: '1rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '0.35rem' }}>
+                    Institutional Role
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <div style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}>
+                      <Briefcase size={16} />
+                    </div>
+                    <select
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '0.65rem 0.85rem 0.65rem 2.5rem',
+                        border: '1px solid #cbd5e1',
+                        borderRadius: '8px',
+                        fontSize: '0.875rem',
+                        outline: 'none',
+                        background: '#ffffff',
+                        color: '#1e293b'
+                      }}
+                    >
+                      <option value="Chief Sustainability Officer">Chief Sustainability Officer (CSO)</option>
+                      <option value="Facility Operations Engineer">Facility Operations Engineer</option>
+                      <option value="Campus Energy Auditor">Campus Energy Auditor</option>
+                      <option value="Physical Plant Manager">Physical Plant Manager</option>
+                      <option value="Sustainability Coordinator">Sustainability Coordinator</option>
+                      <option value="Department Administrator">Department Administrator</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Department */}
+                <div style={{ marginBottom: '1rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '0.35rem' }}>
+                    Department / Division
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <div style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}>
+                      <Building2 size={16} />
+                    </div>
+                    <input
+                      type="text"
+                      value={department}
+                      onChange={(e) => setDepartment(e.target.value)}
+                      placeholder="e.g. Facilities Management & Climate Office"
+                      style={{
+                        width: '100%',
+                        padding: '0.65rem 0.85rem 0.65rem 2.5rem',
+                        border: '1px solid #cbd5e1',
+                        borderRadius: '8px',
+                        fontSize: '0.875rem',
+                        outline: 'none',
+                        transition: 'border-color 0.15s ease'
+                      }}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* Institutional Email */}
             <div style={{ marginBottom: '1rem' }}>
               <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '0.35rem' }}>
-                Enterprise Email
+                Institutional Email
               </label>
               <div style={{ position: 'relative' }}>
                 <div style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}>
@@ -362,18 +511,20 @@ export default function LoginPage({ onLoginSuccess }) {
             </div>
 
             {/* Password */}
-            <div style={{ marginBottom: '1.25rem' }}>
+            <div style={{ marginBottom: isSignUp ? '1rem' : '1.25rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
                 <label style={{ fontSize: '0.8rem', fontWeight: 600, color: '#334155' }}>
                   Password
                 </label>
-                <button
-                  type="button"
-                  onClick={() => alert('Demo passwords:\n- director@carbontwin.edu: admin123\n- facilities@carbontwin.edu: energy2024\n- auditor@carbontwin.edu: audit2024')}
-                  style={{ background: 'transparent', border: 'none', color: '#059669', fontSize: '0.75rem', cursor: 'pointer', fontWeight: 600 }}
-                >
-                  Forgot password?
-                </button>
+                {!isSignUp && (
+                  <button
+                    type="button"
+                    onClick={() => setInfoMessage('For credential resets or SSO assistance, please contact your institutional IT administrator.')}
+                    style={{ background: 'transparent', border: 'none', color: '#059669', fontSize: '0.75rem', cursor: 'pointer', fontWeight: 600 }}
+                  >
+                    Forgot password?
+                  </button>
+                )}
               </div>
               <div style={{ position: 'relative' }}>
                 <div style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}>
@@ -383,7 +534,7 @@ export default function LoginPage({ onLoginSuccess }) {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
+                  placeholder={isSignUp ? 'Minimum 6 characters' : '••••••••'}
                   required
                   style={{
                     width: '100%',
@@ -414,6 +565,36 @@ export default function LoginPage({ onLoginSuccess }) {
               </div>
             </div>
 
+            {/* Confirm Password (Only in Signup) */}
+            {isSignUp && (
+              <div style={{ marginBottom: '1.25rem' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '0.35rem' }}>
+                  Confirm Password
+                </label>
+                <div style={{ position: 'relative' }}>
+                  <div style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}>
+                    <Lock size={16} />
+                  </div>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Repeat password"
+                    required
+                    style={{
+                      width: '100%',
+                      padding: '0.65rem 0.85rem 0.65rem 2.5rem',
+                      border: '1px solid #cbd5e1',
+                      borderRadius: '8px',
+                      fontSize: '0.875rem',
+                      outline: 'none',
+                      transition: 'border-color 0.15s ease'
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+
             {/* Remember Me */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
               <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.825rem', color: '#475569', cursor: 'pointer' }}>
@@ -437,11 +618,19 @@ export default function LoginPage({ onLoginSuccess }) {
                 padding: '0.75rem',
                 fontSize: '0.95rem',
                 borderRadius: '8px',
-                marginBottom: '1.25rem'
+                marginBottom: '1rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem'
               }}
             >
               {loading ? (
-                'Verifying credentials...'
+                isSignUp ? 'Creating account...' : 'Verifying credentials...'
+              ) : isSignUp ? (
+                <>
+                  Register & Sign In <ArrowRight size={16} />
+                </>
               ) : (
                 <>
                   Sign In to Dashboard <ArrowRight size={16} />
@@ -449,6 +638,30 @@ export default function LoginPage({ onLoginSuccess }) {
               )}
             </button>
           </form>
+
+          {/* Toggle between Sign In and Sign Up */}
+          <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
+            <button
+              type="button"
+              onClick={() => {
+                setIsSignUp(!isSignUp);
+                setErrorMessage('');
+                setInfoMessage('');
+              }}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#059669',
+                fontSize: '0.825rem',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              {isSignUp
+                ? 'Already have an institutional account? Sign In'
+                : "Don't have an account yet? Register your institution"}
+            </button>
+          </div>
 
           {/* Divider */}
           <div style={{

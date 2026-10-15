@@ -5,7 +5,7 @@ console.log('------------------------------------------------------------');
 console.log('🚀 Starting Carbon Twin Decarbonization Platform...');
 console.log('------------------------------------------------------------');
 
-// Start Express Backend on port 5000
+// Start Express Backend on port 5001
 const server = spawn('node', ['server/index.js'], {
   cwd: __dirname,
   stdio: 'inherit',
@@ -13,7 +13,11 @@ const server = spawn('node', ['server/index.js'], {
 });
 
 // Start Vite Client on port 3000
-const client = spawn('cmd', ['/c', 'npx', 'vite', '--port', '3000', '--host'], {
+const isWin = process.platform === 'win32';
+const clientCommand = isWin ? 'cmd' : 'npx';
+const clientArgs = isWin ? ['/c', 'npx', 'vite', '--port', '3000', '--host'] : ['vite', '--port', '3000', '--host'];
+
+const client = spawn(clientCommand, clientArgs, {
   cwd: __dirname,
   stdio: 'inherit',
   shell: true

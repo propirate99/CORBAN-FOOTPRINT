@@ -39,14 +39,6 @@
       "capacity": 30,
       "demo_room": false,
       "created_at": "2024-03-01T08:45:00Z"
-    },
-    {
-      "id": "room-demo",
-      "building_name": "Sustainability Showcase Center",
-      "name": "Watershed Interactive Eco-Studio (Demo)",
-      "capacity": 50,
-      "demo_room": true,
-      "created_at": "2024-03-15T14:00:00Z"
     }
   ],
   "equipment": [
@@ -181,28 +173,6 @@
       "state_declared_at": "2024-10-15T06:00:00Z",
       "nonessential": false,
       "safety_exclusion": true
-    },
-    {
-      "id": "eq-demo-1",
-      "room_id": "room-demo",
-      "name": "Interactive Watershed Telemetry Video Wall",
-      "quantity": 1,
-      "rated_power_w": 800,
-      "declared_state": "ON",
-      "state_declared_at": "2024-10-15T09:00:00Z",
-      "nonessential": true,
-      "safety_exclusion": false
-    },
-    {
-      "id": "eq-demo-2",
-      "room_id": "room-demo",
-      "name": "Circadian Daylight Simulator Fixtures",
-      "quantity": 8,
-      "rated_power_w": 65,
-      "declared_state": "ON",
-      "state_declared_at": "2024-10-15T09:00:00Z",
-      "nonessential": true,
-      "safety_exclusion": false
     }
   ],
   "observations": [
@@ -255,16 +225,6 @@
       "received_at": "2024-10-15T12:10:02Z",
       "coverage": 0.94,
       "source": "Franklin Hall Overhead Mesh"
-    },
-    {
-      "id": "obs-006",
-      "room_id": "room-demo",
-      "camera_session_id": "cam-sess-demo-center",
-      "people_detected": 4,
-      "observed_at": "2024-10-15T12:25:00Z",
-      "received_at": "2024-10-15T12:25:01Z",
-      "coverage": 1,
-      "source": "Watershed Demo Room Edge Tracker"
     }
   ],
   "emission_factors": [
@@ -442,6 +402,38 @@
       "completed_at": null,
       "completion_method": "HUMAN_CONFIRMED",
       "completion_note": "Approved by Campus Energy Manager. Work order #WO-9921 scheduled with electrical team for Crestron AV automation setback."
+    }
+  ],
+  "users": [
+    {
+      "id": "usr-admin",
+      "name": "Dr. Elena Vance",
+      "email": "director@carbontwin.edu",
+      "password": "admin123",
+      "role": "Chief Sustainability Officer",
+      "badge": "CSO",
+      "department": "Campus Climate & Sustainability Office",
+      "created_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "usr-1792060636793",
+      "name": "Marcus Chen",
+      "email": "marcus@carbontwin.edu",
+      "password": "facilitypass2026",
+      "role": "Facility Operations Engineer",
+      "department": "Physical Plant",
+      "badge": "STAFF",
+      "created_at": "2026-10-15T10:37:16.793Z"
+    },
+    {
+      "id": "usr-1792060731459",
+      "name": "Dr. Alexander Ward",
+      "email": "award@carbontwin.edu",
+      "password": "password123",
+      "role": "Campus Energy Auditor",
+      "department": "School of Architecture",
+      "badge": "STAFF",
+      "created_at": "2026-10-15T10:38:51.459Z"
     }
   ]
 }

@@ -4,7 +4,7 @@ const path = require('path');
 const db = require('./db');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(express.json());
@@ -25,55 +25,85 @@ app.get('/api/health', (req, res) => {
 });
 
 // --- Authentication Endpoints ---
-const DEMO_USERS = [
-  {
-    id: 'usr-1',
-    email: 'director@carbontwin.edu',
-    password: 'admin123',
-    name: 'Dr. Elena Vance',
-    role: 'Chief Sustainability Officer',
-    badge: 'CSO',
-    department: 'Campus Climate & Sustainability Office'
-  },
-  {
-    id: 'usr-2',
-    email: 'facilities@carbontwin.edu',
-    password: 'energy2024',
-    name: 'Marcus Chen',
-    role: 'Facility Operations Engineer',
-    badge: 'Operations',
-    department: 'Physical Plant & Relay Control'
-  },
-  {
-    id: 'usr-3',
-    email: 'auditor@carbontwin.edu',
-    password: 'audit2024',
-    name: 'Sarah Jenkins',
-    role: 'Campus Energy Auditor',
-    badge: 'ESG Audit',
-    department: 'Institutional Environmental Compliance'
+app.post('/api/auth/signup', (req, res) => {
+  try {
+    const { name, email, password, role, department } = req.body;
+    if (!name || !email || !password) {
+      return res.status(400).json({ error: 'Name, institutional email, and password are required.' });
+    }
+
+    const cleanEmail = email.toLowerCase().trim();
+    if (!cleanEmail.includes('@') || !cleanEmail.includes('.')) {
+      return res.status(400).json({ error: 'Please enter a valid institutional email address.' });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({ error: 'Password must be at least 6 characters long.' });
+    }
+
+    const existingUser = db.findUserByEmail(cleanEmail);
+    if (existingUser) {
+      return res.status(409).json({ error: 'An account with this institutional email already exists. Please sign in.' });
+    }
+
+    const userRole = role && role.trim() ? role.trim() : 'Sustainability Officer';
+    const userDept = department && department.trim() ? department.trim() : 'Campus Facilities & Operations';
+    const userBadge = userRole.length <= 12 ? userRole : 'STAFF';
+
+    const newUser = db.createUser({
+      name: name.trim(),
+      email: cleanEmail,
+      password,
+      role: userRole,
+      department: userDept,
+      badge: userBadge
+    });
+
+    const { password: _, ...safeUser } = newUser;
+    res.status(201).json({
+      success: true,
+      token: `jwt-token-${Date.now()}`,
+      user: safeUser,
+      authMethod: 'Registration'
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-];
+});
 
 app.post('/api/auth/login', (req, res) => {
   const { email, password, sso_provider } = req.body;
 
-  // SSO Login Simulation
+  // SSO Login
   if (sso_provider) {
-    const ssoUser = DEMO_USERS[0];
+    const users = db.getUsers();
+    const primaryUser = users[0] || {
+      id: 'usr-sso',
+      name: 'Campus SSO User',
+      email: 'sso-user@carbontwin.edu',
+      role: 'Institutional Staff',
+      badge: 'SSO',
+      department: 'Campus Administration'
+    };
+    const { password: _, ...safeUser } = primaryUser;
     return res.json({
       success: true,
       token: `sso-token-${Date.now()}`,
-      user: ssoUser,
+      user: safeUser,
       authMethod: `SSO (${sso_provider})`
     });
   }
 
   // Password Login
-  const user = DEMO_USERS.find(u => u.email.toLowerCase() === (email || '').toLowerCase().trim());
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Institutional email and password are required.' });
+  }
+
+  const cleanEmail = email.toLowerCase().trim();
+  const user = db.findUserByEmail(cleanEmail);
   if (!user || user.password !== password) {
     return res.status(401).json({
-      error: 'Invalid credentials. Use demo accounts or click a Quick Demo persona.'
+      error: 'Invalid institutional email or password. Please verify your credentials or register a new account.'
     });
   }
 
@@ -281,11 +311,11 @@ app.post('/api/simulate-telemetry', (req, res) => {
   }
 });
 
-// --- Reset Demo Data ---
-app.post('/api/reset-demo', (req, res) => {
+// --- Reset Data to Institutional Baseline ---
+app.post(['/api/reset-demo', '/api/reset-data'], (req, res) => {
   try {
     const fresh = db.reset();
-    res.json({ success: true, message: 'Database reset to default seed data' });
+    res.json({ success: true, message: 'Database reset to original institutional baseline' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

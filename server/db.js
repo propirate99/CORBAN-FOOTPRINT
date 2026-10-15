@@ -51,14 +51,6 @@ const defaultData = {
       capacity: 30,
       demo_room: false,
       created_at: '2024-03-01T08:45:00Z'
-    },
-    {
-      id: 'room-demo',
-      building_name: 'Sustainability Showcase Center',
-      name: 'Carbon Twin Interactive Eco-Studio (Demo)',
-      capacity: 50,
-      demo_room: true,
-      created_at: '2024-03-15T14:00:00Z'
     }
   ],
   equipment: [
@@ -202,30 +194,6 @@ const defaultData = {
       state_declared_at: '2024-10-15T06:00:00Z',
       nonessential: false,
       safety_exclusion: true
-    },
-
-    // Room Demo - Eco-Studio
-    {
-      id: 'eq-demo-1',
-      room_id: 'room-demo',
-      name: 'Interactive Carbon Twin Telemetry Video Wall',
-      quantity: 1,
-      rated_power_w: 800,
-      declared_state: 'ON',
-      state_declared_at: '2024-10-15T09:00:00Z',
-      nonessential: true,
-      safety_exclusion: false
-    },
-    {
-      id: 'eq-demo-2',
-      room_id: 'room-demo',
-      name: 'Circadian Daylight Simulator Fixtures',
-      quantity: 8,
-      rated_power_w: 65,
-      declared_state: 'ON',
-      state_declared_at: '2024-10-15T09:00:00Z',
-      nonessential: true,
-      safety_exclusion: false
     }
   ],
   observations: [
@@ -279,16 +247,6 @@ const defaultData = {
       received_at: '2024-10-15T12:10:02Z',
       coverage: 0.94,
       source: 'Franklin Hall Overhead Mesh'
-    },
-    {
-      id: 'obs-006',
-      room_id: 'room-demo',
-      camera_session_id: 'cam-sess-demo-center',
-      people_detected: 4,
-      observed_at: '2024-10-15T12:25:00Z',
-      received_at: '2024-10-15T12:25:01Z',
-      coverage: 1.0,
-      source: 'Carbon Twin Demo Room Edge Tracker'
     }
   ],
   emission_factors: [
@@ -470,6 +428,18 @@ const defaultData = {
       completion_method: 'HUMAN_CONFIRMED',
       completion_note: 'Approved by Campus Energy Manager. Work order #WO-9921 scheduled with electrical team for Crestron AV automation setback.'
     }
+  ],
+  users: [
+    {
+      id: 'usr-admin',
+      name: 'Dr. Elena Vance',
+      email: 'director@carbontwin.edu',
+      password: 'admin123',
+      role: 'Chief Sustainability Officer',
+      badge: 'CSO',
+      department: 'Campus Climate & Sustainability Office',
+      created_at: '2024-01-01T00:00:00Z'
+    }
   ]
 };
 
@@ -509,6 +479,33 @@ class Database {
       this.data = JSON.parse(JSON.stringify(defaultData));
       this.save();
     }
+
+    // Ensure users array exists
+    if (!this.data.users || !Array.isArray(this.data.users) || this.data.users.length === 0) {
+      this.data.users = JSON.parse(JSON.stringify(defaultData.users || []));
+      this.save();
+    }
+
+    // Purge any legacy demo entries from active storage
+    let modified = false;
+    if (this.data.rooms) {
+      const before = this.data.rooms.length;
+      this.data.rooms = this.data.rooms.filter(r => r.id !== 'room-demo' && !r.demo_room);
+      if (this.data.rooms.length !== before) modified = true;
+    }
+    if (this.data.equipment) {
+      const before = this.data.equipment.length;
+      this.data.equipment = this.data.equipment.filter(e => e.room_id !== 'room-demo' && !e.id.startsWith('eq-demo'));
+      if (this.data.equipment.length !== before) modified = true;
+    }
+    if (this.data.observations) {
+      const before = this.data.observations.length;
+      this.data.observations = this.data.observations.filter(o => o.room_id !== 'room-demo' && o.id !== 'obs-006');
+      if (this.data.observations.length !== before) modified = true;
+    }
+    if (modified) {
+      this.save();
+    }
   }
 
   save() {
@@ -523,6 +520,44 @@ class Database {
     this.data = JSON.parse(JSON.stringify(defaultData));
     this.save();
     return this.data;
+  }
+
+  // --- Users & Authentication ---
+  getUsers() {
+    if (!this.data.users) {
+      this.data.users = [];
+    }
+    return this.data.users;
+  }
+
+  findUserByEmail(email) {
+    if (!email) return null;
+    const users = this.getUsers();
+    return users.find(u => u.email.toLowerCase() === email.toLowerCase().trim()) || null;
+  }
+
+  getUserById(id) {
+    const users = this.getUsers();
+    return users.find(u => u.id === id) || null;
+  }
+
+  createUser(user) {
+    if (!this.data.users) {
+      this.data.users = [];
+    }
+    const newUser = {
+      id: user.id || `usr-${Date.now()}`,
+      name: (user.name || 'Campus Professional').trim(),
+      email: (user.email || '').toLowerCase().trim(),
+      password: user.password,
+      role: (user.role || 'Facility Manager').trim(),
+      department: (user.department || 'Campus Operations').trim(),
+      badge: user.badge || (user.role && user.role.length <= 10 ? user.role : 'STAFF'),
+      created_at: new Date().toISOString()
+    };
+    this.data.users.push(newUser);
+    this.save();
+    return newUser;
   }
 
   // --- Rooms ---

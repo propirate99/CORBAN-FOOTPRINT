@@ -193,9 +193,11 @@ export default function App() {
     }
   };
 
-  const handleResetDemo = async () => {
-    if (confirm('Reset database to authentic demo state?')) {
-      await fetch('/api/reset-demo', { method: 'POST' });
+  const handleResetData = async () => {
+    if (confirm('Reset database to authentic institutional baseline?')) {
+      await fetch('/api/reset-data', { method: 'POST' });
+      await fetchData();
+      showToast('Database reset to institutional baseline');
     }
   };
 
@@ -344,7 +346,7 @@ export default function App() {
           </button>
 
           <button
-            onClick={handleResetDemo}
+            onClick={handleResetData}
             className="btn-secondary"
             style={{
               padding: '0.4rem 0.85rem',
@@ -855,9 +857,6 @@ export default function App() {
                             {room.name}
                           </h3>
                         </div>
-                        {room.demo_room && (
-                          <span className="pill pill-indigo">Demo</span>
-                        )}
                       </div>
 
                       {/* Headcount Gauge & Inefficiency Status */}
@@ -1660,7 +1659,7 @@ export default function App() {
                   building_name: formData.get('building_name'),
                   name: formData.get('name'),
                   capacity: Number(formData.get('capacity')),
-                  demo_room: formData.get('demo_room') === 'on'
+                  demo_room: false
                 })
               });
               setShowNewRoomModal(false);
@@ -1675,13 +1674,9 @@ export default function App() {
                 <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.25rem' }}>Room Name</label>
                 <input name="name" placeholder="e.g. Nanotechnology Cleanroom 4A" required style={{ width: '100%', padding: '0.55rem', border: '1px solid #cbd5e1', borderRadius: '6px' }} />
               </div>
-              <div style={{ marginBottom: '1rem' }}>
+              <div style={{ marginBottom: '1.25rem' }}>
                 <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.25rem' }}>Capacity</label>
                 <input name="capacity" type="number" defaultValue="30" required style={{ width: '100%', padding: '0.55rem', border: '1px solid #cbd5e1', borderRadius: '6px' }} />
-              </div>
-              <div style={{ marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <input type="checkbox" name="demo_room" id="demo_room" />
-                <label htmlFor="demo_room" style={{ fontSize: '0.85rem' }}>Mark as Demo Room</label>
               </div>
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
                 <button type="button" onClick={() => setShowNewRoomModal(false)} className="btn-secondary">Cancel</button>
