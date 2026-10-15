@@ -1,0 +1,95 @@
+*** Unapplied Optional Integration Patch for Campus Carbon Twin ***
+*** Do NOT apply without explicit team review and approval ***
+
+diff --git a/campus-carbon-twin/frontend/src/features/calculator/PersonalCalculatorPage.tsx b/campus-carbon-twin/frontend/src/features/calculator/PersonalCalculatorPage.tsx
+--- a/campus-carbon-twin/frontend/src/features/calculator/PersonalCalculatorPage.tsx
++++ b/campus-carbon-twin/frontend/src/features/calculator/PersonalCalculatorPage.tsx
+@@ -1,84 +1,11 @@
+-import React, { useState } from 'react';
++import React from 'react';
++import { CarbonCalculator } from '../../../../isolated-carbon-calculator/frontend/src/components/CarbonCalculator';
+ 
+ export const PersonalCalculatorPage: React.FC = () => {
+-  const [commuteMiles, setCommuteMiles] = useState<number>(8);
+-  const [commuteMode, setCommuteMode] = useState<string>('car');
+-  const [labHours, setLabHours] = useState<number>(4);
+-
+-  const modeFactors: Record<string, number> = {
+-    car: 0.385, // kg CO2e / mile
+-    ev: 0.110,
+-    transit: 0.075,
+-    bike: 0.0,
+-  };
+-
+-  const commuteDailyCo2e = commuteMiles * (modeFactors[commuteMode] || 0);
+-  const labDailyCo2e = labHours * 0.15 * 0.428; // ~150W workstation
+-  const totalDailyCo2e = commuteDailyCo2e + labDailyCo2e;
+-
+   return (
+-    <div style={{ background: '#fff', borderRadius: '0.75rem', padding: '1.5rem', border: '1px solid #e2e8f0' }}>
+-      <h2 style={{ marginTop: 0 }}>Student & Faculty Carbon Footprint Calculator</h2>
+-      <p style={{ color: '#64748b', fontSize: '0.875rem' }}>
+-        Estimate your personal daily campus operational footprint based on your commute and workstation usage.
+-      </p>
+-
+-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginTop: '1.5rem' }}>
+-        <div>
+-          <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+-            Daily Commute (Miles round-trip): {commuteMiles} mi
+-          </label>
+-          <input
+-            type="range"
+-            min="0"
+-            max="40"
+-            value={commuteMiles}
+-            onChange={(e) => setCommuteMiles(parseInt(e.target.value, 10))}
+-            style={{ width: '100%' }}
+-          />
+-        </div>
+-
+-        <div>
+-          <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+-            Commute Mode
+-          </label>
+-          <select
+-            value={commuteMode}
+-            onChange={(e) => setCommuteMode(e.target.value)}
+-            style={{ width: '100%', padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #cbd5e1' }}
+-          >
+-            <option value="car">Gasoline Car (0.385 kg/mi)</option>
+-            <option value="ev">Electric Vehicle (0.110 kg/mi)</option>
+-            <option value="transit">Campus Shuttle / Bus (0.075 kg/mi)</option>
+-            <option value="bike">Bicycle / Walking (0 kg/mi)</option>
+-          </select>
+-        </div>
+-
+-        <div>
+-          <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+-            Computer Lab Hours: {labHours} hrs
+-          </label>
+-          <input
+-            type="range"
+-            min="0"
+-            max="12"
+-            value={labHours}
+-            onChange={(e) => setLabHours(parseInt(e.target.value, 10))}
+-            style={{ width: '100%' }}
+-          />
+-        </div>
+-      </div>
+-
+-      <div style={{ marginTop: '2rem', padding: '1.5rem', background: '#f8fafc', borderRadius: '0.5rem', textAlign: 'center' }}>
+-        <div style={{ fontSize: '0.875rem', color: '#64748b' }}>Estimated Daily Campus Footprint</div>
+-        <div style={{ fontSize: '2.5rem', fontWeight: 700, color: '#0f172a', margin: '0.5rem 0' }}>
+-          {totalDailyCo2e.toFixed(2)} <span style={{ fontSize: '1rem', fontWeight: 400 }}>kg CO2e / day</span>
+-        </div>
+-        <div style={{ fontSize: '0.8rem', color: '#059669', fontWeight: 600 }}>
+-          Switching to the campus shuttle bus would save {(commuteMiles * (modeFactors.car - modeFactors.transit)).toFixed(2)} kg CO2e daily!
+-        </div>
+-      </div>
+-    </div>
++    <div style={{ background: '#fff', borderRadius: '0.75rem', padding: '1.5rem', border: '1px solid #e2e8f0' }}>
++      <CarbonCalculator apiBaseUrl="/api/v1/calculator" />
++    </div>
+   );
+ };
