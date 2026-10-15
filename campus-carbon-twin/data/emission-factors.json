@@ -1,0 +1,22 @@
+{
+  "grid": {
+    "zone": "US-NE-ISO",
+    "co2eKgPerKwh": 0.428,
+    "peakMultiplier": 1.25,
+    "offPeakMultiplier": 0.85
+  },
+  "fuels": {
+    "naturalGasKgPerCcf": 5.306,
+    "dieselKgPerGallon": 10.21
+  },
+  "renewables": {
+    "onSiteSolarCo2eKgPerKwh": 0.0,
+    "renewableCreditOffsetKgPerKwh": -0.428
+  },
+  "commuteFactors": {
+    "soloCarGasolineKgPerMile": 0.385,
+    "electricVehicleKgPerMile": 0.110,
+    "campusShuttleBusKgPerMile": 0.075,
+    "bicycleOrWalkKgPerMile": 0.0
+  }
+}

@@ -1,0 +1,47 @@
+*** Optional Unapplied Patch: Fixes Compiler / IDE Warnings in Campus Carbon Twin ***
+*** Do NOT apply without explicit team review and approval ***
+
+diff --git a/campus-carbon-twin/backend/src/main/java/in/campustwin/config/WebConfig.java b/campus-carbon-twin/backend/src/main/java/in/campustwin/config/WebConfig.java
+--- a/campus-carbon-twin/backend/src/main/java/in/campustwin/config/WebConfig.java
++++ b/campus-carbon-twin/backend/src/main/java/in/campustwin/config/WebConfig.java
+@@ -3,11 +3,12 @@
+ import org.springframework.context.annotation.Configuration;
++import org.springframework.lang.NonNull;
+ import org.springframework.web.servlet.config.annotation.CorsRegistry;
+ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+ 
+ @Configuration
+ public class WebConfig implements WebMvcConfigurer {
+     @Override
+-    public void addCorsMappings(CorsRegistry registry) {
++    public void addCorsMappings(@NonNull CorsRegistry registry) {
+         registry.addMapping("/**")
+                 .allowedOrigins("*")
+                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                 .allowedHeaders("*");
+     }
+ }
+
+diff --git a/campus-carbon-twin/backend/src/main/java/in/campustwin/explanation/TemplateExplanationService.java b/campus-carbon-twin/backend/src/main/java/in/campustwin/explanation/TemplateExplanationService.java
+--- a/campus-carbon-twin/backend/src/main/java/in/campustwin/explanation/TemplateExplanationService.java
++++ b/campus-carbon-twin/backend/src/main/java/in/campustwin/explanation/TemplateExplanationService.java
+@@ -6,6 +6,7 @@
+ public class TemplateExplanationService implements ExplanationService {
+ 
++    @SuppressWarnings("unused")
+     private final LlmClient llmClient;
+ 
+     public TemplateExplanationService(LlmClient llmClient) {
+
+diff --git a/campus-carbon-twin/backend/src/main/java/in/campustwin/simulation/SimulationService.java b/campus-carbon-twin/backend/src/main/java/in/campustwin/simulation/SimulationService.java
+--- a/campus-carbon-twin/backend/src/main/java/in/campustwin/simulation/SimulationService.java
++++ b/campus-carbon-twin/backend/src/main/java/in/campustwin/simulation/SimulationService.java
+@@ -7,7 +7,9 @@
+ public class SimulationService {
+ 
++    @SuppressWarnings("unused")
+     private final EnergyCalculator energyCalculator;
++    @SuppressWarnings("unused")
+     private final EligibilityRules eligibilityRules;
+ 
+     public SimulationService(EnergyCalculator energyCalculator, EligibilityRules eligibilityRules) {

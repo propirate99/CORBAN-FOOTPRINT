@@ -1,0 +1,267 @@
+openapi: 3.0.3
+info:
+  title: Campus Carbon Twin API
+  version: 1.0.0
+  description: Digital twin API for monitoring campus energy, edge observations, simulations, and automated mitigation actions.
+servers:
+  - url: http://localhost:8080/api/v1
+    description: Local Development Server
+
+paths:
+  /campus:
+    get:
+      summary: Get campus summary and building list
+      responses:
+        '200':
+          description: Campus summary data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampusSummary'
+
+  /rooms:
+    get:
+      summary: List all monitored rooms with real-time status
+      parameters:
+        - name: buildingId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of rooms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Room'
+
+  /rooms/{roomId}:
+    get:
+      summary: Get detailed room information, equipment, and live metrics
+      parameters:
+        - name: roomId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Room details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoomDetail'
+
+  /observations:
+    post:
+      summary: Ingest edge vision occupancy observation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ObservationInput'
+      responses:
+        '201':
+          description: Observation registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObservationReceipt'
+
+  /simulation/run:
+    post:
+      summary: Execute what-if scenario simulation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScenarioInput'
+      responses:
+        '200':
+          description: Simulation results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScenarioResult'
+
+  /actions:
+    get:
+      summary: List proposed and completed mitigation actions
+      responses:
+        '200':
+          description: Action timeline
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActionItem'
+
+    post:
+      summary: Approve or trigger a mitigation action
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                actionId:
+                  type: string
+                status:
+                  type: string
+                  enum: [APPROVED, EXECUTED, REJECTED]
+      responses:
+        '200':
+          description: Action updated
+
+components:
+  schemas:
+    CampusSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        totalBuildings:
+          type: integer
+        currentPowerKw:
+          type: number
+        currentHourlyEmissionsKg:
+          type: number
+        activeWasteAlerts:
+          type: integer
+
+    Room:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        buildingId:
+          type: string
+        capacity:
+          type: integer
+        currentOccupancy:
+          type: integer
+        status:
+          type: string
+          enum: [OPTIMAL, IN_USE, WASTEFUL, OFFLINE]
+        powerDrawKw:
+          type: number
+        emissionRateKgCo2ePerHour:
+          type: number
+
+    RoomDetail:
+      allOf:
+        - $ref: '#/components/schemas/Room'
+        - type: object
+          properties:
+            equipment:
+              type: array
+              items:
+                $ref: '#/components/schemas/Equipment'
+            lastObservation:
+              $ref: '#/components/schemas/ObservationReceipt'
+
+    Equipment:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [HVAC, LIGHTING, COMPUTING, PROJECTOR]
+        isActive:
+          type: boolean
+        wattageWatts:
+          type: number
+
+    ObservationInput:
+      type: object
+      required:
+        - roomId
+        - personCount
+        - confidenceScore
+      properties:
+        roomId:
+          type: string
+        personCount:
+          type: integer
+        confidenceScore:
+          type: number
+        deviceId:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+
+    ObservationReceipt:
+      type: object
+      properties:
+        id:
+          type: string
+        roomId:
+          type: string
+        personCount:
+          type: integer
+        confidenceScore:
+          type: number
+        wasteDetected:
+          type: boolean
+        loggedAt:
+          type: string
+
+    ScenarioInput:
+      type: object
+      properties:
+        hvacTempDeltaCelsius:
+          type: number
+        autoShutoffEmptyRooms:
+          type: boolean
+        solarCapacityKw:
+          type: number
+
+    ScenarioResult:
+      type: object
+      properties:
+        scenarioName:
+          type: string
+        baselineMonthlyCo2eKg:
+          type: number
+        projectedMonthlyCo2eKg:
+          type: number
+        netReductionPercentage:
+          type: number
+        annualCostSavingsUsd:
+          type: number
+
+    ActionItem:
+      type: object
+      properties:
+        id:
+          type: string
+        roomId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        explanation:
+          type: string
+        estimatedHourlyCo2eSavedKg:
+          type: number
+        status:
+          type: string
+          enum: [PENDING_APPROVAL, APPROVED, EXECUTED, DISMISSED]
+        createdAt:
+          type: string

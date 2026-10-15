@@ -1,0 +1,2522 @@
+{
+  "rooms": [
+    {
+      "id": "room-101",
+      "building_name": "Curie Science Complex",
+      "name": "Advanced Robotics & Automation Lab",
+      "capacity": 35,
+      "demo_room": false,
+      "created_at": "2024-01-10T08:00:00Z"
+    },
+    {
+      "id": "room-102",
+      "building_name": "Curie Science Complex",
+      "name": "Bio-Analytical Chemistry Suite",
+      "capacity": 24,
+      "demo_room": false,
+      "created_at": "2024-01-12T09:30:00Z"
+    },
+    {
+      "id": "room-201",
+      "building_name": "Turing Computing Institute",
+      "name": "High-Performance GPU Cluster Lab",
+      "capacity": 40,
+      "demo_room": false,
+      "created_at": "2024-02-01T10:15:00Z"
+    },
+    {
+      "id": "room-202",
+      "building_name": "Turing Computing Institute",
+      "name": "Collaborative Seminar Auditorium A",
+      "capacity": 120,
+      "demo_room": false,
+      "created_at": "2024-02-05T11:00:00Z"
+    },
+    {
+      "id": "room-301",
+      "building_name": "Franklin Engineering Wing",
+      "name": "Digital Fabrication & 3D Prototyping Hall",
+      "capacity": 30,
+      "demo_room": false,
+      "created_at": "2024-03-01T08:45:00Z"
+    }
+  ],
+  "equipment": [
+    {
+      "id": "eq-101-1",
+      "room_id": "room-101",
+      "name": "Overhead High-Lumen LED Bay Matrix",
+      "quantity": 12,
+      "rated_power_w": 120,
+      "declared_state": "OFF",
+      "state_declared_at": "2026-10-15T17:28:35.592Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "eq-101-2",
+      "room_id": "room-101",
+      "name": "Industrial Robotic Arm Controller Rigs",
+      "quantity": 4,
+      "rated_power_w": 750,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T09:00:00Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "eq-101-3",
+      "room_id": "room-101",
+      "name": "Emergency Exhaust & Negative Pressure Hood",
+      "quantity": 2,
+      "rated_power_w": 1100,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T07:30:00Z",
+      "nonessential": false,
+      "safety_exclusion": true
+    },
+    {
+      "id": "eq-102-1",
+      "room_id": "room-102",
+      "name": "Spectrophotometer & Centrifuge Bench",
+      "quantity": 3,
+      "rated_power_w": 450,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T08:30:00Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "eq-102-2",
+      "room_id": "room-102",
+      "name": "Ultra-Low Temperature Cryo-Freezer (-80C)",
+      "quantity": 2,
+      "rated_power_w": 1250,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T06:00:00Z",
+      "nonessential": false,
+      "safety_exclusion": true
+    },
+    {
+      "id": "eq-102-3",
+      "room_id": "room-102",
+      "name": "Benchtop Workstation Displays",
+      "quantity": 8,
+      "rated_power_w": 85,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T08:45:00Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "eq-201-1",
+      "room_id": "room-201",
+      "name": "AI Engineering Workstations (Dual 4K + Rig)",
+      "quantity": 20,
+      "rated_power_w": 380,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T08:15:00Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "eq-201-2",
+      "room_id": "room-201",
+      "name": "Server Rack Supplemental Precision CRAC A/C",
+      "quantity": 1,
+      "rated_power_w": 3200,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T07:00:00Z",
+      "nonessential": false,
+      "safety_exclusion": true
+    },
+    {
+      "id": "eq-202-1",
+      "room_id": "room-202",
+      "name": "Laser Projection System & Stage Par-Cans",
+      "quantity": 2,
+      "rated_power_w": 1400,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T10:00:00Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "eq-202-2",
+      "room_id": "room-202",
+      "name": "Auditorium Variable Air Volume HVAC Damper",
+      "quantity": 1,
+      "rated_power_w": 2400,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T09:30:00Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "eq-301-1",
+      "room_id": "room-301",
+      "name": "High-Speed FDM 3D Printers Array",
+      "quantity": 6,
+      "rated_power_w": 350,
+      "declared_state": "OFF",
+      "state_declared_at": "2024-10-15T06:00:00Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "eq-301-2",
+      "room_id": "room-301",
+      "name": "HEPA Particulate Dust Scrubber",
+      "quantity": 2,
+      "rated_power_w": 600,
+      "declared_state": "OFF",
+      "state_declared_at": "2024-10-15T06:00:00Z",
+      "nonessential": false,
+      "safety_exclusion": true
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-1792095001989",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9z3ddx",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:10:01.989Z",
+      "received_at": "2026-10-15T20:10:01.989Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792094989981",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9z344d",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:09:49.981Z",
+      "received_at": "2026-10-15T20:09:49.981Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792094977976",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9z2uuw",
+      "people_detected": 23,
+      "observed_at": "2026-10-15T20:09:37.976Z",
+      "received_at": "2026-10-15T20:09:37.976Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792094965974",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9z2lli",
+      "people_detected": 6,
+      "observed_at": "2026-10-15T20:09:25.974Z",
+      "received_at": "2026-10-15T20:09:25.974Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792094953973",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9z2cc5",
+      "people_detected": 18,
+      "observed_at": "2026-10-15T20:09:13.973Z",
+      "received_at": "2026-10-15T20:09:13.973Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792094941970",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9z232q",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:09:01.970Z",
+      "received_at": "2026-10-15T20:09:01.970Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792094929960",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9z1tt4",
+      "people_detected": 30,
+      "observed_at": "2026-10-15T20:08:49.960Z",
+      "received_at": "2026-10-15T20:08:49.960Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792094917951",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9z1kji",
+      "people_detected": 1,
+      "observed_at": "2026-10-15T20:08:37.951Z",
+      "received_at": "2026-10-15T20:08:37.951Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792094905936",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9z1b9r",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:08:25.936Z",
+      "received_at": "2026-10-15T20:08:25.936Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792094893925",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9z1205",
+      "people_detected": 30,
+      "observed_at": "2026-10-15T20:08:13.925Z",
+      "received_at": "2026-10-15T20:08:13.925Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792094881920",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9z0sqo",
+      "people_detected": 16,
+      "observed_at": "2026-10-15T20:08:01.920Z",
+      "received_at": "2026-10-15T20:08:01.920Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792094869920",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9z0jhc",
+      "people_detected": 11,
+      "observed_at": "2026-10-15T20:07:49.920Z",
+      "received_at": "2026-10-15T20:07:49.920Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792094857911",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9z0a7r",
+      "people_detected": 24,
+      "observed_at": "2026-10-15T20:07:37.911Z",
+      "received_at": "2026-10-15T20:07:37.911Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792094845897",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9z00y1",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:07:25.897Z",
+      "received_at": "2026-10-15T20:07:25.897Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792094833884",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9yzroc",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:07:13.884Z",
+      "received_at": "2026-10-15T20:07:13.884Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792094821869",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9yziel",
+      "people_detected": 23,
+      "observed_at": "2026-10-15T20:07:01.869Z",
+      "received_at": "2026-10-15T20:07:01.869Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792094809866",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9yz956",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:06:49.866Z",
+      "received_at": "2026-10-15T20:06:49.866Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792094797851",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9yyzvf",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:06:37.851Z",
+      "received_at": "2026-10-15T20:06:37.851Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792094785847",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9yyqlz",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:06:25.847Z",
+      "received_at": "2026-10-15T20:06:25.847Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792094773845",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9yyhcl",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:06:13.845Z",
+      "received_at": "2026-10-15T20:06:13.845Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792094761846",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9yy83a",
+      "people_detected": 27,
+      "observed_at": "2026-10-15T20:06:01.846Z",
+      "received_at": "2026-10-15T20:06:01.846Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792094749838",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9yxytq",
+      "people_detected": 21,
+      "observed_at": "2026-10-15T20:05:49.838Z",
+      "received_at": "2026-10-15T20:05:49.838Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792094737836",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9yxpkc",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:05:37.836Z",
+      "received_at": "2026-10-15T20:05:37.836Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792094725822",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9yxgam",
+      "people_detected": 11,
+      "observed_at": "2026-10-15T20:05:25.822Z",
+      "received_at": "2026-10-15T20:05:25.822Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792094713815",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9yx713",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:05:13.815Z",
+      "received_at": "2026-10-15T20:05:13.815Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792094701812",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9ywxro",
+      "people_detected": 5,
+      "observed_at": "2026-10-15T20:05:01.812Z",
+      "received_at": "2026-10-15T20:05:01.812Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792094689805",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9ywoi5",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:04:49.805Z",
+      "received_at": "2026-10-15T20:04:49.805Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792094677801",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9ywf8p",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:04:37.801Z",
+      "received_at": "2026-10-15T20:04:37.801Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792094665792",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9yw5z3",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:04:25.792Z",
+      "received_at": "2026-10-15T20:04:25.792Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792094653783",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9yvwpj",
+      "people_detected": 16,
+      "observed_at": "2026-10-15T20:04:13.783Z",
+      "received_at": "2026-10-15T20:04:13.783Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792094641772",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9yvnfv",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:04:01.772Z",
+      "received_at": "2026-10-15T20:04:01.772Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792094629772",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9yve6j",
+      "people_detected": 22,
+      "observed_at": "2026-10-15T20:03:49.772Z",
+      "received_at": "2026-10-15T20:03:49.772Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792094617759",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9yv4wv",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:03:37.759Z",
+      "received_at": "2026-10-15T20:03:37.759Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792094605759",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9yuvnj",
+      "people_detected": 10,
+      "observed_at": "2026-10-15T20:03:25.759Z",
+      "received_at": "2026-10-15T20:03:25.759Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792094593756",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9yume4",
+      "people_detected": 18,
+      "observed_at": "2026-10-15T20:03:13.756Z",
+      "received_at": "2026-10-15T20:03:13.756Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792094581750",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9yud4m",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:03:01.750Z",
+      "received_at": "2026-10-15T20:03:01.750Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792094569744",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9yu3v3",
+      "people_detected": 28,
+      "observed_at": "2026-10-15T20:02:49.744Z",
+      "received_at": "2026-10-15T20:02:49.744Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792094557741",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9ytulp",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:02:37.741Z",
+      "received_at": "2026-10-15T20:02:37.741Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792094545727",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9ytlby",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T20:02:25.727Z",
+      "received_at": "2026-10-15T20:02:25.727Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792094515900",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9ysybg",
+      "people_detected": 28,
+      "observed_at": "2026-10-15T20:01:55.900Z",
+      "received_at": "2026-10-15T20:01:55.900Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792094115890",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9ykdo2",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:55:15.890Z",
+      "received_at": "2026-10-15T19:55:15.890Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792094103890",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9yk4eq",
+      "people_detected": 21,
+      "observed_at": "2026-10-15T19:55:03.890Z",
+      "received_at": "2026-10-15T19:55:03.891Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792094091877",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9yjv51",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:54:51.877Z",
+      "received_at": "2026-10-15T19:54:51.877Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792094079875",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9yjlvn",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:54:39.875Z",
+      "received_at": "2026-10-15T19:54:39.875Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792094067870",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9yjcm6",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:54:27.870Z",
+      "received_at": "2026-10-15T19:54:27.870Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792094055867",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9yj3cr",
+      "people_detected": 6,
+      "observed_at": "2026-10-15T19:54:15.867Z",
+      "received_at": "2026-10-15T19:54:15.867Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792094043863",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9yiu3b",
+      "people_detected": 7,
+      "observed_at": "2026-10-15T19:54:03.863Z",
+      "received_at": "2026-10-15T19:54:03.863Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792094031851",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9yiktn",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:53:51.851Z",
+      "received_at": "2026-10-15T19:53:51.851Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792094019850",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9yibka",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:53:39.850Z",
+      "received_at": "2026-10-15T19:53:39.850Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792094007843",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9yi2ar",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:53:27.843Z",
+      "received_at": "2026-10-15T19:53:27.843Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093995843",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9yht1f",
+      "people_detected": 22,
+      "observed_at": "2026-10-15T19:53:15.843Z",
+      "received_at": "2026-10-15T19:53:15.843Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093983832",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9yhjrs",
+      "people_detected": 20,
+      "observed_at": "2026-10-15T19:53:03.832Z",
+      "received_at": "2026-10-15T19:53:03.832Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093971828",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9yhaic",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:52:51.828Z",
+      "received_at": "2026-10-15T19:52:51.828Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093959822",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9yh18u",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:52:39.822Z",
+      "received_at": "2026-10-15T19:52:39.822Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093947818",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9ygrze",
+      "people_detected": 11,
+      "observed_at": "2026-10-15T19:52:27.818Z",
+      "received_at": "2026-10-15T19:52:27.818Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093935809",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9ygipt",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:52:15.809Z",
+      "received_at": "2026-10-15T19:52:15.809Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093923801",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9yg9g9",
+      "people_detected": 2,
+      "observed_at": "2026-10-15T19:52:03.801Z",
+      "received_at": "2026-10-15T19:52:03.801Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093919360",
+      "room_id": "room-101",
+      "camera_session_id": "live-sess-mv9yg60w",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:51:59.360Z",
+      "received_at": "2026-10-15T19:51:59.360Z",
+      "coverage": 0.97,
+      "source": "Ceiling Edge AI Node Advanced Rob"
+    },
+    {
+      "id": "obs-1792093918280",
+      "room_id": "room-301",
+      "camera_session_id": "live-sess-mv9yg56w",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:51:58.280Z",
+      "received_at": "2026-10-15T19:51:58.280Z",
+      "coverage": 0.97,
+      "source": "Ceiling Edge AI Node Digital Fabr"
+    },
+    {
+      "id": "obs-1792093911788",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9yg06k",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:51:51.788Z",
+      "received_at": "2026-10-15T19:51:51.788Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792093899788",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9yfqx8",
+      "people_detected": 2,
+      "observed_at": "2026-10-15T19:51:39.788Z",
+      "received_at": "2026-10-15T19:51:39.788Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093894074",
+      "room_id": "room-101",
+      "camera_session_id": "live-sess-mv9yfmii",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:51:34.074Z",
+      "received_at": "2026-10-15T19:51:34.074Z",
+      "coverage": 0.99,
+      "source": "Ceiling Edge AI Node Advanced Rob"
+    },
+    {
+      "id": "obs-1792093892163",
+      "room_id": "room-301",
+      "camera_session_id": "live-sess-mv9yfl1f",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:51:32.163Z",
+      "received_at": "2026-10-15T19:51:32.163Z",
+      "coverage": 0.99,
+      "source": "Ceiling Edge AI Node Digital Fabr"
+    },
+    {
+      "id": "obs-1792093887785",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9yfhnt",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:51:27.785Z",
+      "received_at": "2026-10-15T19:51:27.785Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093875774",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9yf8e6",
+      "people_detected": 5,
+      "observed_at": "2026-10-15T19:51:15.774Z",
+      "received_at": "2026-10-15T19:51:15.774Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093863760",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9yez4g",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:51:03.760Z",
+      "received_at": "2026-10-15T19:51:03.760Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093851749",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9yeput",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:50:51.749Z",
+      "received_at": "2026-10-15T19:50:51.749Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093839747",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9yeglf",
+      "people_detected": 3,
+      "observed_at": "2026-10-15T19:50:39.747Z",
+      "received_at": "2026-10-15T19:50:39.747Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093827744",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9ye7c0",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:50:27.744Z",
+      "received_at": "2026-10-15T19:50:27.744Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792093815733",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9ydy2d",
+      "people_detected": 25,
+      "observed_at": "2026-10-15T19:50:15.733Z",
+      "received_at": "2026-10-15T19:50:15.733Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093803732",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9ydot0",
+      "people_detected": 21,
+      "observed_at": "2026-10-15T19:50:03.732Z",
+      "received_at": "2026-10-15T19:50:03.732Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093791724",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9ydfjg",
+      "people_detected": 14,
+      "observed_at": "2026-10-15T19:49:51.724Z",
+      "received_at": "2026-10-15T19:49:51.724Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093779714",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9yd69u",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:49:39.714Z",
+      "received_at": "2026-10-15T19:49:39.714Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093767713",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9ycx0h",
+      "people_detected": 21,
+      "observed_at": "2026-10-15T19:49:27.713Z",
+      "received_at": "2026-10-15T19:49:27.713Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093755703",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9ycnqv",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:49:15.703Z",
+      "received_at": "2026-10-15T19:49:15.703Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093743702",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9ycehi",
+      "people_detected": 23,
+      "observed_at": "2026-10-15T19:49:03.702Z",
+      "received_at": "2026-10-15T19:49:03.702Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093731691",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9yc57v",
+      "people_detected": 10,
+      "observed_at": "2026-10-15T19:48:51.691Z",
+      "received_at": "2026-10-15T19:48:51.691Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093719691",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9ybvyj",
+      "people_detected": 3,
+      "observed_at": "2026-10-15T19:48:39.691Z",
+      "received_at": "2026-10-15T19:48:39.691Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093707683",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9ybmoz",
+      "people_detected": 17,
+      "observed_at": "2026-10-15T19:48:27.683Z",
+      "received_at": "2026-10-15T19:48:27.683Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093695676",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9ybdfg",
+      "people_detected": 21,
+      "observed_at": "2026-10-15T19:48:15.676Z",
+      "received_at": "2026-10-15T19:48:15.676Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093683671",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9yb45y",
+      "people_detected": 6,
+      "observed_at": "2026-10-15T19:48:03.671Z",
+      "received_at": "2026-10-15T19:48:03.671Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792093671656",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9yauw8",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:47:51.656Z",
+      "received_at": "2026-10-15T19:47:51.656Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093659647",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9yalmn",
+      "people_detected": 28,
+      "observed_at": "2026-10-15T19:47:39.647Z",
+      "received_at": "2026-10-15T19:47:39.648Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093647637",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9yacd1",
+      "people_detected": 29,
+      "observed_at": "2026-10-15T19:47:27.637Z",
+      "received_at": "2026-10-15T19:47:27.637Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792093635622",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9ya33a",
+      "people_detected": 32,
+      "observed_at": "2026-10-15T19:47:15.622Z",
+      "received_at": "2026-10-15T19:47:15.622Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792093623616",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9y9tts",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:47:03.617Z",
+      "received_at": "2026-10-15T19:47:03.617Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093611615",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9y9kkf",
+      "people_detected": 15,
+      "observed_at": "2026-10-15T19:46:51.615Z",
+      "received_at": "2026-10-15T19:46:51.615Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093599599",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9y9ban",
+      "people_detected": 16,
+      "observed_at": "2026-10-15T19:46:39.599Z",
+      "received_at": "2026-10-15T19:46:39.599Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093587589",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9y9211",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:46:27.589Z",
+      "received_at": "2026-10-15T19:46:27.589Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792093575579",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9y8srf",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:46:15.579Z",
+      "received_at": "2026-10-15T19:46:15.579Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093563565",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9y8jhp",
+      "people_detected": 20,
+      "observed_at": "2026-10-15T19:46:03.565Z",
+      "received_at": "2026-10-15T19:46:03.565Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093551562",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9y8a8a",
+      "people_detected": 21,
+      "observed_at": "2026-10-15T19:45:51.562Z",
+      "received_at": "2026-10-15T19:45:51.562Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792093539561",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9y80yw",
+      "people_detected": 23,
+      "observed_at": "2026-10-15T19:45:39.561Z",
+      "received_at": "2026-10-15T19:45:39.561Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093527543",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9y7rp3",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:45:27.543Z",
+      "received_at": "2026-10-15T19:45:27.543Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093515538",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9y7ifm",
+      "people_detected": 12,
+      "observed_at": "2026-10-15T19:45:15.538Z",
+      "received_at": "2026-10-15T19:45:15.538Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093503529",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9y7960",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:45:03.529Z",
+      "received_at": "2026-10-15T19:45:03.529Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093491512",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9y6zw8",
+      "people_detected": 24,
+      "observed_at": "2026-10-15T19:44:51.512Z",
+      "received_at": "2026-10-15T19:44:51.512Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093479502",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9y6qmm",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:44:39.502Z",
+      "received_at": "2026-10-15T19:44:39.502Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093467497",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9y6hd4",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:44:27.497Z",
+      "received_at": "2026-10-15T19:44:27.497Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093455497",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9y683t",
+      "people_detected": 10,
+      "observed_at": "2026-10-15T19:44:15.497Z",
+      "received_at": "2026-10-15T19:44:15.497Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093443496",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9y5yug",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:44:03.496Z",
+      "received_at": "2026-10-15T19:44:03.496Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093431488",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9y5pkw",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:43:51.488Z",
+      "received_at": "2026-10-15T19:43:51.488Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093419487",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9y5gbj",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:43:39.487Z",
+      "received_at": "2026-10-15T19:43:39.487Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093407472",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9y571s",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:43:27.472Z",
+      "received_at": "2026-10-15T19:43:27.472Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093395469",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9y4xsd",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:43:15.469Z",
+      "received_at": "2026-10-15T19:43:15.469Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093383461",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9y4oit",
+      "people_detected": 14,
+      "observed_at": "2026-10-15T19:43:03.461Z",
+      "received_at": "2026-10-15T19:43:03.461Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792093371453",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9y4f99",
+      "people_detected": 16,
+      "observed_at": "2026-10-15T19:42:51.453Z",
+      "received_at": "2026-10-15T19:42:51.453Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093359452",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9y45zv",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:42:39.452Z",
+      "received_at": "2026-10-15T19:42:39.452Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093347443",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9y3wqb",
+      "people_detected": 10,
+      "observed_at": "2026-10-15T19:42:27.443Z",
+      "received_at": "2026-10-15T19:42:27.443Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792093335439",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9y3ngu",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:42:15.439Z",
+      "received_at": "2026-10-15T19:42:15.439Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093323435",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9y3e7f",
+      "people_detected": 32,
+      "observed_at": "2026-10-15T19:42:03.435Z",
+      "received_at": "2026-10-15T19:42:03.435Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093311432",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9y34y0",
+      "people_detected": 29,
+      "observed_at": "2026-10-15T19:41:51.432Z",
+      "received_at": "2026-10-15T19:41:51.432Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792093299418",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9y2vo9",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:41:39.418Z",
+      "received_at": "2026-10-15T19:41:39.418Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093287404",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9y2mek",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:41:27.404Z",
+      "received_at": "2026-10-15T19:41:27.404Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093275389",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9y2d4t",
+      "people_detected": 23,
+      "observed_at": "2026-10-15T19:41:15.389Z",
+      "received_at": "2026-10-15T19:41:15.389Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093263387",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9y23vf",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:41:03.387Z",
+      "received_at": "2026-10-15T19:41:03.387Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093251384",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9y1um0",
+      "people_detected": 28,
+      "observed_at": "2026-10-15T19:40:51.384Z",
+      "received_at": "2026-10-15T19:40:51.384Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093239370",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9y1lca",
+      "people_detected": 31,
+      "observed_at": "2026-10-15T19:40:39.370Z",
+      "received_at": "2026-10-15T19:40:39.371Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093227366",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9y1c2u",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:40:27.366Z",
+      "received_at": "2026-10-15T19:40:27.366Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792093215364",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9y12tf",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:40:15.364Z",
+      "received_at": "2026-10-15T19:40:15.364Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093203355",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9y0tjv",
+      "people_detected": 21,
+      "observed_at": "2026-10-15T19:40:03.355Z",
+      "received_at": "2026-10-15T19:40:03.355Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093191342",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9y0ka6",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:39:51.342Z",
+      "received_at": "2026-10-15T19:39:51.342Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093179329",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9y0b0h",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:39:39.329Z",
+      "received_at": "2026-10-15T19:39:39.329Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792093167324",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9y01r0",
+      "people_detected": 9,
+      "observed_at": "2026-10-15T19:39:27.324Z",
+      "received_at": "2026-10-15T19:39:27.324Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792093155309",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xzsh9",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:39:15.309Z",
+      "received_at": "2026-10-15T19:39:15.309Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093143299",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9xzj7n",
+      "people_detected": 32,
+      "observed_at": "2026-10-15T19:39:03.299Z",
+      "received_at": "2026-10-15T19:39:03.299Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792093131298",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9xz9ya",
+      "people_detected": 9,
+      "observed_at": "2026-10-15T19:38:51.298Z",
+      "received_at": "2026-10-15T19:38:51.298Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093119295",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xz0ov",
+      "people_detected": 7,
+      "observed_at": "2026-10-15T19:38:39.295Z",
+      "received_at": "2026-10-15T19:38:39.295Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093107283",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xyrf7",
+      "people_detected": 23,
+      "observed_at": "2026-10-15T19:38:27.283Z",
+      "received_at": "2026-10-15T19:38:27.283Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093095276",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xyi5o",
+      "people_detected": 9,
+      "observed_at": "2026-10-15T19:38:15.276Z",
+      "received_at": "2026-10-15T19:38:15.276Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093083275",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9xy8wb",
+      "people_detected": 5,
+      "observed_at": "2026-10-15T19:38:03.275Z",
+      "received_at": "2026-10-15T19:38:03.275Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093071274",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9xxzmy",
+      "people_detected": 10,
+      "observed_at": "2026-10-15T19:37:51.274Z",
+      "received_at": "2026-10-15T19:37:51.274Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792093059266",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xxqde",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:37:39.266Z",
+      "received_at": "2026-10-15T19:37:39.266Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792093047258",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xxh3u",
+      "people_detected": 20,
+      "observed_at": "2026-10-15T19:37:27.258Z",
+      "received_at": "2026-10-15T19:37:27.258Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792093035247",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9xx7u7",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:37:15.247Z",
+      "received_at": "2026-10-15T19:37:15.247Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093023239",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9xwykn",
+      "people_detected": 19,
+      "observed_at": "2026-10-15T19:37:03.239Z",
+      "received_at": "2026-10-15T19:37:03.239Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792093011224",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xwpaw",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:36:51.224Z",
+      "received_at": "2026-10-15T19:36:51.224Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092999211",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xwg17",
+      "people_detected": 16,
+      "observed_at": "2026-10-15T19:36:39.211Z",
+      "received_at": "2026-10-15T19:36:39.211Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092987197",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9xw6rh",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:36:27.197Z",
+      "received_at": "2026-10-15T19:36:27.197Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792092975192",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9xvxi0",
+      "people_detected": 26,
+      "observed_at": "2026-10-15T19:36:15.193Z",
+      "received_at": "2026-10-15T19:36:15.193Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792092963190",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9xvo8m",
+      "people_detected": 18,
+      "observed_at": "2026-10-15T19:36:03.190Z",
+      "received_at": "2026-10-15T19:36:03.190Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792092951177",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9xveyx",
+      "people_detected": 12,
+      "observed_at": "2026-10-15T19:35:51.177Z",
+      "received_at": "2026-10-15T19:35:51.177Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792092939174",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9xv5pi",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:35:39.174Z",
+      "received_at": "2026-10-15T19:35:39.174Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792092927164",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9xuwfw",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:35:27.164Z",
+      "received_at": "2026-10-15T19:35:27.164Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792092915156",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9xun6c",
+      "people_detected": 23,
+      "observed_at": "2026-10-15T19:35:15.156Z",
+      "received_at": "2026-10-15T19:35:15.156Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792092903144",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9xudwn",
+      "people_detected": 10,
+      "observed_at": "2026-10-15T19:35:03.144Z",
+      "received_at": "2026-10-15T19:35:03.144Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792092891137",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9xu4n5",
+      "people_detected": 23,
+      "observed_at": "2026-10-15T19:34:51.137Z",
+      "received_at": "2026-10-15T19:34:51.138Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792092879127",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9xtvdj",
+      "people_detected": 18,
+      "observed_at": "2026-10-15T19:34:39.127Z",
+      "received_at": "2026-10-15T19:34:39.127Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792092867124",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9xtm44",
+      "people_detected": 20,
+      "observed_at": "2026-10-15T19:34:27.124Z",
+      "received_at": "2026-10-15T19:34:27.124Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792092855111",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xtcuf",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:34:15.111Z",
+      "received_at": "2026-10-15T19:34:15.111Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092843097",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9xt3kp",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:34:03.097Z",
+      "received_at": "2026-10-15T19:34:03.097Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792092831091",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xsub7",
+      "people_detected": 8,
+      "observed_at": "2026-10-15T19:33:51.091Z",
+      "received_at": "2026-10-15T19:33:51.091Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092819090",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xsl1u",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:33:39.090Z",
+      "received_at": "2026-10-15T19:33:39.090Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092807085",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9xsbsd",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:33:27.085Z",
+      "received_at": "2026-10-15T19:33:27.085Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792092795071",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9xs2in",
+      "people_detected": 8,
+      "observed_at": "2026-10-15T19:33:15.071Z",
+      "received_at": "2026-10-15T19:33:15.071Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792092783067",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9xrt97",
+      "people_detected": 24,
+      "observed_at": "2026-10-15T19:33:03.067Z",
+      "received_at": "2026-10-15T19:33:03.067Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792092771067",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xrjzv",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:32:51.067Z",
+      "received_at": "2026-10-15T19:32:51.067Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092759065",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xraqh",
+      "people_detected": 4,
+      "observed_at": "2026-10-15T19:32:39.065Z",
+      "received_at": "2026-10-15T19:32:39.065Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092747061",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xr1h1",
+      "people_detected": 15,
+      "observed_at": "2026-10-15T19:32:27.061Z",
+      "received_at": "2026-10-15T19:32:27.061Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092735058",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9xqs7m",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:32:15.058Z",
+      "received_at": "2026-10-15T19:32:15.058Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792092723046",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xqixy",
+      "people_detected": 10,
+      "observed_at": "2026-10-15T19:32:03.046Z",
+      "received_at": "2026-10-15T19:32:03.046Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092711040",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xq9og",
+      "people_detected": 18,
+      "observed_at": "2026-10-15T19:31:51.040Z",
+      "received_at": "2026-10-15T19:31:51.040Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092699036",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xq0f0",
+      "people_detected": 16,
+      "observed_at": "2026-10-15T19:31:39.036Z",
+      "received_at": "2026-10-15T19:31:39.036Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092687032",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xpr5k",
+      "people_detected": 13,
+      "observed_at": "2026-10-15T19:31:27.032Z",
+      "received_at": "2026-10-15T19:31:27.032Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092675025",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9xphw1",
+      "people_detected": 26,
+      "observed_at": "2026-10-15T19:31:15.025Z",
+      "received_at": "2026-10-15T19:31:15.025Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792092663013",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9xp8md",
+      "people_detected": 4,
+      "observed_at": "2026-10-15T19:31:03.013Z",
+      "received_at": "2026-10-15T19:31:03.013Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792092651005",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9xozct",
+      "people_detected": 17,
+      "observed_at": "2026-10-15T19:30:51.005Z",
+      "received_at": "2026-10-15T19:30:51.005Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792092639003",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9xoq3f",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:30:39.003Z",
+      "received_at": "2026-10-15T19:30:39.003Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792092626989",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xogtp",
+      "people_detected": 20,
+      "observed_at": "2026-10-15T19:30:26.989Z",
+      "received_at": "2026-10-15T19:30:26.989Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092614977",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xo7k1",
+      "people_detected": 4,
+      "observed_at": "2026-10-15T19:30:14.977Z",
+      "received_at": "2026-10-15T19:30:14.977Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092602970",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9xnyai",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:30:02.970Z",
+      "received_at": "2026-10-15T19:30:02.970Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792092590963",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9xnp0z",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:29:50.963Z",
+      "received_at": "2026-10-15T19:29:50.963Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792092578953",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xnfrd",
+      "people_detected": 21,
+      "observed_at": "2026-10-15T19:29:38.953Z",
+      "received_at": "2026-10-15T19:29:38.953Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092566948",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9xn6hw",
+      "people_detected": 19,
+      "observed_at": "2026-10-15T19:29:26.948Z",
+      "received_at": "2026-10-15T19:29:26.948Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792092554949",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9xmx8l",
+      "people_detected": 24,
+      "observed_at": "2026-10-15T19:29:14.949Z",
+      "received_at": "2026-10-15T19:29:14.949Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792092542943",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xmnz3",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:29:02.943Z",
+      "received_at": "2026-10-15T19:29:02.943Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092530929",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xmepd",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:28:50.929Z",
+      "received_at": "2026-10-15T19:28:50.929Z",
+      "coverage": 0.95,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092518925",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xm5fx",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:28:38.925Z",
+      "received_at": "2026-10-15T19:28:38.925Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092506921",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xlw6h",
+      "people_detected": 4,
+      "observed_at": "2026-10-15T19:28:26.921Z",
+      "received_at": "2026-10-15T19:28:26.921Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092494919",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xlmx3",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:28:14.919Z",
+      "received_at": "2026-10-15T19:28:14.919Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092482920",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9xldnr",
+      "people_detected": 13,
+      "observed_at": "2026-10-15T19:28:02.920Z",
+      "received_at": "2026-10-15T19:28:02.920Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792092470909",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xl4e4",
+      "people_detected": 5,
+      "observed_at": "2026-10-15T19:27:50.909Z",
+      "received_at": "2026-10-15T19:27:50.909Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092458904",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xkv4o",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:27:38.904Z",
+      "received_at": "2026-10-15T19:27:38.904Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092446899",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xklv7",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:27:26.899Z",
+      "received_at": "2026-10-15T19:27:26.899Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092434898",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xkclu",
+      "people_detected": 1,
+      "observed_at": "2026-10-15T19:27:14.898Z",
+      "received_at": "2026-10-15T19:27:14.898Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092422885",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9xk3c5",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:27:02.885Z",
+      "received_at": "2026-10-15T19:27:02.885Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792092410879",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xju2n",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:26:50.879Z",
+      "received_at": "2026-10-15T19:26:50.879Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092398865",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xjksx",
+      "people_detected": 23,
+      "observed_at": "2026-10-15T19:26:38.865Z",
+      "received_at": "2026-10-15T19:26:38.865Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092386849",
+      "room_id": "room-301",
+      "camera_session_id": "auto-heartbeat-mv9xjbj5",
+      "people_detected": 6,
+      "observed_at": "2026-10-15T19:26:26.849Z",
+      "received_at": "2026-10-15T19:26:26.849Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Digital Fabrica)"
+    },
+    {
+      "id": "obs-1792092374840",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xj29k",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:26:14.840Z",
+      "received_at": "2026-10-15T19:26:14.840Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092362836",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9xit04",
+      "people_detected": 12,
+      "observed_at": "2026-10-15T19:26:02.836Z",
+      "received_at": "2026-10-15T19:26:02.836Z",
+      "coverage": 0.96,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792092350830",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xijqm",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:25:50.830Z",
+      "received_at": "2026-10-15T19:25:50.830Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092338813",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xiagt",
+      "people_detected": 1,
+      "observed_at": "2026-10-15T19:25:38.813Z",
+      "received_at": "2026-10-15T19:25:38.813Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092326812",
+      "room_id": "room-202",
+      "camera_session_id": "auto-heartbeat-mv9xi17f",
+      "people_detected": 18,
+      "observed_at": "2026-10-15T19:25:26.812Z",
+      "received_at": "2026-10-15T19:25:26.812Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Collaborative S)"
+    },
+    {
+      "id": "obs-1792092314811",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9xhry3",
+      "people_detected": 12,
+      "observed_at": "2026-10-15T19:25:14.811Z",
+      "received_at": "2026-10-15T19:25:14.811Z",
+      "coverage": 0.99,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792092302807",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9xhion",
+      "people_detected": 3,
+      "observed_at": "2026-10-15T19:25:02.807Z",
+      "received_at": "2026-10-15T19:25:02.807Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792092290806",
+      "room_id": "room-102",
+      "camera_session_id": "auto-heartbeat-mv9xh9fa",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:24:50.807Z",
+      "received_at": "2026-10-15T19:24:50.807Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Bio-Analytical )"
+    },
+    {
+      "id": "obs-1792092278798",
+      "room_id": "room-101",
+      "camera_session_id": "auto-heartbeat-mv9xh05q",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:24:38.798Z",
+      "received_at": "2026-10-15T19:24:38.798Z",
+      "coverage": 0.97,
+      "source": "Edge AI Node (Advanced Roboti)"
+    },
+    {
+      "id": "obs-1792092266798",
+      "room_id": "room-201",
+      "camera_session_id": "auto-heartbeat-mv9xgqwe",
+      "people_detected": 11,
+      "observed_at": "2026-10-15T19:24:26.798Z",
+      "received_at": "2026-10-15T19:24:26.798Z",
+      "coverage": 0.98,
+      "source": "Edge AI Node (High-Performanc)"
+    },
+    {
+      "id": "obs-1792092266470",
+      "room_id": "room-101",
+      "camera_session_id": "live-sess-mv9xgqna",
+      "people_detected": 0,
+      "observed_at": "2026-10-15T19:24:26.470Z",
+      "received_at": "2026-10-15T19:24:26.470Z",
+      "coverage": 0.98,
+      "source": "Ceiling Edge AI Node Advanced Rob"
+    }
+  ],
+  "emission_factors": [
+    {
+      "id": "ef-egrid-camx",
+      "name": "US EPA eGRID CAMX Grid Subregion",
+      "value": 0.2185,
+      "unit": "kg CO2e / kWh",
+      "geography": "US-CA (California)",
+      "reporting_year": 2024,
+      "source_reference": "EPA eGRID 2024v1 Table 1",
+      "gas_basis": "CO2E",
+      "factor_type": "GRID_ELECTRICITY"
+    },
+    {
+      "id": "ef-egrid-rfcw",
+      "name": "US EPA eGRID RFC West (PJM Interconnection)",
+      "value": 0.4412,
+      "unit": "kg CO2e / kWh",
+      "geography": "US-Midwest (PJM)",
+      "reporting_year": 2024,
+      "source_reference": "EPA eGRID 2024v1 Table 2",
+      "gas_basis": "CO2E",
+      "factor_type": "GRID_ELECTRICITY"
+    },
+    {
+      "id": "ef-egrid-nycw",
+      "name": "US EPA eGRID NYC / Westchester Subregion",
+      "value": 0.284,
+      "unit": "kg CO2e / kWh",
+      "geography": "US-NY (New York City)",
+      "reporting_year": 2024,
+      "source_reference": "EPA eGRID 2024v1 Table 1",
+      "gas_basis": "CO2E",
+      "factor_type": "GRID_ELECTRICITY"
+    },
+    {
+      "id": "ef-defra-uk",
+      "name": "UK DEFRA National Grid Electricity Average",
+      "value": 0.2071,
+      "unit": "kg CO2e / kWh",
+      "geography": "United Kingdom",
+      "reporting_year": 2024,
+      "source_reference": "UK Department for Energy Security & Net Zero GHG Factors",
+      "gas_basis": "CO2E",
+      "factor_type": "GRID_ELECTRICITY"
+    },
+    {
+      "id": "ef-iea-eu",
+      "name": "IEA European Union 27 Average Electricity Mix",
+      "value": 0.231,
+      "unit": "kg CO2e / kWh",
+      "geography": "European Union",
+      "reporting_year": 2023,
+      "source_reference": "IEA World Energy Outlook GHG Statistics",
+      "gas_basis": "CO2",
+      "factor_type": "GRID_ELECTRICITY"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "scen-1792085811655",
+      "room_id": "room-102",
+      "created_at": "2026-10-15T17:36:51.655Z",
+      "input_snapshot_json": {
+        "room_id": "room-102",
+        "room_name": "Bio-Analytical Chemistry Suite",
+        "building_name": "Curie Science Complex",
+        "policy_name": "Automated Vacancy Power Down (15m Idle Timeout)",
+        "target_hours_saved_per_day": 5,
+        "emission_factor_used": {
+          "id": "ef-egrid-rfcw",
+          "name": "US EPA eGRID RFC West (PJM Interconnection)",
+          "value": 0.4412,
+          "unit": "kg CO2e / kWh",
+          "gas_basis": "CO2E",
+          "source_reference": "EPA eGRID 2024v1 Table 2"
+        },
+        "equipment_snapshot": [
+          {
+            "id": "eq-102-1",
+            "name": "Spectrophotometer & Centrifuge Bench",
+            "quantity": 3,
+            "rated_power_w": 450,
+            "declared_state": "ON",
+            "nonessential": true,
+            "safety_exclusion": false,
+            "effective_controllable_power_w": 1350
+          },
+          {
+            "id": "eq-102-3",
+            "name": "Benchtop Workstation Displays",
+            "quantity": 8,
+            "rated_power_w": 85,
+            "declared_state": "ON",
+            "nonessential": true,
+            "safety_exclusion": false,
+            "effective_controllable_power_w": 680
+          }
+        ],
+        "total_controllable_power_w": 2030
+      },
+      "result_snapshot_json": {
+        "daily_kwh_avoided": 10.15,
+        "annual_kwh_avoided": 2639,
+        "annual_avoided_emissions_kg_co2e": 1164.33,
+        "annual_avoided_emissions_t_co2e": 1.16,
+        "estimated_annual_cost_savings_usd": 448.63,
+        "confidence_score": 0.95,
+        "payback_period_months": 1.5
+      }
+    },
+    {
+      "id": "scen-1792085315612",
+      "room_id": "room-101",
+      "created_at": "2026-10-15T17:28:35.612Z",
+      "input_snapshot_json": {
+        "room_id": "room-101",
+        "room_name": "Advanced Robotics & Automation Lab",
+        "building_name": "Curie Science Complex",
+        "policy_name": "Automated Nightly Relay Cutoff",
+        "target_hours_saved_per_day": 6,
+        "emission_factor_used": {
+          "id": "ef-egrid-camx",
+          "name": "US EPA eGRID CAMX Grid Subregion",
+          "value": 0.2185,
+          "unit": "kg CO2e / kWh",
+          "gas_basis": "CO2E",
+          "source_reference": "EPA eGRID 2024v1 Table 1"
+        },
+        "equipment_snapshot": [
+          {
+            "id": "eq-101-1",
+            "name": "Overhead High-Lumen LED Bay Matrix",
+            "quantity": 12,
+            "rated_power_w": 120,
+            "declared_state": "OFF",
+            "nonessential": true,
+            "safety_exclusion": false,
+            "effective_controllable_power_w": 1440
+          },
+          {
+            "id": "eq-101-2",
+            "name": "Industrial Robotic Arm Controller Rigs",
+            "quantity": 4,
+            "rated_power_w": 750,
+            "declared_state": "ON",
+            "nonessential": true,
+            "safety_exclusion": false,
+            "effective_controllable_power_w": 3000
+          }
+        ],
+        "total_controllable_power_w": 4440
+      },
+      "result_snapshot_json": {
+        "daily_kwh_avoided": 26.64,
+        "annual_kwh_avoided": 6926.4,
+        "annual_avoided_emissions_kg_co2e": 1513.42,
+        "annual_avoided_emissions_t_co2e": 1.51,
+        "estimated_annual_cost_savings_usd": 1177.49,
+        "confidence_score": 0.95,
+        "payback_period_months": 1.5
+      }
+    },
+    {
+      "id": "scen-001",
+      "room_id": "room-101",
+      "created_at": "2024-10-10T14:30:00Z",
+      "input_snapshot_json": {
+        "room_id": "room-101",
+        "room_name": "Advanced Robotics & Automation Lab",
+        "building_name": "Curie Science Complex",
+        "policy_name": "Automate Idle Robotics Lab Standby & High-Bay Lighting",
+        "target_hours_saved_per_day": 5.5,
+        "emission_factor_used": {
+          "id": "ef-egrid-rfcw",
+          "name": "US EPA eGRID RFC West (PJM Interconnection)",
+          "value": 0.4412,
+          "unit": "kg CO2e / kWh",
+          "gas_basis": "CO2E"
+        },
+        "equipment_snapshot": [
+          {
+            "id": "eq-101-1",
+            "name": "Overhead High-Lumen LED Bay Matrix",
+            "quantity": 12,
+            "rated_power_w": 120,
+            "nonessential": true,
+            "safety_exclusion": false,
+            "effective_controllable_power_w": 1440
+          },
+          {
+            "id": "eq-101-2",
+            "name": "Industrial Robotic Arm Controller Rigs",
+            "quantity": 4,
+            "rated_power_w": 750,
+            "nonessential": true,
+            "safety_exclusion": false,
+            "effective_controllable_power_w": 3000
+          }
+        ],
+        "total_controllable_power_w": 4440
+      },
+      "result_snapshot_json": {
+        "daily_kwh_avoided": 24.42,
+        "annual_kwh_avoided": 6349.2,
+        "annual_avoided_emissions_kg_co2e": 2801.27,
+        "annual_avoided_emissions_t_co2e": 2.8,
+        "estimated_annual_cost_savings_usd": 1079.36,
+        "confidence_score": 0.94,
+        "payback_period_months": 1.8
+      }
+    },
+    {
+      "id": "scen-002",
+      "room_id": "room-202",
+      "created_at": "2024-10-12T16:00:00Z",
+      "input_snapshot_json": {
+        "room_id": "room-202",
+        "room_name": "Collaborative Seminar Auditorium A",
+        "building_name": "Turing Computing Institute",
+        "policy_name": "Occupancy-Triggered AV & HVAC Setback Interlock",
+        "target_hours_saved_per_day": 6,
+        "emission_factor_used": {
+          "id": "ef-egrid-rfcw",
+          "name": "US EPA eGRID RFC West (PJM Interconnection)",
+          "value": 0.4412,
+          "unit": "kg CO2e / kWh",
+          "gas_basis": "CO2E"
+        },
+        "equipment_snapshot": [
+          {
+            "id": "eq-202-1",
+            "name": "Laser Projection System & Stage Par-Cans",
+            "quantity": 2,
+            "rated_power_w": 1400,
+            "nonessential": true,
+            "safety_exclusion": false,
+            "effective_controllable_power_w": 2800
+          },
+          {
+            "id": "eq-202-2",
+            "name": "Auditorium Variable Air Volume HVAC Damper",
+            "quantity": 1,
+            "rated_power_w": 2400,
+            "nonessential": true,
+            "safety_exclusion": false,
+            "effective_controllable_power_w": 2400
+          }
+        ],
+        "total_controllable_power_w": 5200
+      },
+      "result_snapshot_json": {
+        "daily_kwh_avoided": 31.2,
+        "annual_kwh_avoided": 8112,
+        "annual_avoided_emissions_kg_co2e": 3578.96,
+        "annual_avoided_emissions_t_co2e": 3.58,
+        "estimated_annual_cost_savings_usd": 1379.04,
+        "confidence_score": 0.96,
+        "payback_period_months": 1.2
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "act-1792085315682",
+      "scenario_id": "scen-1792085315612",
+      "status": "COMPLETED",
+      "approved_at": "2026-10-15T17:28:35.682Z",
+      "completed_at": "2026-10-15T17:28:35.705Z",
+      "completion_method": "HUMAN_CONFIRMED",
+      "completion_note": "Physical relays installed."
+    },
+    {
+      "id": "act-001",
+      "scenario_id": "scen-001",
+      "status": "COMPLETED",
+      "approved_at": "2024-10-11T09:00:00Z",
+      "completed_at": "2024-10-14T15:30:00Z",
+      "completion_method": "HUMAN_CONFIRMED",
+      "completion_note": "Facility Engineer J. Martinez verified hardware relay interlock installed on robotics bench power circuits. Idle standby confirmed at 0W when room sensor reads vacant for >15 mins."
+    },
+    {
+      "id": "act-002",
+      "scenario_id": "scen-002",
+      "status": "APPROVED",
+      "approved_at": "2024-10-13T11:20:00Z",
+      "completed_at": null,
+      "completion_method": "HUMAN_CONFIRMED",
+      "completion_note": "Approved by Campus Energy Manager. Work order #WO-9921 scheduled with electrical team for Crestron AV automation setback."
+    }
+  ],
+  "users": [
+    {
+      "id": "usr-admin",
+      "name": "Dr. Elena Vance",
+      "email": "director@carbontwin.edu",
+      "password": "admin123",
+      "role": "Chief Sustainability Officer",
+      "badge": "CSO",
+      "department": "Campus Climate & Sustainability Office",
+      "created_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "usr-1792060636793",
+      "name": "Marcus Chen",
+      "email": "marcus@carbontwin.edu",
+      "password": "facilitypass2026",
+      "role": "Facility Operations Engineer",
+      "department": "Physical Plant",
+      "badge": "STAFF",
+      "created_at": "2026-10-15T10:37:16.793Z"
+    },
+    {
+      "id": "usr-1792060731459",
+      "name": "Dr. Alexander Ward",
+      "email": "award@carbontwin.edu",
+      "password": "password123",
+      "role": "Campus Energy Auditor",
+      "department": "School of Architecture",
+      "badge": "STAFF",
+      "created_at": "2026-10-15T10:38:51.459Z"
+    },
+    {
+      "id": "usr-1792085141353",
+      "name": "Test User",
+      "email": "test@carbontwin.edu",
+      "password": "password123",
+      "role": "Analyst",
+      "department": "Engineering",
+      "badge": "Analyst",
+      "created_at": "2026-10-15T17:25:41.353Z"
+    },
+    {
+      "id": "usr-1792089321645",
+      "name": "sinchu",
+      "email": "sinchu@gmail.com",
+      "password": "123456789",
+      "role": "Campus Energy Auditor",
+      "department": "climate office",
+      "badge": "STAFF",
+      "created_at": "2026-10-15T18:35:21.645Z"
+    }
+  ]
+}
