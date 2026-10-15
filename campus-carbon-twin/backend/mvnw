@@ -1,0 +1,3 @@
+#!/bin/sh
+# Minimal POSIX compliant mvnw wrapper
+exec mvn "$@"
