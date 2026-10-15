@@ -15,7 +15,7 @@ interface CameraOverlayProps {
   videoHeight: number;
 }
 
-export const CameraOverlay: React.FC<CameraOverlayProps> = ({ boxes, personCount, videoWidth, videoHeight }) => {
+export const CameraOverlay: React.FC<CameraOverlayProps> = ({ boxes, personCount, videoWidth: _videoWidth, videoHeight: _videoHeight }) => {
   return (
     <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
       {boxes?.map((b, i) => (
