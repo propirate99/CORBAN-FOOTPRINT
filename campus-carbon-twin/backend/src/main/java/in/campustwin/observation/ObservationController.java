@@ -2,6 +2,7 @@ package in.campustwin.observation;
 
 import in.campustwin.room.RoomEntity;
 import in.campustwin.room.RoomRepository;
+import in.campustwin.room.RoomStateService;
 import in.campustwin.security.AuthUserResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,13 +25,23 @@ public class ObservationController {
     private final AuthUserResolver authUserResolver;
     private final ObservationRepository observationRepository;
     private final RoomRepository roomRepository;
+    private final RoomStateService roomStateService;
 
     public ObservationController(AuthUserResolver authUserResolver,
                                  ObservationRepository observationRepository,
                                  RoomRepository roomRepository) {
+        this(authUserResolver, observationRepository, roomRepository, new RoomStateService());
+    }
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public ObservationController(AuthUserResolver authUserResolver,
+                                 ObservationRepository observationRepository,
+                                 RoomRepository roomRepository,
+                                 RoomStateService roomStateService) {
         this.authUserResolver = authUserResolver;
         this.observationRepository = observationRepository;
         this.roomRepository = roomRepository;
+        this.roomStateService = roomStateService != null ? roomStateService : new RoomStateService();
     }
 
     @PostMapping("/api/v1/rooms/{roomId}/observations")
@@ -126,6 +137,7 @@ public class ObservationController {
             room.setCurrentOccupancy(count);
             room.setStatus(count == 0 ? "WASTEFUL" : "IN_USE");
             roomRepository.save(room);
+            roomStateService.updateOccupancy(roomId, count, confidence);
             roomUpdated = true;
         } else {
             log.warn("Stale observation received for room={} at {}. Preserving newer room state.", roomId, observedAt);

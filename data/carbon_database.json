@@ -231,172 +231,32 @@
   ],
   "observations": [
     {
-      "id": "obs-1792136473395",
+      "id": "obs-1792142744043",
       "room_id": "ROOM-SCI-101",
-      "camera_session_id": "1d50e942-c87b-43fa-b3d9-e4d32879d1a0",
-      "people_detected": 1,
-      "observed_at": "2026-10-16T07:41:13.204Z",
-      "received_at": "2026-10-16T07:41:13.395Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792136468387",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "1d50e942-c87b-43fa-b3d9-e4d32879d1a0",
+      "camera_session_id": "91d9e207-f86d-438c-af1e-147026ea983f",
       "people_detected": 2,
-      "observed_at": "2026-10-16T07:41:08.192Z",
-      "received_at": "2026-10-16T07:41:08.387Z",
+      "observed_at": "2026-10-16T09:25:43.787Z",
+      "received_at": "2026-10-16T09:25:44.043Z",
       "coverage": 0.96,
       "source": "BROWSER_CAMERA"
     },
     {
-      "id": "obs-1792136463383",
+      "id": "obs-1792142739235",
       "room_id": "ROOM-SCI-101",
-      "camera_session_id": "1d50e942-c87b-43fa-b3d9-e4d32879d1a0",
-      "people_detected": 3,
-      "observed_at": "2026-10-16T07:41:03.169Z",
-      "received_at": "2026-10-16T07:41:03.383Z",
+      "camera_session_id": "91d9e207-f86d-438c-af1e-147026ea983f",
+      "people_detected": 5,
+      "observed_at": "2026-10-16T09:25:39.213Z",
+      "received_at": "2026-10-16T09:25:39.235Z",
       "coverage": 0.96,
       "source": "BROWSER_CAMERA"
     },
     {
-      "id": "obs-1792136458383",
+      "id": "obs-1792142734127",
       "room_id": "ROOM-SCI-101",
-      "camera_session_id": "1d50e942-c87b-43fa-b3d9-e4d32879d1a0",
+      "camera_session_id": "91d9e207-f86d-438c-af1e-147026ea983f",
       "people_detected": 2,
-      "observed_at": "2026-10-16T07:40:58.157Z",
-      "received_at": "2026-10-16T07:40:58.383Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792136453397",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "1d50e942-c87b-43fa-b3d9-e4d32879d1a0",
-      "people_detected": 3,
-      "observed_at": "2026-10-16T07:40:53.135Z",
-      "received_at": "2026-10-16T07:40:53.397Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792136448389",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "1d50e942-c87b-43fa-b3d9-e4d32879d1a0",
-      "people_detected": 3,
-      "observed_at": "2026-10-16T07:40:48.111Z",
-      "received_at": "2026-10-16T07:40:48.389Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792136443383",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "1d50e942-c87b-43fa-b3d9-e4d32879d1a0",
-      "people_detected": 2,
-      "observed_at": "2026-10-16T07:40:43.089Z",
-      "received_at": "2026-10-16T07:40:43.383Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792136438389",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "1d50e942-c87b-43fa-b3d9-e4d32879d1a0",
-      "people_detected": 2,
-      "observed_at": "2026-10-16T07:40:38.080Z",
-      "received_at": "2026-10-16T07:40:38.389Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792136433384",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "1d50e942-c87b-43fa-b3d9-e4d32879d1a0",
-      "people_detected": 4,
-      "observed_at": "2026-10-16T07:40:33.076Z",
-      "received_at": "2026-10-16T07:40:33.384Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792136428390",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "1d50e942-c87b-43fa-b3d9-e4d32879d1a0",
-      "people_detected": 3,
-      "observed_at": "2026-10-16T07:40:28.035Z",
-      "received_at": "2026-10-16T07:40:28.390Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792136423385",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "1d50e942-c87b-43fa-b3d9-e4d32879d1a0",
-      "people_detected": 3,
-      "observed_at": "2026-10-16T07:40:23.008Z",
-      "received_at": "2026-10-16T07:40:23.385Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792136418402",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "1d50e942-c87b-43fa-b3d9-e4d32879d1a0",
-      "people_detected": 1,
-      "observed_at": "2026-10-16T07:40:18.001Z",
-      "received_at": "2026-10-16T07:40:18.402Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792135551064",
-      "room_id": "A-101",
-      "camera_session_id": "8208e4bb-6c89-42a9-9f5e-04bef734d1c0",
-      "people_detected": 2,
-      "observed_at": "2026-10-16T07:25:50.776Z",
-      "received_at": "2026-10-16T07:25:51.064Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792135546059",
-      "room_id": "A-101",
-      "camera_session_id": "8208e4bb-6c89-42a9-9f5e-04bef734d1c0",
-      "people_detected": 2,
-      "observed_at": "2026-10-16T07:25:45.754Z",
-      "received_at": "2026-10-16T07:25:46.059Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792135541067",
-      "room_id": "A-101",
-      "camera_session_id": "8208e4bb-6c89-42a9-9f5e-04bef734d1c0",
-      "people_detected": 1,
-      "observed_at": "2026-10-16T07:25:40.729Z",
-      "received_at": "2026-10-16T07:25:41.067Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792135536062",
-      "room_id": "A-101",
-      "camera_session_id": "8208e4bb-6c89-42a9-9f5e-04bef734d1c0",
-      "people_detected": 1,
-      "observed_at": "2026-10-16T07:25:35.708Z",
-      "received_at": "2026-10-16T07:25:36.062Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792135531084",
-      "room_id": "A-101",
-      "camera_session_id": "8208e4bb-6c89-42a9-9f5e-04bef734d1c0",
-      "people_detected": 1,
-      "observed_at": "2026-10-16T07:25:30.681Z",
-      "received_at": "2026-10-16T07:25:31.084Z",
+      "observed_at": "2026-10-16T09:25:34.109Z",
+      "received_at": "2026-10-16T09:25:34.127Z",
       "coverage": 0.96,
       "source": "BROWSER_CAMERA"
     },
@@ -688,11 +548,11 @@
     {
       "id": "act-002",
       "scenario_id": "scen-002",
-      "status": "APPROVED",
+      "status": "COMPLETED",
       "approved_at": "2024-10-13T11:20:00Z",
-      "completed_at": null,
+      "completed_at": "2026-10-16T09:26:51.928Z",
       "completion_method": "HUMAN_CONFIRMED",
-      "completion_note": "Approved by Campus Energy Manager. Work order #WO-1049 assigned to engineering hardware staff."
+      "completion_note": "Facility engineer verified automated vacancy setback operational."
     }
   ],
   "users": [

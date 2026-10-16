@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ScenarioComparison } from '../../components/ScenarioComparison';
 import { ScenarioResult } from '../../types/api';
+import { ExplanationPanel } from '../carbon-dashboard/components/ExplanationPanel';
 
 export const ScenarioPage: React.FC = () => {
   const [tempDelta, setTempDelta] = useState<number>(2.0);
@@ -79,6 +80,9 @@ export const ScenarioPage: React.FC = () => {
       </div>
 
       <ScenarioComparison result={result} />
+
+      {/* Grounded Scenario Explainer (GenAI with Deterministic Fallback & Safety Checks) */}
+      <ExplanationPanel />
     </div>
   );
 };

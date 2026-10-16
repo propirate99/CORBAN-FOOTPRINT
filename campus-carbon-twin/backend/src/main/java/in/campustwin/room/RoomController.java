@@ -9,47 +9,47 @@ import java.util.Map;
 @RequestMapping("/api/v1/rooms")
 public class RoomController {
 
+    private final RoomStateService roomStateService;
+
+    public RoomController(RoomStateService roomStateService) {
+        this.roomStateService = roomStateService;
+    }
+
     @GetMapping
     public List<Map<String, Object>> listRooms(@RequestParam(required = false) String buildingId) {
-        return List.of(
-            Map.of(
-                "id", "ROOM-SCI-204",
-                "name", "Physics Lecture Hall 204",
-                "buildingId", "BLDG-SCI",
-                "capacity", 120,
-                "currentOccupancy", 0,
-                "status", "WASTEFUL",
-                "powerDrawKw", 4.82,
-                "emissionRateKgCo2ePerHour", 2.06
-            ),
-            Map.of(
-                "id", "ROOM-ENG-220",
-                "name", "Computer Architecture Lab",
-                "buildingId", "BLDG-ENG",
-                "capacity", 60,
-                "currentOccupancy", 42,
-                "status", "IN_USE",
-                "powerDrawKw", 6.40,
-                "emissionRateKgCo2ePerHour", 2.74
-            )
-        );
+        return roomStateService.listRooms().stream()
+            .map(r -> Map.<String, Object>of(
+                "id", r.id(),
+                "name", r.name(),
+                "buildingId", r.buildingId(),
+                "capacity", r.capacity(),
+                "currentOccupancy", r.currentOccupancy(),
+                "status", r.status(),
+                "powerDrawKw", r.powerDrawKw(),
+                "emissionRateKgCo2ePerHour", r.emissionRateKgCo2ePerHour(),
+                "confidenceScore", r.confidenceScore()
+            ))
+            .toList();
     }
 
     @GetMapping("/{roomId}")
     public Map<String, Object> getRoomDetail(@PathVariable String roomId) {
-        return Map.of(
-            "id", roomId,
-            "name", "Physics Lecture Hall 204",
-            "buildingId", "BLDG-SCI",
-            "capacity", 120,
-            "currentOccupancy", 0,
-            "status", "WASTEFUL",
-            "powerDrawKw", 4.82,
-            "emissionRateKgCo2ePerHour", 2.06,
-            "equipment", List.of(
-                Map.of("id", "EQ-1", "name", "VAV Air Handler 204", "type", "HVAC", "isActive", true, "wattageWatts", 3800),
-                Map.of("id", "EQ-2", "name", "LED Lighting Array", "type", "LIGHTING", "isActive", true, "wattageWatts", 600)
+        var room = roomStateService.getRoom(roomId).orElseGet(() ->
+            new RoomStateService.RoomState(
+                roomId, "Room " + roomId, "BLDG-SCI", 100, 0, "OPTIMAL", 2.0, 0.85,
+                java.time.Instant.now(), 0.9, List.of()
             )
+        );
+        return Map.of(
+            "id", room.id(),
+            "name", room.name(),
+            "buildingId", room.buildingId(),
+            "capacity", room.capacity(),
+            "currentOccupancy", room.currentOccupancy(),
+            "status", room.status(),
+            "powerDrawKw", room.powerDrawKw(),
+            "emissionRateKgCo2ePerHour", room.emissionRateKgCo2ePerHour(),
+            "equipment", room.equipment()
         );
     }
 }

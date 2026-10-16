@@ -35,30 +35,43 @@ export default function CameraPipModal({
   const [isMinimized, setIsMinimized] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Redraw COCO-SSD bounding boxes on the overlay canvas
+  // Redraw COCO-SSD / MediaPipe bounding boxes on the overlay canvas
   useEffect(() => {
-    if (!overlayCanvasRef.current || !videoRef.current) return;
+    if (!overlayCanvasRef.current) return;
     const canvas = overlayCanvasRef.current;
     const video = videoRef.current;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    if (video && video.videoWidth > 0 && video.videoHeight > 0) {
+      if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+      }
+    } else {
+      if (canvas.width !== 640 || canvas.height !== 480) {
+        canvas.width = 640;
+        canvas.height = 480;
+      }
+    }
+
     // Clear previous drawings
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (isCameraActive && detections && detections.length > 0) {
+    if ((isCameraActive || simulatedCameraMode) && detections && detections.length > 0) {
       detections.forEach((det, i) => {
+        if (!det || !det.bbox) return;
         const [x, y, w, h] = det.bbox;
-        const score = Math.round(det.score * 100);
+        const score = Math.round((det.score || 0.9) * 100);
 
         // Draw bounding box
-        ctx.strokeStyle = '#10b981';
+        ctx.strokeStyle = simulatedCameraMode ? '#38bdf8' : '#10b981';
         ctx.lineWidth = 2.5;
         ctx.strokeRect(x, y, w, h);
 
         // Draw corner brackets
-        ctx.fillStyle = '#10b981';
+        ctx.fillStyle = simulatedCameraMode ? '#38bdf8' : '#10b981';
         const cl = 8;
         ctx.fillRect(x - 1, y - 1, cl, 3);
         ctx.fillRect(x - 1, y - 1, 3, cl);
@@ -66,15 +79,16 @@ export default function CameraPipModal({
         ctx.fillRect(x + w - 2, y - 1, 3, cl);
 
         // Label background & text
-        ctx.fillStyle = 'rgba(6, 24, 20, 0.85)';
-        ctx.fillRect(x, Math.max(0, y - 22), 110, 20);
+        ctx.fillStyle = 'rgba(6, 24, 20, 0.88)';
+        ctx.fillRect(x, Math.max(0, y - 22), 125, 20);
 
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 11px system-ui, sans-serif';
-        ctx.fillText(`👤 Person ${i + 1} (${score}%)`, x + 6, Math.max(14, y - 8));
+        const label = simulatedCameraMode ? `👤 Person ${i + 1} (Simulated)` : `👤 Person ${i + 1} (${score}%)`;
+        ctx.fillText(label, x + 6, Math.max(14, y - 8));
 
         // Centroid marker for spatial twin mapping
-        ctx.fillStyle = '#0284c7';
+        ctx.fillStyle = simulatedCameraMode ? '#38bdf8' : '#0284c7';
         ctx.beginPath();
         ctx.arc(x + w / 2, y + h, 4, 0, Math.PI * 2);
         ctx.fill();
@@ -83,7 +97,7 @@ export default function CameraPipModal({
         ctx.stroke();
       });
     }
-  }, [detections, isCameraActive, overlayCanvasRef, videoRef]);
+  }, [detections, isCameraActive, simulatedCameraMode, overlayCanvasRef, videoRef]);
 
   if (!isOpen) return null;
 
@@ -213,8 +227,8 @@ export default function CameraPipModal({
             {/* Bounding Box Canvas overlay */}
             <canvas
               ref={overlayCanvasRef}
-              width={320}
-              height={240}
+              width={640}
+              height={480}
               style={{
                 position: 'absolute',
                 top: 0,
@@ -222,18 +236,47 @@ export default function CameraPipModal({
                 width: '100%',
                 height: '100%',
                 pointerEvents: 'none',
-                display: isCameraActive ? 'block' : 'none'
+                display: (isCameraActive || (simulatedCameraMode && detections && detections.length > 0)) ? 'block' : 'none',
+                zIndex: 2
               }}
             />
 
             {/* Off-Camera Placeholder / Simulation Preview */}
             {!isCameraActive && (
-              <div style={{ textAlign: 'center', color: '#64748b', padding: '1rem' }}>
-                <Video size={36} style={{ margin: '0 auto 0.5rem', opacity: 0.5 }} />
-                <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#94a3b8' }}>
+              <div
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: simulatedCameraMode
+                    ? 'radial-gradient(ellipse at center, #062b20 0%, #03140f 100%)'
+                    : '#090d16',
+                  color: '#64748b',
+                  padding: '1rem',
+                  overflow: 'hidden'
+                }}
+              >
+                {simulatedCameraMode && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      opacity: 0.12,
+                      backgroundImage: 'radial-gradient(#10b981 1.5px, transparent 1.5px)',
+                      backgroundSize: '24px 24px',
+                      pointerEvents: 'none'
+                    }}
+                  />
+                )}
+                <Video size={36} style={{ margin: '0 auto 0.5rem', opacity: 0.6, color: simulatedCameraMode ? '#10b981' : '#64748b' }} />
+                <div style={{ fontSize: '0.85rem', fontWeight: 700, color: simulatedCameraMode ? '#6ee7b7' : '#94a3b8', zIndex: 1 }}>
                   {simulatedCameraMode ? 'Camera Simulation Mode Active' : 'Live Camera Standby'}
                 </div>
-                <div style={{ fontSize: '0.75rem', marginTop: '0.25rem' }}>
+                <div style={{ fontSize: '0.75rem', marginTop: '0.25rem', color: simulatedCameraMode ? '#a7f3d0' : '#64748b', zIndex: 1 }}>
                   {simulatedCameraMode
                     ? `Simulating ${simulatedPeopleCount} occupants • Lights ${simulatedLightsOn ? 'ON' : 'OFF'}`
                     : 'Click "Start Camera" to connect webcam or phone-as-webcam'}

@@ -94,3 +94,86 @@ export interface ActionItem {
   status: 'PENDING_APPROVAL' | 'APPROVED' | 'EXECUTED' | 'DISMISSED';
   createdAt: string;
 }
+
+export interface GeneratedExplanation {
+  summary: string;
+  reason: string;
+  assumptions: string[];
+  suggestedChecks: string[];
+}
+
+export interface ExplanationMetrics {
+  estimatedAvoidedKwh: number;
+  estimatedAvoidedKgCo2: number;
+}
+
+export interface FactorMetadata {
+  factorSource: string;
+  reportingYear: number;
+  factorValue: number;
+  factorUnit: string;
+}
+
+export type ExplanationSource = 'GENAI' | 'TEMPLATE';
+
+export type EligibilityStatus = 'ELIGIBLE' | 'INELIGIBLE_OCCUPIED' | 'INELIGIBLE_STALE';
+
+export interface ExplanationResponse {
+  scenarioId: string;
+  roomId: string;
+  source: ExplanationSource;
+  fallbackReason: string | null;
+  generatedAt: string;
+  currentEligibility: EligibilityStatus;
+  evidenceLevel: string;
+  metrics: ExplanationMetrics;
+  factorMetadata: FactorMetadata;
+  explanation: GeneratedExplanation;
+  mandatorySafetyChecks: string[];
+  limitations: string[];
+  actionPermission: string;
+}
+
+export interface SavedScenario {
+  id: string;
+  roomId: string;
+  scenarioType: string;
+  title: string;
+  description: string;
+  observationDescription: string;
+  selectedEquipmentType: string;
+  equipmentStateBasis: string;
+  scenarioDurationMinutes: number;
+  estimatedAvoidedKwh: number;
+  estimatedAvoidedKgCo2: number;
+  factorSource: string;
+  factorReportingYear: number;
+  factorValue: number;
+  factorUnit: string;
+  evidenceLevel: string;
+  createdAt: string;
+  assumptions: string[];
+  forbiddenActions: string[];
+}
+
+export interface ScenarioComparisonResponse {
+  scenarioA: {
+    id: string;
+    title: string;
+    avoidedKwh: number;
+    avoidedKgCo2: number;
+  };
+  scenarioB: {
+    id: string;
+    title: string;
+    avoidedKwh: number;
+    avoidedKgCo2: number;
+  };
+  comparisonExplanation: {
+    summary: string;
+    reason: string;
+    tradeOffs: string[];
+  };
+  source: string;
+  actionPermission: string;
+}

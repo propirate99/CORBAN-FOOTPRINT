@@ -49,7 +49,16 @@ export class CameraController {
         },
       };
 
-      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      let stream: MediaStream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia(constraints);
+      } catch (err: any) {
+        if (err.name === 'OverconstrainedError' || err.name === 'ConstraintNotSatisfiedError') {
+          stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: true });
+        } else {
+          throw err;
+        }
+      }
 
       // Race condition check: if user clicked Stop while getUserMedia was resolving
       if (operationToken !== this.currentOperationToken) {

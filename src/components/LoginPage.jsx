@@ -3,6 +3,7 @@ import {
   Leaf, Lock, Mail, ShieldCheck, Eye, EyeOff, CheckCircle2,
   AlertCircle, Building2, Zap, ArrowRight, User, Briefcase, Activity
 } from 'lucide-react';
+import apiService from '../services/apiService';
 
 export default function LoginPage({ onLoginSuccess, onExploreTwin }) {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -39,27 +40,18 @@ export default function LoginPage({ onLoginSuccess, onExploreTwin }) {
           throw new Error('Passwords do not match. Please re-enter.');
         }
 
-        const res = await fetch('/api/auth/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: fullName.trim(),
-            email: email.trim(),
-            password,
-            role,
-            department: department.trim() || 'Campus Facilities & Sustainability'
-          })
+        const data = await apiService.signup({
+          name: fullName.trim(),
+          email: email.trim(),
+          password,
+          role,
+          department: department.trim() || 'Campus Facilities & Sustainability'
         });
-
-        const data = await res.json();
-        if (!res.ok) {
-          throw new Error(data.error || 'Account registration failed.');
-        }
 
         // Store user and token
         if (rememberMe) {
           localStorage.setItem('carbontwin_user', JSON.stringify(data.user));
-          localStorage.setItem('carbontwin_token', data.token);
+          localStorage.setItem('carbontwin_token', data.token || 'jwt-token-client');
         } else {
           sessionStorage.setItem('carbontwin_user', JSON.stringify(data.user));
         }
@@ -70,24 +62,15 @@ export default function LoginPage({ onLoginSuccess, onExploreTwin }) {
           throw new Error('Please provide both your institutional email and password.');
         }
 
-        const res = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: email.trim(),
-            password
-          })
+        const data = await apiService.login({
+          email: email.trim(),
+          password
         });
-
-        const data = await res.json();
-        if (!res.ok) {
-          throw new Error(data.error || 'Authentication failed. Please verify credentials.');
-        }
 
         // Store user and token
         if (rememberMe) {
           localStorage.setItem('carbontwin_user', JSON.stringify(data.user));
-          localStorage.setItem('carbontwin_token', data.token);
+          localStorage.setItem('carbontwin_token', data.token || 'jwt-token-client');
         } else {
           sessionStorage.setItem('carbontwin_user', JSON.stringify(data.user));
         }
@@ -95,7 +78,7 @@ export default function LoginPage({ onLoginSuccess, onExploreTwin }) {
         onLoginSuccess(data.user);
       }
     } catch (err) {
-      setErrorMessage(err.message || 'Authentication error. Please check your network and credentials.');
+      setErrorMessage(err.message || 'Authentication error. Please check your credentials.');
     } finally {
       setLoading(false);
     }
@@ -105,12 +88,7 @@ export default function LoginPage({ onLoginSuccess, onExploreTwin }) {
     setLoading(true);
     setErrorMessage('');
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sso_provider: provider })
-      });
-      const data = await res.json();
+      const data = await apiService.login({ sso_provider: provider });
       if (data.user) {
         localStorage.setItem('carbontwin_user', JSON.stringify(data.user));
         onLoginSuccess(data.user);

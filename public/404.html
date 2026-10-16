@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Carbon Twin | Redirecting...</title>
+    <script type="text/javascript">
+      // GitHub Pages SPA router redirection
+      // If a subpath or deep link is refreshed, redirect to root with hash preserving the route
+      (function() {
+        var path = window.location.pathname;
+        var repoName = '/CORBAN-FOOTPRINT';
+        var cleanPath = path;
+        if (cleanPath.startsWith(repoName)) {
+          cleanPath = cleanPath.slice(repoName.length);
+        }
+        cleanPath = cleanPath.replace(/^\/+/, '');
+        var hash = cleanPath ? '#' + cleanPath : '';
+        var search = window.location.search || '';
+        var target = (path.startsWith(repoName) ? repoName : '') + '/' + search + hash;
+        window.location.replace(target);
+      })();
+    </script>
+  </head>
+  <body style="background: #061814; color: #fff; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
+    <p>Redirecting to Carbon Twin...</p>
+  </body>
+</html>

@@ -8,6 +8,8 @@
     "server": "node server/index.js",
     "client": "vite --port 3000 --host",
     "build": "vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist --dotfiles --nojekyll",
     "preview": "vite preview",
     "dev": "node start.js"
   },
@@ -25,5 +27,8 @@
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "vite": "^8.3.4"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }

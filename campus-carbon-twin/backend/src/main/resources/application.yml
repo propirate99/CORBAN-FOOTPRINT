@@ -4,8 +4,13 @@ spring:
   profiles:
     active: local
 
+genai:
+  enabled: ${GENAI_ENABLED:false}
+
 gemini:
-  api-key: ${GEMINI_API_KEY:mock_key}
+  api-key: ${GEMINI_API_KEY:}
+  model: ${GEMINI_MODEL:gemini-1.5-flash}
+  timeout-seconds: 8
 
 supabase:
   url: ${SUPABASE_URL:https://xyzcompany.supabase.co}

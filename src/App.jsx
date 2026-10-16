@@ -4,7 +4,7 @@ import {
   AlertTriangle, RefreshCw, Plus, Clock, Globe, ArrowUpRight,
   TrendingDown, Building2, HardDrive, Filter, Download, Eye, X,
   Check, AlertCircle, FileText, Lock, Sliders, ChevronRight, LogOut, User,
-  Calculator, Activity
+  Calculator, Activity, ExternalLink
 } from 'lucide-react';
 import LoginPage from './components/LoginPage';
 import DigitalTwin from './components/DigitalTwin';
@@ -13,6 +13,7 @@ import CarbonCalculator from './components/calculator/CarbonCalculator';
 import RoomStatusInterface from './components/room-status/RoomStatusInterface';
 import CampusCarbonTwinView from './components/campus-carbon-twin/CampusCarbonTwinView';
 import LiveRoomsTwinPage from './components/live-twin/LiveRoomsTwinPage';
+import apiService from './services/apiService';
 import './components/camera-station/CameraStation.css';
 import './components/calculator/styles/calculator.css';
 
@@ -28,21 +29,35 @@ export default function App() {
 
   const getTabFromRoute = () => {
     if (typeof window === 'undefined') return 'overview';
-    const p = window.location.pathname.replace(/^\/+/, '').toLowerCase();
     const h = window.location.hash.replace(/^#\/?/, '').toLowerCase();
-    const route = p || h;
-    if (route === 'twin' || route.startsWith('twin')) return 'twin';
-    if (route === 'live' || route.startsWith('live')) return 'live';
-    if (route === 'calculator') return 'calculator';
-    if (route === 'facilities') return 'facilities';
-    if (route === 'equipment') return 'equipment';
-    if (route === 'observations') return 'observations';
-    if (route === 'camera-station') return 'camera-station';
-    if (route === 'room-status') return 'room-status';
-    if (route === 'scenarios') return 'scenarios';
-    if (route === 'actions') return 'actions';
-    if (route === 'emission-factors') return 'emission-factors';
-    if (route === 'database') return 'database';
+    if (h) {
+      if (h === 'twin' || h.startsWith('twin')) return 'twin';
+      if (h === 'secondary-station' || h.startsWith('secondary-station') || h === 'live' || h.startsWith('live')) return 'secondary-station';
+      if (h === 'calculator' || h.startsWith('calculator')) return 'calculator';
+      if (h === 'facilities' || h.startsWith('facilities')) return 'facilities';
+      if (h === 'equipment' || h.startsWith('equipment')) return 'equipment';
+      if (h === 'observations' || h.startsWith('observations')) return 'observations';
+      if (h === 'camera-station' || h.startsWith('camera-station')) return 'camera-station';
+      if (h === 'room-status' || h.startsWith('room-status')) return 'room-status';
+      if (h === 'scenarios' || h.startsWith('scenarios')) return 'scenarios';
+      if (h === 'actions' || h.startsWith('actions')) return 'actions';
+      if (h === 'emission-factors' || h.startsWith('emission-factors')) return 'emission-factors';
+      if (h === 'database' || h.startsWith('database')) return 'database';
+      if (h === 'overview') return 'overview';
+    }
+    let p = window.location.pathname.toLowerCase().replace(/^\/corban-footprint\/?/, '').replace(/^\/+/, '');
+    if (p === 'twin' || p.startsWith('twin')) return 'twin';
+    if (p === 'secondary-station' || p.startsWith('secondary-station') || p === 'live' || p.startsWith('live')) return 'secondary-station';
+    if (p === 'calculator' || p.startsWith('calculator')) return 'calculator';
+    if (p === 'facilities' || p.startsWith('facilities')) return 'facilities';
+    if (p === 'equipment' || p.startsWith('equipment')) return 'equipment';
+    if (p === 'observations' || p.startsWith('observations')) return 'observations';
+    if (p === 'camera-station' || p.startsWith('camera-station')) return 'camera-station';
+    if (p === 'room-status' || p.startsWith('room-status')) return 'room-status';
+    if (p === 'scenarios' || p.startsWith('scenarios')) return 'scenarios';
+    if (p === 'actions' || p.startsWith('actions')) return 'actions';
+    if (p === 'emission-factors' || p.startsWith('emission-factors')) return 'emission-factors';
+    if (p === 'database' || p.startsWith('database')) return 'database';
     return 'overview';
   };
 
@@ -51,9 +66,9 @@ export default function App() {
   const navigateTo = (tab) => {
     setActiveTab(tab);
     if (typeof window !== 'undefined') {
-      const targetPath = tab === 'overview' ? '/' : `/${tab}`;
-      if (window.location.pathname !== targetPath) {
-        window.history.pushState({ tab }, '', targetPath);
+      const targetHash = tab === 'overview' ? '' : `#${tab}`;
+      if (window.location.hash !== targetHash) {
+        window.history.pushState({ tab }, '', targetHash || window.location.pathname);
       }
     }
   };
@@ -81,6 +96,7 @@ export default function App() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBuilding, setSelectedBuilding] = useState('ALL');
+  const [twinViewMode, setTwinViewMode] = useState('cad');
   const [toastMessage, setToastMessage] = useState(null);
 
   // Modals state
@@ -109,31 +125,22 @@ export default function App() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const [resAna, resRooms, resEq, resObs, resEf, resScen, resAct, resUsers] = await Promise.all([
-        fetch('/api/analytics').then(r => r.json()),
-        fetch('/api/rooms').then(r => r.json()),
-        fetch('/api/equipment').then(r => r.json()),
-        fetch('/api/observations').then(r => r.json()),
-        fetch('/api/emission-factors').then(r => r.json()),
-        fetch('/api/scenarios').then(r => r.json()),
-        fetch('/api/actions').then(r => r.json()),
-        fetch('/api/users').then(r => r.json()).catch(() => [])
-      ]);
+      const data = await apiService.fetchAll();
 
-      setAnalytics(resAna);
-      setRooms(resRooms);
-      setEquipment(resEq);
-      setObservations(resObs);
-      setEmissionFactors(resEf);
-      setScenarios(resScen);
-      setActions(resAct);
-      setUsers(resUsers || []);
+      setAnalytics(data.analytics);
+      setRooms(data.rooms || []);
+      setEquipment(data.equipment || []);
+      setObservations(data.observations || []);
+      setEmissionFactors(data.emissionFactors || []);
+      setScenarios(data.scenarios || []);
+      setActions(data.actions || []);
+      setUsers(data.users || []);
 
-      if (!scenarioForm.room_id && resRooms.length > 0) {
+      if (!scenarioForm.room_id && data.rooms && data.rooms.length > 0) {
         setScenarioForm(prev => ({
           ...prev,
-          room_id: resRooms[0].id,
-          emission_factor_id: resEf[1]?.id || resEf[0]?.id || ''
+          room_id: data.rooms[0].id,
+          emission_factor_id: data.emissionFactors?.[1]?.id || data.emissionFactors?.[0]?.id || ''
         }));
       }
     } catch (err) {
@@ -146,22 +153,17 @@ export default function App() {
   useEffect(() => {
     fetchData();
     const interval = setInterval(() => {
-      fetch('/api/analytics').then(r => r.json()).then(setAnalytics).catch(() => {});
-      fetch('/api/observations').then(r => r.json()).then(setObservations).catch(() => {});
+      apiService.getAnalytics().then(setAnalytics).catch(() => {});
     }, 10000);
     return () => clearInterval(interval);
   }, []);
 
   const handleSimulateTelemetry = async (roomId = null, targetPeople = null) => {
     try {
-      const res = await fetch('/api/simulate-telemetry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ room_id: roomId, people_detected: targetPeople })
-      });
-      const data = await res.json();
-      if (data.success) {
-        showToast(`Telemetry updated: ${data.room.name} now detected with ${data.observation.people_detected} occupants.`);
+      const data = await apiService.simulateTelemetry({ room_id: roomId, people_detected: targetPeople });
+      if (data && data.success) {
+        const roomName = rooms.find(r => r.id === roomId)?.name || 'Room';
+        showToast(`Telemetry updated: ${roomName} now detected with ${data.observation?.people_detected ?? targetPeople ?? 0} occupants.`);
         fetchData();
       }
     } catch (e) {
@@ -172,12 +174,8 @@ export default function App() {
   const handleToggleEquipmentState = async (eq) => {
     const nextState = eq.declared_state === 'ON' ? 'OFF' : eq.declared_state === 'OFF' ? 'UNKNOWN' : 'ON';
     try {
-      const res = await fetch(`/api/equipment/${eq.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ declared_state: nextState })
-      });
-      if (res.ok) {
+      const updated = await apiService.updateEquipment(eq.id, { declared_state: nextState });
+      if (updated) {
         showToast(`Updated ${eq.name} state to ${nextState}`);
         fetchData();
       }
@@ -189,14 +187,9 @@ export default function App() {
   const handleCreateScenario = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/scenarios', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(scenarioForm)
-      });
-      if (res.ok) {
-        const created = await res.json();
-        showToast(`Scenario created with frozen snapshot! (${created.result_snapshot_json.annual_avoided_emissions_t_co2e} tCO2e/yr avoided)`);
+      const created = await apiService.createScenario(scenarioForm);
+      if (created) {
+        showToast(`Scenario created with frozen snapshot! (${created.result_snapshot_json?.annual_avoided_emissions_t_co2e || 0} tCO2e/yr avoided)`);
         setShowNewScenarioModal(false);
         fetchData();
         setActiveTab('scenarios');
@@ -208,16 +201,12 @@ export default function App() {
 
   const handlePromoteScenarioToAction = async (scenarioId) => {
     try {
-      const res = await fetch('/api/actions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          scenario_id: scenarioId,
-          status: 'APPROVED',
-          completion_note: 'Approved for facility implementation based on frozen scenario calculations.'
-        })
+      const created = await apiService.createAction({
+        scenario_id: scenarioId,
+        status: 'APPROVED',
+        completion_note: 'Approved for facility implementation based on frozen scenario calculations.'
       });
-      if (res.ok) {
+      if (created) {
         showToast('Scenario promoted to APPROVED Action Plan item!');
         fetchData();
         setActiveTab('actions');
@@ -230,15 +219,11 @@ export default function App() {
   const handleConfirmActionComplete = async () => {
     if (!showActionConfirmModal) return;
     try {
-      const res = await fetch(`/api/actions/${showActionConfirmModal.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          status: 'COMPLETED',
-          completion_note: actionConfirmNote || 'Human verification confirmed relay or setback completion.'
-        })
+      const updated = await apiService.updateAction(showActionConfirmModal.id, {
+        status: 'COMPLETED',
+        completion_note: actionConfirmNote || 'Human verification confirmed relay or setback completion.'
       });
-      if (res.ok) {
+      if (updated) {
         showToast('Action marked COMPLETED with HUMAN_CONFIRMED verification.');
         setShowActionConfirmModal(null);
         setActionConfirmNote('');
@@ -251,7 +236,7 @@ export default function App() {
 
   const handleResetData = async () => {
     if (confirm('Reset database to authentic institutional baseline?')) {
-      await fetch('/api/reset-data', { method: 'POST' });
+      await apiService.resetData();
       await fetchData();
       showToast('Database reset to institutional baseline');
     }
@@ -615,9 +600,10 @@ export default function App() {
         </button>
 
         <button
-          className={`tab-btn ${activeTab === 'live' ? 'active' : ''}`}
-          onClick={() => navigateTo('live')}
+          className={`tab-btn ${activeTab === 'secondary-station' || activeTab === 'live' ? 'active' : ''}`}
+          onClick={() => navigateTo('secondary-station')}
           style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}
+          title="Campus Carbon Twin Secondary Station (Port 5173)"
         >
           <span
             className="animate-pulse-live"
@@ -625,13 +611,13 @@ export default function App() {
               width: '8px',
               height: '8px',
               borderRadius: '50%',
-              backgroundColor: '#10b981',
+              backgroundColor: '#38bdf8',
               display: 'inline-block',
-              boxShadow: '0 0 6px #10b981'
+              boxShadow: '0 0 6px #38bdf8'
             }}
           />
-          Live
-          <span className="pill pill-indigo" style={{ fontSize: '0.7rem' }}>Rooms Model</span>
+          Secondary Station
+          <span className="pill pill-slate" style={{ fontSize: '0.7rem' }}>Port 5173</span>
         </button>
 
         <button
@@ -1705,11 +1691,6 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB: CAMPUS ENERGY DIGITAL TWIN */}
-        {activeTab === 'twin' && (
-          <DigitalTwin onBackToDashboard={() => handleTabChange('overview')} />
-        )}
-
         {/* TAB: CAMERA STATION (SECONDARY STATION INTEGRATION) */}
         {activeTab === 'camera-station' && (
           <div>
@@ -1729,7 +1710,7 @@ export default function App() {
                   },
                   ...prev.slice(0, 49)
                 ]);
-                fetch('/api/analytics').then(r => r.json()).then(setAnalytics).catch(() => {});
+                apiService.getAnalytics().then(setAnalytics).catch(() => {});
               }}
             />
           </div>
@@ -1756,7 +1737,111 @@ export default function App() {
 
         {/* TAB: CAMPUS CARBON TWIN (/twin) */}
         {activeTab === 'twin' && (
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            {/* View Mode Toggle: CAD Blueprint vs Secondary Station */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              background: '#ffffff',
+              padding: '0.65rem 1.25rem',
+              borderRadius: '10px',
+              border: '1px solid #e2e8f0',
+              flexWrap: 'wrap',
+              gap: '0.75rem'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Activity size={17} color="#059669" />
+                <span style={{ fontWeight: 700, fontSize: '0.875rem', color: '#0f172a' }}>Twin View:</span>
+              </div>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <button
+                  onClick={() => setTwinViewMode('cad')}
+                  className={`tab-btn ${twinViewMode === 'cad' ? 'active' : ''}`}
+                  style={{ borderRadius: '6px', padding: '0.35rem 0.85rem', fontSize: '0.8rem' }}
+                >
+                  📐 Architectural CAD Plan & CCTV Vision
+                </button>
+                <button
+                  onClick={() => setTwinViewMode('station')}
+                  className={`tab-btn ${twinViewMode === 'station' ? 'active' : ''}`}
+                  style={{ borderRadius: '6px', padding: '0.35rem 0.85rem', fontSize: '0.8rem' }}
+                >
+                  🌱 Campus Carbon Twin (Secondary Station)
+                </button>
+              </div>
+            </div>
+
+            {twinViewMode === 'cad' ? (
+              <DigitalTwin onBackToDashboard={() => handleTabChange('overview')} />
+            ) : (
+              <CampusCarbonTwinView
+                onSyncObservation={(roomId, count, timestamp) => {
+                  setObservations(prev => [
+                    {
+                      id: `obs-twin-${Date.now().toString().slice(-4)}`,
+                      room_id: roomId,
+                      camera_session_id: 'cam-sess-edge-local',
+                      people_detected: count,
+                      observed_at: timestamp,
+                      received_at: new Date().toISOString(),
+                      coverage: 0.98,
+                      source: 'Campus Carbon Twin (Local AI)'
+                    },
+                    ...prev.slice(0, 49)
+                  ]);
+                  apiService.getAnalytics().then(setAnalytics).catch(() => {});
+                }}
+              />
+            )}
+          </div>
+        )}
+
+        {/* TAB: SECONDARY STATION (Port 5173 / Campus Carbon Twin) */}
+        {(activeTab === 'secondary-station' || activeTab === 'live') && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{
+              background: '#0f172a',
+              color: '#ffffff',
+              padding: '0.75rem 1.25rem',
+              borderRadius: '10px',
+              border: '1px solid #1e293b',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '0.75rem'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                <span style={{ fontSize: '1.25rem' }}>🌱</span>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Campus Carbon Twin (Secondary Station)</div>
+                  <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+                    Active station running on <strong style={{ color: '#38bdf8' }}>http://localhost:5173</strong> • Zero-PII Edge Intelligence
+                  </div>
+                </div>
+              </div>
+              <a
+                href="http://localhost:5173"
+                target="_blank"
+                rel="noreferrer"
+                className="btn-secondary"
+                style={{
+                  padding: '0.4rem 0.85rem',
+                  fontSize: '0.8rem',
+                  background: '#1e293b',
+                  color: '#38bdf8',
+                  border: '1px solid #334155',
+                  textDecoration: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem'
+                }}
+              >
+                <ExternalLink size={14} /> Open Standalone (5173)
+              </a>
+            </div>
+
             <CampusCarbonTwinView
               onSyncObservation={(roomId, count, timestamp) => {
                 setObservations(prev => [
@@ -1772,16 +1857,9 @@ export default function App() {
                   },
                   ...prev.slice(0, 49)
                 ]);
-                fetch('/api/analytics').then(r => r.json()).then(setAnalytics).catch(() => {});
+                apiService.getAnalytics().then(setAnalytics).catch(() => {});
               }}
             />
-          </div>
-        )}
-
-        {/* TAB: LIVE ROOMS TWIN MODEL (/live) */}
-        {activeTab === 'live' && (
-          <div>
-            <LiveRoomsTwinPage />
           </div>
         )}
       </main>
@@ -1934,15 +2012,11 @@ export default function App() {
             <form onSubmit={async (e) => {
               e.preventDefault();
               const formData = new FormData(e.target);
-              await fetch('/api/rooms', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  building_name: formData.get('building_name'),
-                  name: formData.get('name'),
-                  capacity: Number(formData.get('capacity')),
-                  demo_room: false
-                })
+              await apiService.createRoom({
+                building_name: formData.get('building_name'),
+                name: formData.get('name'),
+                capacity: Number(formData.get('capacity')),
+                demo_room: false
               });
               setShowNewRoomModal(false);
               showToast('Room created successfully');
@@ -1991,18 +2065,14 @@ export default function App() {
             <form onSubmit={async (e) => {
               e.preventDefault();
               const formData = new FormData(e.target);
-              await fetch('/api/equipment', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  room_id: formData.get('room_id'),
-                  name: formData.get('name'),
-                  quantity: Number(formData.get('quantity')),
-                  rated_power_w: Number(formData.get('rated_power_w')),
-                  declared_state: formData.get('declared_state'),
-                  nonessential: formData.get('nonessential') === 'on',
-                  safety_exclusion: formData.get('safety_exclusion') === 'on'
-                })
+              await apiService.createEquipment({
+                room_id: formData.get('room_id'),
+                name: formData.get('name'),
+                quantity: Number(formData.get('quantity')),
+                rated_power_w: Number(formData.get('rated_power_w')),
+                declared_state: formData.get('declared_state'),
+                nonessential: formData.get('nonessential') === 'on',
+                safety_exclusion: formData.get('safety_exclusion') === 'on'
               });
               setShowNewEquipmentModal(false);
               showToast('Equipment registered successfully');
