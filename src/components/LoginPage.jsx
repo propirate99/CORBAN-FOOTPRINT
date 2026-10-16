@@ -678,48 +678,6 @@ export default function LoginPage({ onLoginSuccess, onExploreTwin }) {
             <div style={{ flex: 1, height: '1px', background: '#e2e8f0' }} />
           </div>
 
-          {/* Digital Twin Direct Access Callout */}
-          <div style={{
-            background: 'linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%)',
-            border: '1px solid #a7f3d0',
-            borderRadius: '8px',
-            padding: '0.85rem 1rem',
-            marginBottom: '1rem',
-            textAlign: 'center'
-          }}>
-            <div style={{ fontSize: '0.725rem', fontWeight: 700, color: '#047857', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>
-              ⚡ Live Hackathon Feature
-            </div>
-            <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#064e3b', marginBottom: '0.5rem' }}>
-              Campus Energy Digital Twin & CCTV Vision
-            </div>
-            <button
-              id="btn-goto-twin-login"
-              type="button"
-              onClick={onExploreTwin}
-              className="btn-primary"
-              style={{
-                width: '100%',
-                padding: '0.6rem 0.85rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.5rem',
-                fontSize: '0.825rem',
-                background: '#059669',
-                border: 'none',
-                borderRadius: '6px',
-                color: '#ffffff',
-                fontWeight: 600,
-                cursor: 'pointer'
-              }}
-            >
-              <Activity size={16} />
-              Launch Campus Digital Twin (/twin)
-              <ArrowRight size={14} />
-            </button>
-          </div>
-
           {/* Single Sign-On Button */}
           <button
             type="button"
