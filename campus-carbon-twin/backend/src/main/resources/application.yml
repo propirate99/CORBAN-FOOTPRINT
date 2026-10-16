@@ -5,11 +5,11 @@ spring:
     active: local
 
 genai:
-  enabled: ${GENAI_ENABLED:false}
+  enabled: ${GENAI_ENABLED:true}
 
 gemini:
   api-key: ${GEMINI_API_KEY:}
-  model: ${GEMINI_MODEL:gemini-1.5-flash}
+  model: ${GEMINI_MODEL:gemini-3.5-flash}
   timeout-seconds: 8
 
 supabase:

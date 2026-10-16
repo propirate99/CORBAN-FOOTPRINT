@@ -36,14 +36,14 @@ public class GeminiExplanationProvider implements ExplanationProvider {
     private final HttpClient httpClient;
 
     public GeminiExplanationProvider(
-            @Value("${genai.enabled:${GENAI_ENABLED:false}}") boolean enabled,
+            @Value("${genai.enabled:${GENAI_ENABLED:true}}") boolean enabled,
             @Value("${gemini.api-key:${GEMINI_API_KEY:}}") String apiKey,
-            @Value("${gemini.model:${GEMINI_MODEL:gemini-1.5-flash}}") String model,
+            @Value("${gemini.model:${GEMINI_MODEL:gemini-3.5-flash}}") String model,
             @Value("${gemini.timeout-seconds:8}") int timeoutSeconds,
             ObjectMapper objectMapper) {
         this.enabled = enabled;
         this.apiKey = apiKey != null ? apiKey.trim() : "";
-        this.model = model != null && !model.isBlank() ? model.trim() : "gemini-1.5-flash";
+        this.model = model != null && !model.isBlank() ? model.trim() : "gemini-3.5-flash";
         this.timeoutSeconds = timeoutSeconds;
         this.objectMapper = objectMapper;
         this.httpClient = HttpClient.newBuilder()
