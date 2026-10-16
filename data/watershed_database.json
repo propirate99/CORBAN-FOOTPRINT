@@ -1,206 +1,230 @@
 {
   "rooms": [
     {
-      "id": "room-101",
-      "building_name": "Curie Science Complex",
-      "name": "Advanced Robotics & Automation Lab",
-      "capacity": 35,
+      "id": "ROOM-SCI-101",
+      "building_name": "Science & Innovation Hall",
+      "name": "Bio-Lab 101",
+      "capacity": 30,
+      "floor": 1,
       "demo_room": false,
       "created_at": "2024-01-10T08:00:00Z"
     },
     {
-      "id": "room-102",
-      "building_name": "Curie Science Complex",
-      "name": "Bio-Analytical Chemistry Suite",
-      "capacity": 24,
+      "id": "ROOM-SCI-204",
+      "building_name": "Science & Innovation Hall",
+      "name": "Physics Lecture Hall 204",
+      "capacity": 120,
+      "floor": 2,
       "demo_room": false,
       "created_at": "2024-01-12T09:30:00Z"
     },
     {
-      "id": "room-201",
-      "building_name": "Turing Computing Institute",
-      "name": "High-Performance GPU Cluster Lab",
-      "capacity": 40,
+      "id": "ROOM-SCI-302",
+      "building_name": "Science & Innovation Hall",
+      "name": "Chemistry Seminar 302",
+      "capacity": 45,
+      "floor": 3,
       "demo_room": false,
-      "created_at": "2024-02-01T10:15:00Z"
+      "created_at": "2024-01-15T10:00:00Z"
     },
     {
-      "id": "room-202",
-      "building_name": "Turing Computing Institute",
-      "name": "Collaborative Seminar Auditorium A",
-      "capacity": 120,
+      "id": "ROOM-ENG-110",
+      "building_name": "Turing Engineering Center",
+      "name": "Robotics Studio",
+      "capacity": 25,
+      "floor": 1,
       "demo_room": false,
-      "created_at": "2024-02-05T11:00:00Z"
+      "created_at": "2024-02-01T08:30:00Z"
     },
     {
-      "id": "room-301",
-      "building_name": "Franklin Engineering Wing",
-      "name": "Digital Fabrication & 3D Prototyping Hall",
-      "capacity": 30,
+      "id": "ROOM-ENG-220",
+      "building_name": "Turing Engineering Center",
+      "name": "Computer Architecture Lab",
+      "capacity": 60,
+      "floor": 2,
       "demo_room": false,
-      "created_at": "2024-03-01T08:45:00Z"
+      "created_at": "2024-02-05T10:15:00Z"
     },
     {
-      "id": "room-demo",
-      "building_name": "Sustainability Showcase Center",
-      "name": "Watershed Interactive Eco-Studio (Demo)",
-      "capacity": 50,
-      "demo_room": true,
-      "created_at": "2024-03-15T14:00:00Z"
+      "id": "ROOM-ENG-401",
+      "building_name": "Turing Engineering Center",
+      "name": "Graduate Research Suite",
+      "capacity": 20,
+      "floor": 4,
+      "demo_room": false,
+      "created_at": "2024-02-10T11:00:00Z"
+    },
+    {
+      "id": "ROOM-LIB-100",
+      "building_name": "W.E.B. Du Bois Central Library",
+      "name": "Main Reading Room",
+      "capacity": 200,
+      "floor": 1,
+      "demo_room": false,
+      "created_at": "2024-03-01T09:00:00Z"
+    },
+    {
+      "id": "ROOM-LIB-205",
+      "building_name": "W.E.B. Du Bois Central Library",
+      "name": "Group Study Pod B",
+      "capacity": 12,
+      "floor": 2,
+      "demo_room": false,
+      "created_at": "2024-03-05T14:00:00Z"
     }
   ],
   "equipment": [
     {
-      "id": "eq-101-1",
-      "room_id": "room-101",
-      "name": "Overhead High-Lumen LED Bay Matrix",
-      "quantity": 12,
-      "rated_power_w": 120,
+      "id": "EQ-SCI-101-1",
+      "room_id": "ROOM-SCI-101",
+      "name": "Bio-Safety Exhaust Hood & Negative Pressure Damper",
+      "quantity": 2,
+      "rated_power_w": 1200,
       "declared_state": "ON",
       "state_declared_at": "2024-10-15T08:00:00Z",
-      "nonessential": true,
-      "safety_exclusion": false
-    },
-    {
-      "id": "eq-101-2",
-      "room_id": "room-101",
-      "name": "Industrial Robotic Arm Controller Rigs",
-      "quantity": 4,
-      "rated_power_w": 750,
-      "declared_state": "ON",
-      "state_declared_at": "2024-10-15T09:00:00Z",
-      "nonessential": true,
-      "safety_exclusion": false
-    },
-    {
-      "id": "eq-101-3",
-      "room_id": "room-101",
-      "name": "Emergency Exhaust & Negative Pressure Hood",
-      "quantity": 2,
-      "rated_power_w": 1100,
-      "declared_state": "ON",
-      "state_declared_at": "2024-10-15T07:30:00Z",
       "nonessential": false,
       "safety_exclusion": true
     },
     {
-      "id": "eq-102-1",
-      "room_id": "room-102",
-      "name": "Spectrophotometer & Centrifuge Bench",
-      "quantity": 3,
-      "rated_power_w": 450,
+      "id": "EQ-SCI-101-2",
+      "room_id": "ROOM-SCI-101",
+      "name": "Lab Bench Workstation LED Luminaires",
+      "quantity": 10,
+      "rated_power_w": 95,
       "declared_state": "ON",
       "state_declared_at": "2024-10-15T08:30:00Z",
       "nonessential": true,
       "safety_exclusion": false
     },
     {
-      "id": "eq-102-2",
-      "room_id": "room-102",
-      "name": "Ultra-Low Temperature Cryo-Freezer (-80C)",
-      "quantity": 2,
-      "rated_power_w": 1250,
+      "id": "EQ-SCI-204-HVAC",
+      "room_id": "ROOM-SCI-204",
+      "name": "VAV Air Handler Unit 204",
+      "quantity": 1,
+      "rated_power_w": 3800,
       "declared_state": "ON",
-      "state_declared_at": "2024-10-15T06:00:00Z",
-      "nonessential": false,
-      "safety_exclusion": true
-    },
-    {
-      "id": "eq-102-3",
-      "room_id": "room-102",
-      "name": "Benchtop Workstation Displays",
-      "quantity": 8,
-      "rated_power_w": 85,
-      "declared_state": "ON",
-      "state_declared_at": "2024-10-15T08:45:00Z",
+      "state_declared_at": "2024-10-15T08:00:00Z",
       "nonessential": true,
       "safety_exclusion": false
     },
     {
-      "id": "eq-201-1",
-      "room_id": "room-201",
-      "name": "AI Engineering Workstations (Dual 4K + Rig)",
-      "quantity": 20,
-      "rated_power_w": 380,
+      "id": "EQ-SCI-204-LIGHT",
+      "room_id": "ROOM-SCI-204",
+      "name": "Ceiling LED Grid (40 Banks)",
+      "quantity": 1,
+      "rated_power_w": 600,
       "declared_state": "ON",
       "state_declared_at": "2024-10-15T08:15:00Z",
       "nonessential": true,
       "safety_exclusion": false
     },
     {
-      "id": "eq-201-2",
-      "room_id": "room-201",
-      "name": "Server Rack Supplemental Precision CRAC A/C",
+      "id": "EQ-SCI-204-PROJ",
+      "room_id": "ROOM-SCI-204",
+      "name": "Laser Dual Projector Rig",
       "quantity": 1,
-      "rated_power_w": 3200,
+      "rated_power_w": 420,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T09:00:00Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "EQ-SCI-302-1",
+      "room_id": "ROOM-SCI-302",
+      "name": "Smart Seminar Display Array & Lighting",
+      "quantity": 4,
+      "rated_power_w": 180,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T09:00:00Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "EQ-ENG-110-1",
+      "room_id": "ROOM-ENG-110",
+      "name": "Industrial Robotic Arm Controller Rigs",
+      "quantity": 3,
+      "rated_power_w": 750,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T08:45:00Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "EQ-ENG-110-2",
+      "room_id": "ROOM-ENG-110",
+      "name": "Emergency Chemical Fume Scrubber",
+      "quantity": 1,
+      "rated_power_w": 950,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T07:30:00Z",
+      "nonessential": false,
+      "safety_exclusion": true
+    },
+    {
+      "id": "EQ-ENG-220-HVAC",
+      "room_id": "ROOM-ENG-220",
+      "name": "Server-Grade HVAC Unit 220",
+      "quantity": 1,
+      "rated_power_w": 4200,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T08:00:00Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "EQ-ENG-220-COMP",
+      "room_id": "ROOM-ENG-220",
+      "name": "Student CAD & Simulation Workstations (30x)",
+      "quantity": 30,
+      "rated_power_w": 150,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T08:30:00Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "EQ-ENG-401-1",
+      "room_id": "ROOM-ENG-401",
+      "name": "Graduate AI Computing Cluster Rigs",
+      "quantity": 4,
+      "rated_power_w": 650,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T09:15:00Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "EQ-LIB-100-1",
+      "room_id": "ROOM-LIB-100",
+      "name": "Chilled Water VAV Ventilation Loop",
+      "quantity": 2,
+      "rated_power_w": 2800,
       "declared_state": "ON",
       "state_declared_at": "2024-10-15T07:00:00Z",
-      "nonessential": false,
-      "safety_exclusion": true
+      "nonessential": true,
+      "safety_exclusion": false
     },
     {
-      "id": "eq-202-1",
-      "room_id": "room-202",
-      "name": "Laser Projection System & Stage Par-Cans",
-      "quantity": 2,
-      "rated_power_w": 1400,
+      "id": "EQ-LIB-100-2",
+      "room_id": "ROOM-LIB-100",
+      "name": "Architectural Atrium Continuous LED Strips",
+      "quantity": 16,
+      "rated_power_w": 75,
+      "declared_state": "ON",
+      "state_declared_at": "2024-10-15T07:30:00Z",
+      "nonessential": true,
+      "safety_exclusion": false
+    },
+    {
+      "id": "EQ-LIB-205-1",
+      "room_id": "ROOM-LIB-205",
+      "name": "Study Pod Smart Display & Peripheral Station",
+      "quantity": 1,
+      "rated_power_w": 180,
       "declared_state": "ON",
       "state_declared_at": "2024-10-15T10:00:00Z",
-      "nonessential": true,
-      "safety_exclusion": false
-    },
-    {
-      "id": "eq-202-2",
-      "room_id": "room-202",
-      "name": "Auditorium Variable Air Volume HVAC Damper",
-      "quantity": 1,
-      "rated_power_w": 2400,
-      "declared_state": "ON",
-      "state_declared_at": "2024-10-15T09:30:00Z",
-      "nonessential": true,
-      "safety_exclusion": false
-    },
-    {
-      "id": "eq-301-1",
-      "room_id": "room-301",
-      "name": "High-Speed FDM 3D Printers Array",
-      "quantity": 6,
-      "rated_power_w": 350,
-      "declared_state": "OFF",
-      "state_declared_at": "2024-10-15T06:00:00Z",
-      "nonessential": true,
-      "safety_exclusion": false
-    },
-    {
-      "id": "eq-301-2",
-      "room_id": "room-301",
-      "name": "HEPA Particulate Dust Scrubber",
-      "quantity": 2,
-      "rated_power_w": 600,
-      "declared_state": "OFF",
-      "state_declared_at": "2024-10-15T06:00:00Z",
-      "nonessential": false,
-      "safety_exclusion": true
-    },
-    {
-      "id": "eq-demo-1",
-      "room_id": "room-demo",
-      "name": "Interactive Watershed Telemetry Video Wall",
-      "quantity": 1,
-      "rated_power_w": 800,
-      "declared_state": "ON",
-      "state_declared_at": "2024-10-15T09:00:00Z",
-      "nonessential": true,
-      "safety_exclusion": false
-    },
-    {
-      "id": "eq-demo-2",
-      "room_id": "room-demo",
-      "name": "Circadian Daylight Simulator Fixtures",
-      "quantity": 8,
-      "rated_power_w": 65,
-      "declared_state": "ON",
-      "state_declared_at": "2024-10-15T09:00:00Z",
       "nonessential": true,
       "safety_exclusion": false
     }
@@ -208,66 +232,97 @@
   "observations": [
     {
       "id": "obs-001",
-      "room_id": "room-101",
-      "camera_session_id": "cam-sess-curie-101-alpha",
-      "people_detected": 0,
+      "room_id": "ROOM-SCI-101",
+      "camera_session_id": "cam-sess-sci-101",
+      "people_detected": 8,
       "observed_at": "2024-10-15T12:15:00Z",
       "received_at": "2024-10-15T12:15:02Z",
       "coverage": 0.98,
-      "source": "Ceiling Edge Optical Sensor 101-North"
+      "source": "Science Hall Ceiling Optical Node 101"
     },
     {
       "id": "obs-002",
-      "room_id": "room-102",
-      "camera_session_id": "cam-sess-curie-102-beta",
-      "people_detected": 6,
+      "room_id": "ROOM-SCI-204",
+      "camera_session_id": "cam-sess-sci-204",
+      "people_detected": 0,
       "observed_at": "2024-10-15T12:18:00Z",
       "received_at": "2024-10-15T12:18:01Z",
-      "coverage": 0.92,
-      "source": "Ceiling Edge Optical Sensor 102-Central"
+      "coverage": 0.96,
+      "source": "Physics Hall Panoramic Edge Camera"
     },
     {
       "id": "obs-003",
-      "room_id": "room-201",
-      "camera_session_id": "cam-sess-turing-201-gpu",
-      "people_detected": 18,
+      "room_id": "ROOM-SCI-302",
+      "camera_session_id": "cam-sess-sci-302",
+      "people_detected": 14,
       "observed_at": "2024-10-15T12:20:00Z",
       "received_at": "2024-10-15T12:20:03Z",
-      "coverage": 0.99,
-      "source": "Turing Hallway Edge Unit 201"
+      "coverage": 0.95,
+      "source": "Chemistry Seminar Optical Mesh"
     },
     {
       "id": "obs-004",
-      "room_id": "room-202",
-      "camera_session_id": "cam-sess-turing-202-aud",
+      "room_id": "ROOM-ENG-110",
+      "camera_session_id": "cam-sess-eng-110",
       "people_detected": 0,
       "observed_at": "2024-10-15T12:22:00Z",
       "received_at": "2024-10-15T12:22:01Z",
-      "coverage": 0.95,
-      "source": "Auditorium Panoramic Edge Node"
+      "coverage": 0.97,
+      "source": "Robotics Studio Overhead Node"
     },
     {
       "id": "obs-005",
-      "room_id": "room-301",
-      "camera_session_id": "cam-sess-franklin-301",
+      "room_id": "ROOM-ENG-220",
+      "camera_session_id": "cam-sess-eng-220",
       "people_detected": 0,
-      "observed_at": "2024-10-15T12:10:00Z",
-      "received_at": "2024-10-15T12:10:02Z",
-      "coverage": 0.94,
-      "source": "Franklin Hall Overhead Mesh"
+      "observed_at": "2024-10-15T12:23:00Z",
+      "received_at": "2024-10-15T12:23:02Z",
+      "coverage": 0.99,
+      "source": "Architecture Lab Precision Edge"
     },
     {
       "id": "obs-006",
-      "room_id": "room-demo",
-      "camera_session_id": "cam-sess-demo-center",
-      "people_detected": 4,
+      "room_id": "ROOM-ENG-401",
+      "camera_session_id": "cam-sess-eng-401",
+      "people_detected": 5,
+      "observed_at": "2024-10-15T12:24:00Z",
+      "received_at": "2024-10-15T12:24:01Z",
+      "coverage": 0.94,
+      "source": "Grad Research Suite Edge Sensor"
+    },
+    {
+      "id": "obs-007",
+      "room_id": "ROOM-LIB-100",
+      "camera_session_id": "cam-sess-lib-100",
+      "people_detected": 42,
       "observed_at": "2024-10-15T12:25:00Z",
       "received_at": "2024-10-15T12:25:01Z",
-      "coverage": 1,
-      "source": "Watershed Demo Room Edge Tracker"
+      "coverage": 0.93,
+      "source": "Library Main Reading Edge Node"
+    },
+    {
+      "id": "obs-008",
+      "room_id": "ROOM-LIB-205",
+      "camera_session_id": "cam-sess-lib-205",
+      "people_detected": 0,
+      "observed_at": "2024-10-15T12:26:00Z",
+      "received_at": "2024-10-15T12:26:02Z",
+      "coverage": 0.98,
+      "source": "Study Pod B Optical Presence Node"
     }
   ],
   "emission_factors": [
+    {
+      "id": "ef-us-ne-iso",
+      "name": "US-NE-ISO Grid Subregion (Boston Metro)",
+      "value": 0.428,
+      "unit": "kg CO2e / kWh",
+      "geography": "US-NE-ISO (New England)",
+      "reporting_year": 2024,
+      "source_reference": "EPA eGRID 2024v1 / ISO-NE",
+      "gas_basis": "CO2E",
+      "factor_type": "GRID_ELECTRICITY"
+    },
     {
       "id": "ef-egrid-camx",
       "name": "US EPA eGRID CAMX Grid Subregion",
@@ -280,147 +335,121 @@
       "factor_type": "GRID_ELECTRICITY"
     },
     {
-      "id": "ef-egrid-rfcw",
-      "name": "US EPA eGRID RFC West (PJM Interconnection)",
-      "value": 0.4412,
-      "unit": "kg CO2e / kWh",
-      "geography": "US-Midwest (PJM)",
-      "reporting_year": 2024,
-      "source_reference": "EPA eGRID 2024v1 Table 2",
-      "gas_basis": "CO2E",
-      "factor_type": "GRID_ELECTRICITY"
-    },
-    {
       "id": "ef-egrid-nycw",
-      "name": "US EPA eGRID NYC / Westchester Subregion",
-      "value": 0.284,
+      "name": "US EPA eGRID NYCW (New York City)",
+      "value": 0.2642,
       "unit": "kg CO2e / kWh",
-      "geography": "US-NY (New York City)",
+      "geography": "US-NY (New York)",
       "reporting_year": 2024,
       "source_reference": "EPA eGRID 2024v1 Table 1",
       "gas_basis": "CO2E",
-      "factor_type": "GRID_ELECTRICITY"
-    },
-    {
-      "id": "ef-defra-uk",
-      "name": "UK DEFRA National Grid Electricity Average",
-      "value": 0.2071,
-      "unit": "kg CO2e / kWh",
-      "geography": "United Kingdom",
-      "reporting_year": 2024,
-      "source_reference": "UK Department for Energy Security & Net Zero GHG Factors",
-      "gas_basis": "CO2E",
-      "factor_type": "GRID_ELECTRICITY"
-    },
-    {
-      "id": "ef-iea-eu",
-      "name": "IEA European Union 27 Average Electricity Mix",
-      "value": 0.231,
-      "unit": "kg CO2e / kWh",
-      "geography": "European Union",
-      "reporting_year": 2023,
-      "source_reference": "IEA World Energy Outlook GHG Statistics",
-      "gas_basis": "CO2",
       "factor_type": "GRID_ELECTRICITY"
     }
   ],
   "scenarios": [
     {
       "id": "scen-001",
-      "room_id": "room-101",
+      "room_id": "ROOM-SCI-204",
       "created_at": "2024-10-10T14:30:00Z",
       "input_snapshot_json": {
-        "room_id": "room-101",
-        "room_name": "Advanced Robotics & Automation Lab",
-        "building_name": "Curie Science Complex",
-        "policy_name": "Automate Idle Robotics Lab Standby & High-Bay Lighting",
-        "target_hours_saved_per_day": 5.5,
-        "emission_factor_used": {
-          "id": "ef-egrid-rfcw",
-          "name": "US EPA eGRID RFC West (PJM Interconnection)",
-          "value": 0.4412,
-          "unit": "kg CO2e / kWh",
-          "gas_basis": "CO2E"
+        "room_id": "ROOM-SCI-204",
+        "room_name": "Physics Lecture Hall 204",
+        "building_name": "Science & Innovation Hall",
+        "policy_name": "Automated Vacancy Setback & Equipment Standby Timeout",
+        "hours_saved_per_day": 5,
+        "emission_factor_snapshot": {
+          "id": "ef-us-ne-iso",
+          "name": "US-NE-ISO Grid Subregion (Boston Metro)",
+          "value": 0.428,
+          "unit": "kg CO2e / kWh"
         },
         "equipment_snapshot": [
           {
-            "id": "eq-101-1",
-            "name": "Overhead High-Lumen LED Bay Matrix",
-            "quantity": 12,
-            "rated_power_w": 120,
+            "id": "EQ-SCI-204-HVAC",
+            "name": "VAV Air Handler Unit 204",
+            "quantity": 1,
+            "rated_power_w": 3800,
             "nonessential": true,
             "safety_exclusion": false,
-            "effective_controllable_power_w": 1440
+            "effective_controllable_power_w": 3800
           },
           {
-            "id": "eq-101-2",
-            "name": "Industrial Robotic Arm Controller Rigs",
-            "quantity": 4,
-            "rated_power_w": 750,
+            "id": "EQ-SCI-204-LIGHT",
+            "name": "Ceiling LED Grid (40 Banks)",
+            "quantity": 1,
+            "rated_power_w": 600,
             "nonessential": true,
             "safety_exclusion": false,
-            "effective_controllable_power_w": 3000
+            "effective_controllable_power_w": 600
+          },
+          {
+            "id": "EQ-SCI-204-PROJ",
+            "name": "Laser Dual Projector Rig",
+            "quantity": 1,
+            "rated_power_w": 420,
+            "nonessential": true,
+            "safety_exclusion": false,
+            "effective_controllable_power_w": 420
           }
         ],
-        "total_controllable_power_w": 4440
+        "total_controllable_power_w": 4820
       },
       "result_snapshot_json": {
-        "daily_kwh_avoided": 24.42,
-        "annual_kwh_avoided": 6349.2,
-        "annual_avoided_emissions_kg_co2e": 2801.27,
-        "annual_avoided_emissions_t_co2e": 2.8,
-        "estimated_annual_cost_savings_usd": 1079.36,
-        "confidence_score": 0.94,
-        "payback_period_months": 1.8
+        "daily_kwh_avoided": 24.1,
+        "annual_kwh_avoided": 6266,
+        "annual_avoided_emissions_kg_co2e": 2681.85,
+        "annual_avoided_emissions_t_co2e": 2.68,
+        "estimated_annual_cost_savings_usd": 1065.22,
+        "confidence_score": 0.98,
+        "payback_period_months": 1.4
       }
     },
     {
       "id": "scen-002",
-      "room_id": "room-202",
+      "room_id": "ROOM-ENG-220",
       "created_at": "2024-10-12T16:00:00Z",
       "input_snapshot_json": {
-        "room_id": "room-202",
-        "room_name": "Collaborative Seminar Auditorium A",
-        "building_name": "Turing Computing Institute",
-        "policy_name": "Occupancy-Triggered AV & HVAC Setback Interlock",
-        "target_hours_saved_per_day": 6,
-        "emission_factor_used": {
-          "id": "ef-egrid-rfcw",
-          "name": "US EPA eGRID RFC West (PJM Interconnection)",
-          "value": 0.4412,
-          "unit": "kg CO2e / kWh",
-          "gas_basis": "CO2E"
+        "room_id": "ROOM-ENG-220",
+        "room_name": "Computer Architecture Lab",
+        "building_name": "Turing Engineering Center",
+        "policy_name": "Lab Workstation Dynamic Sleep & HVAC Economy Cycle",
+        "hours_saved_per_day": 6,
+        "emission_factor_snapshot": {
+          "id": "ef-us-ne-iso",
+          "name": "US-NE-ISO Grid Subregion (Boston Metro)",
+          "value": 0.428,
+          "unit": "kg CO2e / kWh"
         },
         "equipment_snapshot": [
           {
-            "id": "eq-202-1",
-            "name": "Laser Projection System & Stage Par-Cans",
-            "quantity": 2,
-            "rated_power_w": 1400,
+            "id": "EQ-ENG-220-HVAC",
+            "name": "Server-Grade HVAC Unit 220",
+            "quantity": 1,
+            "rated_power_w": 4200,
             "nonessential": true,
             "safety_exclusion": false,
-            "effective_controllable_power_w": 2800
+            "effective_controllable_power_w": 4200
           },
           {
-            "id": "eq-202-2",
-            "name": "Auditorium Variable Air Volume HVAC Damper",
-            "quantity": 1,
-            "rated_power_w": 2400,
+            "id": "EQ-ENG-220-COMP",
+            "name": "Student CAD & Simulation Workstations (30x)",
+            "quantity": 30,
+            "rated_power_w": 150,
             "nonessential": true,
             "safety_exclusion": false,
-            "effective_controllable_power_w": 2400
+            "effective_controllable_power_w": 4500
           }
         ],
-        "total_controllable_power_w": 5200
+        "total_controllable_power_w": 8700
       },
       "result_snapshot_json": {
-        "daily_kwh_avoided": 31.2,
-        "annual_kwh_avoided": 8112,
-        "annual_avoided_emissions_kg_co2e": 3578.96,
-        "annual_avoided_emissions_t_co2e": 3.58,
-        "estimated_annual_cost_savings_usd": 1379.04,
-        "confidence_score": 0.96,
-        "payback_period_months": 1.2
+        "daily_kwh_avoided": 52.2,
+        "annual_kwh_avoided": 13572,
+        "annual_avoided_emissions_kg_co2e": 5808.82,
+        "annual_avoided_emissions_t_co2e": 5.81,
+        "estimated_annual_cost_savings_usd": 2307.24,
+        "confidence_score": 0.97,
+        "payback_period_months": 0.9
       }
     }
   ],
@@ -432,7 +461,7 @@
       "approved_at": "2024-10-11T09:00:00Z",
       "completed_at": "2024-10-14T15:30:00Z",
       "completion_method": "HUMAN_CONFIRMED",
-      "completion_note": "Facility Engineer J. Martinez verified hardware relay interlock installed on robotics bench power circuits. Idle standby confirmed at 0W when room sensor reads vacant for >15 mins."
+      "completion_note": "Physical Plant Engineer verified Crestron relay integration in Room 204. Standby power confirmed 0W after 15-minute vacancy."
     },
     {
       "id": "act-002",
@@ -441,7 +470,39 @@
       "approved_at": "2024-10-13T11:20:00Z",
       "completed_at": null,
       "completion_method": "HUMAN_CONFIRMED",
-      "completion_note": "Approved by Campus Energy Manager. Work order #WO-9921 scheduled with electrical team for Crestron AV automation setback."
+      "completion_note": "Approved by Campus Energy Manager. Work order #WO-1049 assigned to engineering hardware staff."
+    }
+  ],
+  "users": [
+    {
+      "id": "usr-admin",
+      "name": "Dr. Elena Vance",
+      "email": "director@carbontwin.edu",
+      "password": "admin123",
+      "role": "Chief Sustainability Officer",
+      "badge": "CSO",
+      "department": "Campus Climate & Sustainability Office",
+      "created_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "usr-operations",
+      "name": "Marcus Chen",
+      "email": "marcus@carbontwin.edu",
+      "password": "facilitypass2026",
+      "role": "Facility Operations Engineer",
+      "department": "Physical Plant & Hardware Relay",
+      "badge": "STAFF",
+      "created_at": "2026-10-15T10:37:16.793Z"
+    },
+    {
+      "id": "usr-auditor",
+      "name": "Dr. Alexander Ward",
+      "email": "award@carbontwin.edu",
+      "password": "password123",
+      "role": "Campus Energy Auditor",
+      "department": "School of Architecture & Sustainability",
+      "badge": "STAFF",
+      "created_at": "2026-10-15T10:38:51.459Z"
     }
   ]
 }
