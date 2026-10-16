@@ -35,7 +35,7 @@ export default function CameraPipModal({
   const [isMinimized, setIsMinimized] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Redraw COCO-SSD bounding boxes on the overlay canvas
+  // Redraw COCO-SSD / MediaPipe bounding boxes on the overlay canvas
   useEffect(() => {
     if (!overlayCanvasRef.current || !videoRef.current) return;
     const canvas = overlayCanvasRef.current;
@@ -44,13 +44,21 @@ export default function CameraPipModal({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    if (video.videoWidth > 0 && video.videoHeight > 0) {
+      if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+      }
+    }
+
     // Clear previous drawings
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (isCameraActive && detections && detections.length > 0) {
       detections.forEach((det, i) => {
+        if (!det || !det.bbox) return;
         const [x, y, w, h] = det.bbox;
-        const score = Math.round(det.score * 100);
+        const score = Math.round((det.score || 0.9) * 100);
 
         // Draw bounding box
         ctx.strokeStyle = '#10b981';
