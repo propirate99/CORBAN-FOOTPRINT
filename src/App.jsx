@@ -4,7 +4,7 @@ import {
   AlertTriangle, RefreshCw, Plus, Clock, Globe, ArrowUpRight,
   TrendingDown, Building2, HardDrive, Filter, Download, Eye, X,
   Check, AlertCircle, FileText, Lock, Sliders, ChevronRight, LogOut, User,
-  Calculator, Activity
+  Calculator, Activity, ExternalLink
 } from 'lucide-react';
 import LoginPage from './components/LoginPage';
 import DigitalTwin from './components/DigitalTwin';
@@ -32,7 +32,7 @@ export default function App() {
     const h = window.location.hash.replace(/^#\/?/, '').toLowerCase();
     const route = p || h;
     if (route === 'twin' || route.startsWith('twin')) return 'twin';
-    if (route === 'live' || route.startsWith('live')) return 'live';
+    if (route === 'secondary-station' || route.startsWith('secondary-station') || route === 'live' || route.startsWith('live')) return 'secondary-station';
     if (route === 'calculator') return 'calculator';
     if (route === 'facilities') return 'facilities';
     if (route === 'equipment') return 'equipment';
@@ -616,9 +616,10 @@ export default function App() {
         </button>
 
         <button
-          className={`tab-btn ${activeTab === 'live' ? 'active' : ''}`}
-          onClick={() => navigateTo('live')}
+          className={`tab-btn ${activeTab === 'secondary-station' || activeTab === 'live' ? 'active' : ''}`}
+          onClick={() => navigateTo('secondary-station')}
           style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}
+          title="Campus Carbon Twin Secondary Station (Port 5173)"
         >
           <span
             className="animate-pulse-live"
@@ -626,13 +627,13 @@ export default function App() {
               width: '8px',
               height: '8px',
               borderRadius: '50%',
-              backgroundColor: '#10b981',
+              backgroundColor: '#38bdf8',
               display: 'inline-block',
-              boxShadow: '0 0 6px #10b981'
+              boxShadow: '0 0 6px #38bdf8'
             }}
           />
-          Live
-          <span className="pill pill-indigo" style={{ fontSize: '0.7rem' }}>Rooms Model</span>
+          Secondary Station
+          <span className="pill pill-slate" style={{ fontSize: '0.7rem' }}>Port 5173</span>
         </button>
 
         <button
@@ -1812,10 +1813,69 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB: LIVE ROOMS TWIN MODEL (/live) */}
-        {activeTab === 'live' && (
-          <div>
-            <LiveRoomsTwinPage />
+        {/* TAB: SECONDARY STATION (Port 5173 / Campus Carbon Twin) */}
+        {(activeTab === 'secondary-station' || activeTab === 'live') && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{
+              background: '#0f172a',
+              color: '#ffffff',
+              padding: '0.75rem 1.25rem',
+              borderRadius: '10px',
+              border: '1px solid #1e293b',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '0.75rem'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                <span style={{ fontSize: '1.25rem' }}>🌱</span>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Campus Carbon Twin (Secondary Station)</div>
+                  <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+                    Active station running on <strong style={{ color: '#38bdf8' }}>http://localhost:5173</strong> • Zero-PII Edge Intelligence
+                  </div>
+                </div>
+              </div>
+              <a
+                href="http://localhost:5173"
+                target="_blank"
+                rel="noreferrer"
+                className="btn-secondary"
+                style={{
+                  padding: '0.4rem 0.85rem',
+                  fontSize: '0.8rem',
+                  background: '#1e293b',
+                  color: '#38bdf8',
+                  border: '1px solid #334155',
+                  textDecoration: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem'
+                }}
+              >
+                <ExternalLink size={14} /> Open Standalone (5173)
+              </a>
+            </div>
+
+            <CampusCarbonTwinView
+              onSyncObservation={(roomId, count, timestamp) => {
+                setObservations(prev => [
+                  {
+                    id: `obs-twin-${Date.now().toString().slice(-4)}`,
+                    room_id: roomId,
+                    camera_session_id: 'cam-sess-edge-local',
+                    people_detected: count,
+                    observed_at: timestamp,
+                    received_at: new Date().toISOString(),
+                    coverage: 0.98,
+                    source: 'Campus Carbon Twin (Local AI)'
+                  },
+                  ...prev.slice(0, 49)
+                ]);
+                fetch('/api/analytics').then(r => r.json()).then(setAnalytics).catch(() => {});
+              }}
+            />
           </div>
         )}
       </main>
