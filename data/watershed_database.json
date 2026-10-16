@@ -281,6 +281,16 @@
       "source": "Architecture Lab Precision Edge"
     },
     {
+      "id": "obs-006",
+      "room_id": "ROOM-ENG-401",
+      "camera_session_id": "cam-sess-eng-401",
+      "people_detected": 5,
+      "observed_at": "2024-10-15T12:24:00Z",
+      "received_at": "2024-10-15T12:24:01Z",
+      "coverage": 0.94,
+      "source": "Grad Research Suite Edge Sensor"
+    },
+    {
       "id": "obs-007",
       "room_id": "ROOM-LIB-100",
       "camera_session_id": "cam-sess-lib-100",

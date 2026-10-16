@@ -507,7 +507,7 @@ class Database {
     }
     if (this.data.observations) {
       const before = this.data.observations.length;
-      this.data.observations = this.data.observations.filter(o => o.room_id !== 'room-demo' && o.id !== 'obs-006');
+      this.data.observations = this.data.observations.filter(o => o.room_id !== 'room-demo' && o.camera_session_id !== 'cam-sess-demo-center');
       if (this.data.observations.length !== before) modified = true;
     }
     if (modified) {
