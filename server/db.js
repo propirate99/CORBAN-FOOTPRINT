@@ -471,11 +471,12 @@ class Database {
       if (fs.existsSync(DB_FILE)) {
         const raw = fs.readFileSync(DB_FILE, 'utf8');
         this.data = JSON.parse(raw);
+        // Ensure legacy file is also synced with custom carbon database
+        try { fs.writeFileSync(LEGACY_DB_FILE, raw, 'utf8'); } catch (err) {}
       } else if (fs.existsSync(LEGACY_DB_FILE)) {
         const raw = fs.readFileSync(LEGACY_DB_FILE, 'utf8');
         this.data = JSON.parse(raw);
         this.save();
-        try { fs.unlinkSync(LEGACY_DB_FILE); } catch (err) {}
       } else {
         this.data = JSON.parse(JSON.stringify(defaultData));
         this.save();
@@ -516,7 +517,11 @@ class Database {
 
   save() {
     try {
-      fs.writeFileSync(DB_FILE, JSON.stringify(this.data, null, 2), 'utf8');
+      const json = JSON.stringify(this.data, null, 2);
+      fs.writeFileSync(DB_FILE, json, 'utf8');
+      try {
+        fs.writeFileSync(LEGACY_DB_FILE, json, 'utf8');
+      } catch (err) {}
     } catch (e) {
       console.error('Error writing DB file:', e);
     }
