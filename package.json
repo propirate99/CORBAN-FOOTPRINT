@@ -9,7 +9,7 @@
     "client": "vite --port 3000 --host",
     "build": "vite build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist -t true",
+    "deploy": "gh-pages -d dist --dotfiles --nojekyll",
     "preview": "vite preview",
     "dev": "node start.js"
   },
