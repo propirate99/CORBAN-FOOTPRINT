@@ -33,6 +33,7 @@ public class ObservationController {
         this(authUserResolver, observationRepository, roomRepository, new RoomStateService());
     }
 
+    @org.springframework.beans.factory.annotation.Autowired
     public ObservationController(AuthUserResolver authUserResolver,
                                  ObservationRepository observationRepository,
                                  RoomRepository roomRepository,
