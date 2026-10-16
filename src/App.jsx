@@ -11,6 +11,8 @@ import DigitalTwin from './components/DigitalTwin';
 import CameraStation from './components/camera-station/CameraStation';
 import CarbonCalculator from './components/calculator/CarbonCalculator';
 import RoomStatusInterface from './components/room-status/RoomStatusInterface';
+import CampusCarbonTwinView from './components/campus-carbon-twin/CampusCarbonTwinView';
+import LiveRoomsTwinPage from './components/live-twin/LiveRoomsTwinPage';
 import './components/camera-station/CameraStation.css';
 import './components/calculator/styles/calculator.css';
 
@@ -24,49 +26,49 @@ export default function App() {
     }
   });
 
-  const [activeTab, setActiveTab] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const p = window.location.pathname;
-      const h = window.location.hash;
-      if (p === '/twin' || p.startsWith('/twin') || h === '#twin' || h === '#/twin') {
-        return 'twin';
-      }
-    }
+  const getTabFromRoute = () => {
+    if (typeof window === 'undefined') return 'overview';
+    const p = window.location.pathname.replace(/^\/+/, '').toLowerCase();
+    const h = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+    const route = p || h;
+    if (route === 'twin' || route.startsWith('twin')) return 'twin';
+    if (route === 'live' || route.startsWith('live')) return 'live';
+    if (route === 'calculator') return 'calculator';
+    if (route === 'facilities') return 'facilities';
+    if (route === 'equipment') return 'equipment';
+    if (route === 'observations') return 'observations';
+    if (route === 'camera-station') return 'camera-station';
+    if (route === 'room-status') return 'room-status';
+    if (route === 'scenarios') return 'scenarios';
+    if (route === 'actions') return 'actions';
+    if (route === 'emission-factors') return 'emission-factors';
+    if (route === 'database') return 'database';
     return 'overview';
-  });
+  };
 
-  const handleTabChange = (tab) => {
+  const [activeTab, setActiveTab] = useState(getTabFromRoute);
+
+  const navigateTo = (tab) => {
     setActiveTab(tab);
     if (typeof window !== 'undefined') {
-      if (tab === 'twin') {
-        if (window.location.pathname !== '/twin') {
-          window.history.pushState(null, '', '/twin');
-        }
-      } else {
-        if (window.location.pathname === '/twin') {
-          window.history.pushState(null, '', '/');
-        }
+      const targetPath = tab === 'overview' ? '/' : `/${tab}`;
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({ tab }, '', targetPath);
       }
     }
   };
 
+  const handleTabChange = navigateTo;
+
   useEffect(() => {
-    const handleUrlChange = () => {
-      if (typeof window !== 'undefined') {
-        const p = window.location.pathname;
-        const h = window.location.hash;
-        if (p === '/twin' || p.startsWith('/twin') || h === '#twin' || h === '#/twin') {
-          setActiveTab('twin');
-        } else if (p === '/' || p === '') {
-          setActiveTab(prev => prev === 'twin' ? 'overview' : prev);
-        }
-      }
+    const handlePopState = () => {
+      setActiveTab(getTabFromRoute());
     };
-    window.addEventListener('popstate', handleUrlChange);
-    window.addEventListener('hashchange', handleUrlChange);
+    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handlePopState);
     return () => {
-      window.removeEventListener('popstate', handleUrlChange);
-      window.removeEventListener('hashchange', handleUrlChange);
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handlePopState);
     };
   }, []);
   const [analytics, setAnalytics] = useState(null);
@@ -542,22 +544,8 @@ export default function App() {
         overflowX: 'auto'
       }}>
         <button
-          id="nav-twin"
-          className={`tab-btn ${activeTab === 'twin' ? 'active' : ''}`}
-          onClick={() => handleTabChange('twin')}
-          style={{
-            color: activeTab === 'twin' ? '#059669' : undefined,
-            borderBottomColor: activeTab === 'twin' ? '#059669' : undefined
-          }}
-        >
-          <Activity size={16} color={activeTab === 'twin' ? '#059669' : '#10b981'} />
-          Digital Twin (CCTV Vision)
-          <span className="pill pill-emerald" style={{ fontSize: '0.7rem', fontWeight: 700 }}>Live</span>
-        </button>
-
-        <button
           className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
-          onClick={() => handleTabChange('overview')}
+          onClick={() => navigateTo('overview')}
         >
           <Leaf size={16} />
           Executive Carbon Overview
@@ -565,7 +553,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'facilities' ? 'active' : ''}`}
-          onClick={() => handleTabChange('facilities')}
+          onClick={() => navigateTo('facilities')}
         >
           <Building2 size={16} />
           Facilities & Digital Twin
@@ -574,7 +562,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'equipment' ? 'active' : ''}`}
-          onClick={() => setActiveTab('equipment')}
+          onClick={() => navigateTo('equipment')}
         >
           <HardDrive size={16} />
           Equipment & Load Inventory
@@ -583,7 +571,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'observations' ? 'active' : ''}`}
-          onClick={() => setActiveTab('observations')}
+          onClick={() => navigateTo('observations')}
         >
           <Camera size={16} />
           Vision Observations
@@ -592,7 +580,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'camera-station' ? 'active' : ''}`}
-          onClick={() => setActiveTab('camera-station')}
+          onClick={() => navigateTo('camera-station')}
         >
           <Camera size={16} />
           Camera Station
@@ -601,7 +589,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'room-status' ? 'active' : ''}`}
-          onClick={() => setActiveTab('room-status')}
+          onClick={() => navigateTo('room-status')}
         >
           <Building2 size={16} />
           Room Status
@@ -610,7 +598,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'calculator' ? 'active' : ''}`}
-          onClick={() => setActiveTab('calculator')}
+          onClick={() => navigateTo('calculator')}
         >
           <Calculator size={16} />
           Carbon Calculator
@@ -618,8 +606,37 @@ export default function App() {
         </button>
 
         <button
+          className={`tab-btn ${activeTab === 'twin' ? 'active' : ''}`}
+          onClick={() => navigateTo('twin')}
+        >
+          <Leaf size={16} />
+          Twin
+          <span className="pill pill-emerald" style={{ fontSize: '0.7rem' }}>2D Twin</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'live' ? 'active' : ''}`}
+          onClick={() => navigateTo('live')}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}
+        >
+          <span
+            className="animate-pulse-live"
+            style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              backgroundColor: '#10b981',
+              display: 'inline-block',
+              boxShadow: '0 0 6px #10b981'
+            }}
+          />
+          Live
+          <span className="pill pill-indigo" style={{ fontSize: '0.7rem' }}>Rooms Model</span>
+        </button>
+
+        <button
           className={`tab-btn ${activeTab === 'scenarios' ? 'active' : ''}`}
-          onClick={() => setActiveTab('scenarios')}
+          onClick={() => navigateTo('scenarios')}
         >
           <Sliders size={16} />
           Scenario Modeler
@@ -628,7 +645,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'actions' ? 'active' : ''}`}
-          onClick={() => setActiveTab('actions')}
+          onClick={() => navigateTo('actions')}
         >
           <CheckCircle2 size={16} />
           Climate Action Plan
@@ -637,7 +654,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'emission-factors' ? 'active' : ''}`}
-          onClick={() => setActiveTab('emission-factors')}
+          onClick={() => navigateTo('emission-factors')}
         >
           <Globe size={16} />
           Emission Factors
@@ -646,7 +663,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'database' ? 'active' : ''}`}
-          onClick={() => setActiveTab('database')}
+          onClick={() => navigateTo('database')}
         >
           <FileText size={16} />
           Carbon Database
@@ -1734,6 +1751,37 @@ export default function App() {
         {activeTab === 'calculator' && (
           <div>
             <CarbonCalculator />
+          </div>
+        )}
+
+        {/* TAB: CAMPUS CARBON TWIN (/twin) */}
+        {activeTab === 'twin' && (
+          <div>
+            <CampusCarbonTwinView
+              onSyncObservation={(roomId, count, timestamp) => {
+                setObservations(prev => [
+                  {
+                    id: `obs-twin-${Date.now().toString().slice(-4)}`,
+                    room_id: roomId,
+                    camera_session_id: 'cam-sess-edge-local',
+                    people_detected: count,
+                    observed_at: timestamp,
+                    received_at: new Date().toISOString(),
+                    coverage: 0.98,
+                    source: 'Campus Carbon Twin (Local AI)'
+                  },
+                  ...prev.slice(0, 49)
+                ]);
+                fetch('/api/analytics').then(r => r.json()).then(setAnalytics).catch(() => {});
+              }}
+            />
+          </div>
+        )}
+
+        {/* TAB: LIVE ROOMS TWIN MODEL (/live) */}
+        {activeTab === 'live' && (
+          <div>
+            <LiveRoomsTwinPage />
           </div>
         )}
       </main>
