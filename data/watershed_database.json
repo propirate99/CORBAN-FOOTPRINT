@@ -231,122 +231,32 @@
   ],
   "observations": [
     {
-      "id": "obs-1792138320920",
-      "room_id": "ROOM-ENG-401",
-      "camera_session_id": "live-sess-mvaovuhk",
+      "id": "obs-1792142744043",
+      "room_id": "ROOM-SCI-101",
+      "camera_session_id": "91d9e207-f86d-438c-af1e-147026ea983f",
+      "people_detected": 2,
+      "observed_at": "2026-10-16T09:25:43.787Z",
+      "received_at": "2026-10-16T09:25:44.043Z",
+      "coverage": 0.96,
+      "source": "BROWSER_CAMERA"
+    },
+    {
+      "id": "obs-1792142739235",
+      "room_id": "ROOM-SCI-101",
+      "camera_session_id": "91d9e207-f86d-438c-af1e-147026ea983f",
       "people_detected": 5,
-      "observed_at": "2026-10-16T08:12:00.920Z",
-      "received_at": "2026-10-16T08:12:00.920Z",
-      "coverage": 0.97,
-      "source": "Ceiling Edge AI Node Graduate Res"
-    },
-    {
-      "id": "obs-1792138149130",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "9934c570-7dec-4b6c-be24-9db60f7de042",
-      "people_detected": 3,
-      "observed_at": "2026-10-16T08:09:08.958Z",
-      "received_at": "2026-10-16T08:09:09.130Z",
+      "observed_at": "2026-10-16T09:25:39.213Z",
+      "received_at": "2026-10-16T09:25:39.235Z",
       "coverage": 0.96,
       "source": "BROWSER_CAMERA"
     },
     {
-      "id": "obs-1792138144130",
+      "id": "obs-1792142734127",
       "room_id": "ROOM-SCI-101",
-      "camera_session_id": "9934c570-7dec-4b6c-be24-9db60f7de042",
-      "people_detected": 3,
-      "observed_at": "2026-10-16T08:09:03.830Z",
-      "received_at": "2026-10-16T08:09:04.130Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792138139132",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "9934c570-7dec-4b6c-be24-9db60f7de042",
-      "people_detected": 4,
-      "observed_at": "2026-10-16T08:08:58.742Z",
-      "received_at": "2026-10-16T08:08:59.132Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792138134168",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "9934c570-7dec-4b6c-be24-9db60f7de042",
-      "people_detected": 3,
-      "observed_at": "2026-10-16T08:08:54.163Z",
-      "received_at": "2026-10-16T08:08:54.168Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792138129130",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "9934c570-7dec-4b6c-be24-9db60f7de042",
-      "people_detected": 3,
-      "observed_at": "2026-10-16T08:08:49.097Z",
-      "received_at": "2026-10-16T08:08:49.130Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792138124129",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "9934c570-7dec-4b6c-be24-9db60f7de042",
-      "people_detected": 3,
-      "observed_at": "2026-10-16T08:08:44.009Z",
-      "received_at": "2026-10-16T08:08:44.129Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792138119131",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "9934c570-7dec-4b6c-be24-9db60f7de042",
-      "people_detected": 4,
-      "observed_at": "2026-10-16T08:08:38.925Z",
-      "received_at": "2026-10-16T08:08:39.131Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792138114131",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "9934c570-7dec-4b6c-be24-9db60f7de042",
+      "camera_session_id": "91d9e207-f86d-438c-af1e-147026ea983f",
       "people_detected": 2,
-      "observed_at": "2026-10-16T08:08:33.829Z",
-      "received_at": "2026-10-16T08:08:34.131Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792138109133",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "9934c570-7dec-4b6c-be24-9db60f7de042",
-      "people_detected": 2,
-      "observed_at": "2026-10-16T08:08:28.779Z",
-      "received_at": "2026-10-16T08:08:29.133Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792137065931",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "df2d3806-c9df-401f-b9cb-5b1b551895cc",
-      "people_detected": 2,
-      "observed_at": "2026-10-16T07:51:05.578Z",
-      "received_at": "2026-10-16T07:51:05.931Z",
-      "coverage": 0.96,
-      "source": "BROWSER_CAMERA"
-    },
-    {
-      "id": "obs-1792136960123",
-      "room_id": "ROOM-SCI-101",
-      "camera_session_id": "71f3180e-988f-4620-929c-dfce78d11581",
-      "people_detected": 1,
-      "observed_at": "2026-10-16T07:49:19.772Z",
-      "received_at": "2026-10-16T07:49:20.123Z",
+      "observed_at": "2026-10-16T09:25:34.109Z",
+      "received_at": "2026-10-16T09:25:34.127Z",
       "coverage": 0.96,
       "source": "BROWSER_CAMERA"
     },
@@ -638,11 +548,11 @@
     {
       "id": "act-002",
       "scenario_id": "scen-002",
-      "status": "APPROVED",
+      "status": "COMPLETED",
       "approved_at": "2024-10-13T11:20:00Z",
-      "completed_at": null,
+      "completed_at": "2026-10-16T09:26:51.928Z",
       "completion_method": "HUMAN_CONFIRMED",
-      "completion_note": "Approved by Campus Energy Manager. Work order #WO-1049 assigned to engineering hardware staff."
+      "completion_note": "Facility engineer verified automated vacancy setback operational."
     }
   ],
   "users": [
@@ -675,6 +585,16 @@
       "department": "School of Architecture & Sustainability",
       "badge": "STAFF",
       "created_at": "2026-10-15T10:38:51.459Z"
+    },
+    {
+      "id": "usr-1792133942593",
+      "name": "rudra",
+      "email": "rudra818@gmail.com",
+      "password": "rudra@818",
+      "role": "Facility Operations Engineer",
+      "department": "faculty",
+      "badge": "STAFF",
+      "created_at": "2026-10-16T06:59:02.593Z"
     }
   ]
 }
