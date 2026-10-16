@@ -215,6 +215,15 @@ body {
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .tab-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    gap: 0.35rem;
+  }
 }
 
 .tab-btn:hover {
@@ -226,6 +235,7 @@ body {
   color: var(--color-emerald-primary);
   border-bottom-color: var(--color-emerald-primary);
 }
+
 
 /* Tables */
 .carbon-table,
@@ -259,3 +269,478 @@ body {
 .watershed-table tr:hover td {
   background-color: #f8fafc;
 }
+
+/* ==========================================================================
+   Campus Energy Digital Twin Styles
+   ========================================================================== */
+
+:root {
+  --twin-bg: #f8fafc;
+  --twin-panel: #ffffff;
+  --twin-ink: #0f172a;
+  --twin-mute: #64748b;
+  --twin-line: #cbd5e1;
+  --twin-ok: #10b981;
+  --twin-warn: #f59e0b;
+  --twin-leak: #ef4444;
+  --twin-acc: #059669;
+}
+
+.twin-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.twin-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 960px) {
+  .twin-grid {
+    grid-template-columns: 1.35fr 1fr;
+  }
+}
+
+.twin-card {
+  background: var(--twin-panel);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.twin-card h2 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--twin-ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* SVG Floor Plan */
+.twin-map-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #f1f5f9;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.twin-map-svg .corr {
+  fill: #cbd5e1;
+}
+
+.twin-map-svg .room {
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.15s ease;
+}
+
+.twin-map-svg .room:hover {
+  filter: brightness(1.05);
+}
+
+.twin-map-svg .room:focus-visible {
+  outline: 3px solid var(--twin-acc);
+  outline-offset: 3px;
+}
+
+.twin-map-svg .ext {
+  fill: #0f172a;
+  fill-opacity: 0.12;
+}
+
+.twin-map-svg .face {
+  stroke-width: 2;
+  fill-opacity: 0.22;
+  transition: stroke-width 0.15s ease, fill 0.2s ease;
+}
+
+.twin-map-svg .face.ok {
+  fill: var(--twin-ok);
+  stroke: var(--twin-ok);
+}
+
+.twin-map-svg .face.warn {
+  fill: var(--twin-warn);
+  stroke: var(--twin-warn);
+  fill-opacity: 0.3;
+}
+
+.twin-map-svg .face.leak {
+  fill: var(--twin-leak);
+  stroke: var(--twin-leak);
+  fill-opacity: 0.4;
+  animation: twinLeakPulse 1.4s ease-in-out infinite;
+}
+
+.twin-map-svg .room.sel .face {
+  stroke-width: 4.5;
+  stroke: #047857;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
+}
+
+.twin-map-svg .room.sel .face.leak {
+  stroke: #b91c1c;
+}
+
+.twin-map-svg .room.sel .face.warn {
+  stroke: #b45309;
+}
+
+.twin-map-svg .t1 {
+  font-size: 14px;
+  font-weight: 700;
+  fill: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.twin-map-svg .big {
+  font-size: 26px;
+  font-weight: 800;
+  fill: #0f172a;
+  font-variant-numeric: tabular-nums;
+}
+
+.twin-map-svg .t2 {
+  font-size: 13px;
+  font-weight: 500;
+  fill: #334155;
+}
+
+@keyframes twinLeakPulse {
+  0%, 100% {
+    fill-opacity: 0.42;
+  }
+  50% {
+    fill-opacity: 0.15;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .twin-map-svg .face.leak {
+    animation: none;
+  }
+}
+
+/* Floor Plan Legend */
+.twin-legend {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  font-size: 0.825rem;
+  color: var(--twin-mute);
+  margin-top: 0.85rem;
+  padding: 0.5rem 0.75rem;
+  background: #f8fafc;
+  border-radius: 6px;
+}
+
+.twin-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.twin-legend i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+/* Stats Ribbon */
+.twin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+}
+
+.twin-stat-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.75rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.twin-stat-box b {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0f172a;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.twin-stat-box span {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+/* Controls */
+.twin-btn-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.twin-btn {
+  font-family: inherit;
+  font-size: 0.825rem;
+  font-weight: 600;
+  padding: 0.5rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.twin-btn:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.twin-btn.pri {
+  background: #059669;
+  border-color: #059669;
+  color: #ffffff;
+}
+
+.twin-btn.pri:hover:not(:disabled) {
+  background: #047857;
+}
+
+.twin-btn.danger {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #ffffff;
+}
+
+.twin-btn.danger:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+.twin-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.twin-btn:focus-visible,
+.twin-input:focus-visible {
+  outline: 3px solid #059669;
+  outline-offset: 2px;
+}
+
+.twin-label {
+  display: block;
+  font-size: 0.825rem;
+  font-weight: 500;
+  color: #475569;
+  margin-top: 0.85rem;
+}
+
+.twin-slider {
+  width: 100%;
+  accent-color: #059669;
+  margin-top: 0.35rem;
+  cursor: pointer;
+}
+
+/* Camera Preview */
+.twin-video-preview {
+  width: 220px;
+  max-width: 100%;
+  height: 165px;
+  border-radius: 8px;
+  background: #000;
+  display: block;
+  margin-top: 0.75rem;
+  object-fit: cover;
+  border: 2px solid #059669;
+}
+
+/* Alerts List */
+.twin-alerts-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.825rem;
+  color: #334155;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.twin-alert-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem 0.65rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  color: #991b1b;
+  font-weight: 500;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Architectural CAD & MagicPlan Style Upgrades
+   ========================================================================== */
+
+.twin-page-bg {
+  background-color: #eaf0f6 !important;
+  min-height: 100vh;
+}
+
+.architectural-card {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #dbe4ee;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+  padding: 1.25rem;
+}
+
+/* Floating Layer Toolbar */
+.twin-layer-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.5rem 0.75rem;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  margin-bottom: 0.85rem;
+}
+
+.twin-layer-pill {
+  font-family: inherit;
+  font-size: 0.775rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.twin-layer-pill:hover {
+  background: #f8fafc;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+.twin-layer-pill.active {
+  background: #059669;
+  color: #ffffff;
+  border-color: #059669;
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.3);
+}
+
+.twin-layer-pill.edit-active {
+  background: #db2777;
+  color: #ffffff;
+  border-color: #db2777;
+  box-shadow: 0 2px 6px rgba(219, 39, 119, 0.3);
+}
+
+/* Live & Radar Keyframe Animations */
+@keyframes twinLivePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(0.85);
+  }
+}
+
+.twin-live-pulse {
+  animation: twinLivePulse 1.2s ease-in-out infinite;
+}
+
+@keyframes twinRadarPulse {
+  0% {
+    r: 6;
+    opacity: 1;
+    stroke-width: 2;
+  }
+  100% {
+    r: 22;
+    opacity: 0;
+    stroke-width: 0.5;
+  }
+}
+
+.twin-radar-pulse {
+  animation: twinRadarPulse 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
+@keyframes twinLeakPulse {
+  0%, 100% {
+    fill-opacity: 0.48;
+  }
+  50% {
+    fill-opacity: 0.15;
+  }
+}
+
+.twin-leak-pulse {
+  animation: twinLeakPulse 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .twin-live-pulse,
+  .twin-radar-pulse,
+  .twin-leak-pulse {
+    animation: none !important;
+  }
+}
+
+/* PiP Buttons */
+.pip-hdr-btn {
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.pip-hdr-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+

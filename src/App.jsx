@@ -4,12 +4,15 @@ import {
   AlertTriangle, RefreshCw, Plus, Clock, Globe, ArrowUpRight,
   TrendingDown, Building2, HardDrive, Filter, Download, Eye, X,
   Check, AlertCircle, FileText, Lock, Sliders, ChevronRight, LogOut, User,
-  Calculator
+  Calculator, Activity
 } from 'lucide-react';
 import LoginPage from './components/LoginPage';
+import DigitalTwin from './components/DigitalTwin';
 import CameraStation from './components/camera-station/CameraStation';
 import CarbonCalculator from './components/calculator/CarbonCalculator';
 import RoomStatusInterface from './components/room-status/RoomStatusInterface';
+import CampusCarbonTwinView from './components/campus-carbon-twin/CampusCarbonTwinView';
+import LiveRoomsTwinPage from './components/live-twin/LiveRoomsTwinPage';
 import './components/camera-station/CameraStation.css';
 import './components/calculator/styles/calculator.css';
 
@@ -23,7 +26,51 @@ export default function App() {
     }
   });
 
-  const [activeTab, setActiveTab] = useState('overview');
+  const getTabFromRoute = () => {
+    if (typeof window === 'undefined') return 'overview';
+    const p = window.location.pathname.replace(/^\/+/, '').toLowerCase();
+    const h = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+    const route = p || h;
+    if (route === 'twin' || route.startsWith('twin')) return 'twin';
+    if (route === 'live' || route.startsWith('live')) return 'live';
+    if (route === 'calculator') return 'calculator';
+    if (route === 'facilities') return 'facilities';
+    if (route === 'equipment') return 'equipment';
+    if (route === 'observations') return 'observations';
+    if (route === 'camera-station') return 'camera-station';
+    if (route === 'room-status') return 'room-status';
+    if (route === 'scenarios') return 'scenarios';
+    if (route === 'actions') return 'actions';
+    if (route === 'emission-factors') return 'emission-factors';
+    if (route === 'database') return 'database';
+    return 'overview';
+  };
+
+  const [activeTab, setActiveTab] = useState(getTabFromRoute);
+
+  const navigateTo = (tab) => {
+    setActiveTab(tab);
+    if (typeof window !== 'undefined') {
+      const targetPath = tab === 'overview' ? '/' : `/${tab}`;
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({ tab }, '', targetPath);
+      }
+    }
+  };
+
+  const handleTabChange = navigateTo;
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setActiveTab(getTabFromRoute());
+    };
+    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handlePopState);
+    };
+  }, []);
   const [analytics, setAnalytics] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [equipment, setEquipment] = useState([]);
@@ -232,14 +279,74 @@ export default function App() {
     }
   });
 
-  // If not authenticated, show Carbon Twin Enterprise Login Page
+  // If not authenticated, show Digital Twin directly if on /twin route, otherwise show Login
   if (!currentUser) {
+    if (activeTab === 'twin') {
+      return (
+        <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
+          {/* Header for Standalone Twin Guest View */}
+          <div style={{
+            background: '#061814',
+            color: '#ffffff',
+            padding: '0.75rem 1.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            borderBottom: '1px solid #13382f',
+            flexWrap: 'wrap',
+            gap: '0.75rem'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div style={{
+                width: '28px',
+                height: '28px',
+                borderRadius: '6px',
+                background: '#059669',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Leaf size={16} color="#ffffff" />
+              </div>
+              <div>
+                <span style={{ fontWeight: 800, fontSize: '1rem', letterSpacing: '-0.02em' }}>CARBON TWIN</span>
+                <span style={{ fontSize: '0.7rem', color: '#6ee7b7', marginLeft: '0.5rem' }}>Decarbonization Intelligence</span>
+              </div>
+            </div>
+
+            <button
+              id="btn-return-login"
+              onClick={() => handleTabChange('overview')}
+              style={{
+                background: '#0f3229',
+                color: '#d1fae5',
+                border: '1px solid #1a5646',
+                padding: '0.4rem 0.85rem',
+                borderRadius: '6px',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.4rem'
+              }}
+            >
+              Sign In to Enterprise Dashboard →
+            </button>
+          </div>
+
+          <DigitalTwin onBackToDashboard={() => handleTabChange('overview')} />
+        </div>
+      );
+    }
+
     return (
       <LoginPage
         onLoginSuccess={(u) => {
           setCurrentUser(u);
           showToast(`Welcome back, ${u.name}!`);
         }}
+        onExploreTwin={() => handleTabChange('twin')}
       />
     );
   }
@@ -438,7 +545,7 @@ export default function App() {
       }}>
         <button
           className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
-          onClick={() => setActiveTab('overview')}
+          onClick={() => navigateTo('overview')}
         >
           <Leaf size={16} />
           Executive Carbon Overview
@@ -446,7 +553,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'facilities' ? 'active' : ''}`}
-          onClick={() => setActiveTab('facilities')}
+          onClick={() => navigateTo('facilities')}
         >
           <Building2 size={16} />
           Facilities & Digital Twin
@@ -455,7 +562,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'equipment' ? 'active' : ''}`}
-          onClick={() => setActiveTab('equipment')}
+          onClick={() => navigateTo('equipment')}
         >
           <HardDrive size={16} />
           Equipment & Load Inventory
@@ -464,7 +571,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'observations' ? 'active' : ''}`}
-          onClick={() => setActiveTab('observations')}
+          onClick={() => navigateTo('observations')}
         >
           <Camera size={16} />
           Vision Observations
@@ -473,7 +580,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'camera-station' ? 'active' : ''}`}
-          onClick={() => setActiveTab('camera-station')}
+          onClick={() => navigateTo('camera-station')}
         >
           <Camera size={16} />
           Camera Station
@@ -482,7 +589,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'room-status' ? 'active' : ''}`}
-          onClick={() => setActiveTab('room-status')}
+          onClick={() => navigateTo('room-status')}
         >
           <Building2 size={16} />
           Room Status
@@ -491,7 +598,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'calculator' ? 'active' : ''}`}
-          onClick={() => setActiveTab('calculator')}
+          onClick={() => navigateTo('calculator')}
         >
           <Calculator size={16} />
           Carbon Calculator
@@ -499,8 +606,37 @@ export default function App() {
         </button>
 
         <button
+          className={`tab-btn ${activeTab === 'twin' ? 'active' : ''}`}
+          onClick={() => navigateTo('twin')}
+        >
+          <Leaf size={16} />
+          Twin
+          <span className="pill pill-emerald" style={{ fontSize: '0.7rem' }}>2D Twin</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'live' ? 'active' : ''}`}
+          onClick={() => navigateTo('live')}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}
+        >
+          <span
+            className="animate-pulse-live"
+            style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              backgroundColor: '#10b981',
+              display: 'inline-block',
+              boxShadow: '0 0 6px #10b981'
+            }}
+          />
+          Live
+          <span className="pill pill-indigo" style={{ fontSize: '0.7rem' }}>Rooms Model</span>
+        </button>
+
+        <button
           className={`tab-btn ${activeTab === 'scenarios' ? 'active' : ''}`}
-          onClick={() => setActiveTab('scenarios')}
+          onClick={() => navigateTo('scenarios')}
         >
           <Sliders size={16} />
           Scenario Modeler
@@ -509,7 +645,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'actions' ? 'active' : ''}`}
-          onClick={() => setActiveTab('actions')}
+          onClick={() => navigateTo('actions')}
         >
           <CheckCircle2 size={16} />
           Climate Action Plan
@@ -518,7 +654,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'emission-factors' ? 'active' : ''}`}
-          onClick={() => setActiveTab('emission-factors')}
+          onClick={() => navigateTo('emission-factors')}
         >
           <Globe size={16} />
           Emission Factors
@@ -527,7 +663,7 @@ export default function App() {
 
         <button
           className={`tab-btn ${activeTab === 'database' ? 'active' : ''}`}
-          onClick={() => setActiveTab('database')}
+          onClick={() => navigateTo('database')}
         >
           <FileText size={16} />
           Carbon Database
@@ -1569,6 +1705,11 @@ export default function App() {
           </div>
         )}
 
+        {/* TAB: CAMPUS ENERGY DIGITAL TWIN */}
+        {activeTab === 'twin' && (
+          <DigitalTwin onBackToDashboard={() => handleTabChange('overview')} />
+        )}
+
         {/* TAB: CAMERA STATION (SECONDARY STATION INTEGRATION) */}
         {activeTab === 'camera-station' && (
           <div>
@@ -1610,6 +1751,37 @@ export default function App() {
         {activeTab === 'calculator' && (
           <div>
             <CarbonCalculator />
+          </div>
+        )}
+
+        {/* TAB: CAMPUS CARBON TWIN (/twin) */}
+        {activeTab === 'twin' && (
+          <div>
+            <CampusCarbonTwinView
+              onSyncObservation={(roomId, count, timestamp) => {
+                setObservations(prev => [
+                  {
+                    id: `obs-twin-${Date.now().toString().slice(-4)}`,
+                    room_id: roomId,
+                    camera_session_id: 'cam-sess-edge-local',
+                    people_detected: count,
+                    observed_at: timestamp,
+                    received_at: new Date().toISOString(),
+                    coverage: 0.98,
+                    source: 'Campus Carbon Twin (Local AI)'
+                  },
+                  ...prev.slice(0, 49)
+                ]);
+                fetch('/api/analytics').then(r => r.json()).then(setAnalytics).catch(() => {});
+              }}
+            />
+          </div>
+        )}
+
+        {/* TAB: LIVE ROOMS TWIN MODEL (/live) */}
+        {activeTab === 'live' && (
+          <div>
+            <LiveRoomsTwinPage />
           </div>
         )}
       </main>
@@ -1994,3 +2166,4 @@ export default function App() {
     </div>
   );
 }
+

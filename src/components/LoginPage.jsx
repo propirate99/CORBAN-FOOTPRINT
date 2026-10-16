@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import {
   Leaf, Lock, Mail, ShieldCheck, Eye, EyeOff, CheckCircle2,
-  AlertCircle, Building2, Zap, ArrowRight, User, Briefcase
+  AlertCircle, Building2, Zap, ArrowRight, User, Briefcase, Activity
 } from 'lucide-react';
 
-export default function LoginPage({ onLoginSuccess }) {
+export default function LoginPage({ onLoginSuccess, onExploreTwin }) {
   const [isSignUp, setIsSignUp] = useState(false);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
