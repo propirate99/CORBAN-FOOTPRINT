@@ -81,6 +81,7 @@ export default function App() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBuilding, setSelectedBuilding] = useState('ALL');
+  const [twinViewMode, setTwinViewMode] = useState('cad');
   const [toastMessage, setToastMessage] = useState(null);
 
   // Modals state
@@ -1705,11 +1706,6 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB: CAMPUS ENERGY DIGITAL TWIN */}
-        {activeTab === 'twin' && (
-          <DigitalTwin onBackToDashboard={() => handleTabChange('overview')} />
-        )}
-
         {/* TAB: CAMERA STATION (SECONDARY STATION INTEGRATION) */}
         {activeTab === 'camera-station' && (
           <div>
@@ -1756,25 +1752,63 @@ export default function App() {
 
         {/* TAB: CAMPUS CARBON TWIN (/twin) */}
         {activeTab === 'twin' && (
-          <div>
-            <CampusCarbonTwinView
-              onSyncObservation={(roomId, count, timestamp) => {
-                setObservations(prev => [
-                  {
-                    id: `obs-twin-${Date.now().toString().slice(-4)}`,
-                    room_id: roomId,
-                    camera_session_id: 'cam-sess-edge-local',
-                    people_detected: count,
-                    observed_at: timestamp,
-                    received_at: new Date().toISOString(),
-                    coverage: 0.98,
-                    source: 'Campus Carbon Twin (Local AI)'
-                  },
-                  ...prev.slice(0, 49)
-                ]);
-                fetch('/api/analytics').then(r => r.json()).then(setAnalytics).catch(() => {});
-              }}
-            />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            {/* View Mode Toggle: CAD Blueprint vs Secondary Station */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              background: '#ffffff',
+              padding: '0.65rem 1.25rem',
+              borderRadius: '10px',
+              border: '1px solid #e2e8f0',
+              flexWrap: 'wrap',
+              gap: '0.75rem'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Activity size={17} color="#059669" />
+                <span style={{ fontWeight: 700, fontSize: '0.875rem', color: '#0f172a' }}>Twin View:</span>
+              </div>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <button
+                  onClick={() => setTwinViewMode('cad')}
+                  className={`tab-btn ${twinViewMode === 'cad' ? 'active' : ''}`}
+                  style={{ borderRadius: '6px', padding: '0.35rem 0.85rem', fontSize: '0.8rem' }}
+                >
+                  📐 Architectural CAD Plan & CCTV Vision
+                </button>
+                <button
+                  onClick={() => setTwinViewMode('station')}
+                  className={`tab-btn ${twinViewMode === 'station' ? 'active' : ''}`}
+                  style={{ borderRadius: '6px', padding: '0.35rem 0.85rem', fontSize: '0.8rem' }}
+                >
+                  🌱 Campus Carbon Twin (Secondary Station)
+                </button>
+              </div>
+            </div>
+
+            {twinViewMode === 'cad' ? (
+              <DigitalTwin onBackToDashboard={() => handleTabChange('overview')} />
+            ) : (
+              <CampusCarbonTwinView
+                onSyncObservation={(roomId, count, timestamp) => {
+                  setObservations(prev => [
+                    {
+                      id: `obs-twin-${Date.now().toString().slice(-4)}`,
+                      room_id: roomId,
+                      camera_session_id: 'cam-sess-edge-local',
+                      people_detected: count,
+                      observed_at: timestamp,
+                      received_at: new Date().toISOString(),
+                      coverage: 0.98,
+                      source: 'Campus Carbon Twin (Local AI)'
+                    },
+                    ...prev.slice(0, 49)
+                  ]);
+                  fetch('/api/analytics').then(r => r.json()).then(setAnalytics).catch(() => {});
+                }}
+              />
+            )}
           </div>
         )}
 
