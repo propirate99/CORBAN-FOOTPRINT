@@ -357,38 +357,11 @@ app.delete('/api/actions/:id', (req, res) => {
   }
 });
 
-// --- Telemetry Simulator ---
+// --- Telemetry Ingestion Notice (Simulation Disabled) ---
 app.post('/api/simulate-telemetry', (req, res) => {
-  try {
-    const { room_id, people_detected } = req.body;
-    const rooms = db.getRooms();
-    const targetRoom = room_id ? rooms.find(r => r.id === room_id) : rooms[Math.floor(Math.random() * rooms.length)];
-
-    if (!targetRoom) {
-      return res.status(404).json({ error: 'Room not found' });
-    }
-
-    const count = people_detected !== undefined
-      ? parseInt(people_detected, 10)
-      : (Math.random() > 0.5 ? 0 : Math.floor(Math.random() * targetRoom.capacity * 0.7));
-
-    const obs = db.createObservation({
-      room_id: targetRoom.id,
-      camera_session_id: `live-sess-${Date.now().toString(36)}`,
-      people_detected: count,
-      coverage: 0.96 + Math.round(Math.random() * 4) / 100,
-      source: `Ceiling Edge AI Node ${targetRoom.name.slice(0, 12)}`
-    });
-
-    res.json({
-      success: true,
-      observation: obs,
-      room: targetRoom,
-      analytics: db.getAnalyticsSummary()
-    });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+  res.status(403).json({
+    error: 'Simulated telemetry has been purged. Connect real edge sensors and send observations to POST /api/observations'
+  });
 });
 
 // --- Standardized Carbon Calculator Endpoints ---
@@ -427,66 +400,22 @@ app.post('/api/calculator/equipment', (req, res) => {
   }
 });
 
-// --- Automated Telemetry Simulator Heartbeat ---
-let isSimulationActive = true;
-let lastSimulationTick = new Date().toISOString();
-
+// --- Telemetry Ingestion Mode Status (Simulation Purged) ---
 app.get('/api/simulation/status', (req, res) => {
   res.json({
-    active: isSimulationActive,
-    interval_seconds: 12,
-    last_tick: lastSimulationTick,
+    active: false,
+    interval_seconds: 0,
+    message: 'Simulation disabled. Platform ingests strictly verified physical edge camera telemetry.',
     total_rooms: db.getRooms().length
   });
 });
 
-app.post('/api/simulation/toggle', (req, res) => {
-  isSimulationActive = !isSimulationActive;
+app.post(['/api/simulation/toggle', '/api/simulation/start', '/api/simulation/stop'], (req, res) => {
   res.json({
-    active: isSimulationActive,
-    message: isSimulationActive ? 'Automated edge telemetry heartbeat enabled' : 'Automated edge telemetry heartbeat paused'
+    active: false,
+    message: 'Simulation mode has been disabled. The platform exclusively ingests real edge camera observations.'
   });
 });
-
-app.post('/api/simulation/start', (req, res) => {
-  isSimulationActive = true;
-  res.json({ active: true, message: 'Automated simulation started' });
-});
-
-app.post('/api/simulation/stop', (req, res) => {
-  isSimulationActive = false;
-  res.json({ active: false, message: 'Automated simulation stopped' });
-});
-
-// Background Telemetry Heartbeat (Runs every 12 seconds)
-setInterval(() => {
-  if (!isSimulationActive) return;
-  try {
-    const rooms = db.getRooms();
-    if (!rooms || rooms.length === 0) return;
-
-    // Pick a random room to simulate natural occupancy transition
-    const targetRoom = rooms[Math.floor(Math.random() * rooms.length)];
-    // Random headcount: either 0 (unoccupied), a small group (2-8), or class session (15-35)
-    const roll = Math.random();
-    let peopleCount = 0;
-    if (roll > 0.45) {
-      peopleCount = Math.floor(Math.random() * Math.min(targetRoom.capacity, 32)) + 1;
-    }
-
-    db.createObservation({
-      room_id: targetRoom.id,
-      camera_session_id: `auto-heartbeat-${Date.now().toString(36)}`,
-      people_detected: peopleCount,
-      coverage: Math.round((0.95 + Math.random() * 0.04) * 100) / 100,
-      source: `Edge AI Node (${targetRoom.name.slice(0, 15)})`
-    });
-    lastSimulationTick = new Date().toISOString();
-  } catch (err) {
-    // Non-fatal background simulation error
-    console.error('[Simulation Heartbeat]:', err.message);
-  }
-}, 12000);
 
 // --- Reset Data to Institutional Baseline ---
 app.post(['/api/reset-demo', '/api/reset-data'], (req, res) => {
@@ -500,5 +429,5 @@ app.post(['/api/reset-demo', '/api/reset-data'], (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`[Carbon Twin API] Server running on http://localhost:${PORT}`);
-  console.log(`[Carbon Twin API] Background simulation heartbeat: ACTIVE (12s interval)`);
+  console.log(`[Carbon Twin API] Ingestion Mode: Strictly Live Verified Edge Telemetry (Zero Synthetic Data)`);
 });

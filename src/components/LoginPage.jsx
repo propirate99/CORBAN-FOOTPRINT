@@ -19,7 +19,6 @@ export default function LoginPage({ onLoginSuccess }) {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [infoMessage, setInfoMessage] = useState('');
-  const [activeDemo, setActiveDemo] = useState(null);
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
@@ -121,14 +120,6 @@ export default function LoginPage({ onLoginSuccess }) {
     } finally {
       setLoading(false);
     }
-  };
-
-  const selectDemoAccount = (demoEmail, demoPass, demoId) => {
-    setEmail(demoEmail);
-    setPassword(demoPass);
-    setActiveDemo(demoId);
-    setErrorMessage('');
-    setInfoMessage(`Loaded demo credentials for ${demoId === 'director' ? 'Dr. Elena Vance (CSO)' : 'Marcus Chen (Facilities)'}.`);
   };
 
   return (
@@ -757,131 +748,6 @@ export default function LoginPage({ onLoginSuccess }) {
               )}
             </AnimatePresence>
 
-            {/* Premium One-Click Demo Credentials Cards */}
-            {!isSignUp && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                style={{
-                  marginBottom: '1.35rem',
-                  padding: '0.9rem',
-                  background: 'var(--color-sage-bg, #ecfdf5)',
-                  borderRadius: '12px',
-                  border: '1px solid var(--color-sage-border, #a7f3d0)'
-                }}
-              >
-                <div style={{
-                  fontSize: '0.725rem',
-                  fontWeight: 700,
-                  color: 'var(--color-sage-text, #065f46)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.04em',
-                  marginBottom: '0.6rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between'
-                }}>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <Zap size={14} color="#059669" /> One-Click Demo Executive Accounts
-                  </span>
-                  <span style={{ fontSize: '0.675rem', fontWeight: 600, color: '#059669', opacity: 0.9 }}>
-                    Instant Fill
-                  </span>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
-                  {/* Elena Vance CSO */}
-                  <motion.button
-                    type="button"
-                    whileHover={{ scale: 1.025, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => selectDemoAccount('director@carbontwin.edu', 'admin123', 'director')}
-                    style={{
-                      padding: '0.6rem 0.75rem',
-                      background: activeDemo === 'director' ? '#ffffff' : 'var(--color-surface-white, #ffffff)',
-                      border: activeDemo === 'director' ? '2px solid #059669' : '1px solid #10b981',
-                      borderRadius: '10px',
-                      cursor: 'pointer',
-                      textAlign: 'left',
-                      boxShadow: activeDemo === 'director' ? '0 4px 12px rgba(16, 185, 129, 0.2)' : '0 1px 4px rgba(0,0,0,0.05)',
-                      transition: 'all 0.15s ease'
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.2rem' }}>
-                      <div style={{
-                        width: '22px',
-                        height: '22px',
-                        borderRadius: '50%',
-                        background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
-                        color: '#ffffff',
-                        fontSize: '0.65rem',
-                        fontWeight: 700,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}>
-                        EV
-                      </div>
-                      <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#065f46' }}>
-                        Dr. Vance
-                      </div>
-                    </div>
-                    <div style={{ fontSize: '0.68rem', fontWeight: 600, color: '#059669', marginBottom: '0.1rem' }}>
-                      Chief Sustainability Officer
-                    </div>
-                    <div style={{ fontSize: '0.68rem', color: '#64748b' }}>
-                      director@carbontwin.edu
-                    </div>
-                  </motion.button>
-
-                  {/* Marcus Chen Facilities */}
-                  <motion.button
-                    type="button"
-                    whileHover={{ scale: 1.025, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => selectDemoAccount('marcus@carbontwin.edu', 'facilitypass2026', 'facilities')}
-                    style={{
-                      padding: '0.6rem 0.75rem',
-                      background: activeDemo === 'facilities' ? '#ffffff' : 'var(--color-surface-white, #ffffff)',
-                      border: activeDemo === 'facilities' ? '2px solid #0891b2' : '1px solid var(--color-border-strong, #cbd5e1)',
-                      borderRadius: '10px',
-                      cursor: 'pointer',
-                      textAlign: 'left',
-                      boxShadow: activeDemo === 'facilities' ? '0 4px 12px rgba(8, 145, 178, 0.2)' : '0 1px 4px rgba(0,0,0,0.05)',
-                      transition: 'all 0.15s ease'
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.2rem' }}>
-                      <div style={{
-                        width: '22px',
-                        height: '22px',
-                        borderRadius: '50%',
-                        background: 'linear-gradient(135deg, #0891b2 0%, #06b6d4 100%)',
-                        color: '#ffffff',
-                        fontSize: '0.65rem',
-                        fontWeight: 700,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}>
-                        MC
-                      </div>
-                      <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#0f172a' }}>
-                        Marcus Chen
-                      </div>
-                    </div>
-                    <div style={{ fontSize: '0.68rem', fontWeight: 600, color: '#0891b2', marginBottom: '0.1rem' }}>
-                      Facilities Operations Lead
-                    </div>
-                    <div style={{ fontSize: '0.68rem', color: '#64748b' }}>
-                      marcus@carbontwin.edu
-                    </div>
-                  </motion.button>
-                </div>
-              </motion.div>
-            )}
-
             {/* Institutional Email */}
             <div style={{ marginBottom: '1.1rem' }}>
               <label className="form-label" style={{ fontSize: '0.825rem', fontWeight: 600, color: 'var(--color-text-main, #1e293b)', marginBottom: '0.35rem' }}>
@@ -894,7 +760,7 @@ export default function LoginPage({ onLoginSuccess }) {
                 <input
                   type="email"
                   value={email}
-                  onChange={(e) => { setEmail(e.target.value); setActiveDemo(null); }}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@carbontwin.edu"
                   required
                   className="form-input"
@@ -932,7 +798,7 @@ export default function LoginPage({ onLoginSuccess }) {
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
-                  onChange={(e) => { setPassword(e.target.value); setActiveDemo(null); }}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder={isSignUp ? 'Minimum 6 characters' : '••••••••'}
                   required
                   className="form-input"

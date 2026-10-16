@@ -12,245 +12,21 @@ if (!fs.existsSync(dataDir)) {
 
 // Initial seed data adhering strictly to the user-specified schema
 const defaultData = {
-  rooms: [
-    {
-      id: 'room-101',
-      building_name: 'Curie Science Complex',
-      name: 'Advanced Robotics & Automation Lab',
-      capacity: 35,
-      demo_room: false,
-      created_at: '2024-01-10T08:00:00Z'
-    },
-    {
-      id: 'room-102',
-      building_name: 'Curie Science Complex',
-      name: 'Bio-Analytical Chemistry Suite',
-      capacity: 24,
-      demo_room: false,
-      created_at: '2024-01-12T09:30:00Z'
-    },
-    {
-      id: 'room-201',
-      building_name: 'Turing Computing Institute',
-      name: 'High-Performance GPU Cluster Lab',
-      capacity: 40,
-      demo_room: false,
-      created_at: '2024-02-01T10:15:00Z'
-    },
-    {
-      id: 'room-202',
-      building_name: 'Turing Computing Institute',
-      name: 'Collaborative Seminar Auditorium A',
-      capacity: 120,
-      demo_room: false,
-      created_at: '2024-02-05T11:00:00Z'
-    },
-    {
-      id: 'room-301',
-      building_name: 'Franklin Engineering Wing',
-      name: 'Digital Fabrication & 3D Prototyping Hall',
-      capacity: 30,
-      demo_room: false,
-      created_at: '2024-03-01T08:45:00Z'
-    }
-  ],
-  equipment: [
-    // Room 101 - Robotics Lab
-    {
-      id: 'eq-101-1',
-      room_id: 'room-101',
-      name: 'Overhead High-Lumen LED Bay Matrix',
-      quantity: 12,
-      rated_power_w: 120,
-      declared_state: 'ON',
-      state_declared_at: '2024-10-15T08:00:00Z',
-      nonessential: true,
-      safety_exclusion: false
-    },
-    {
-      id: 'eq-101-2',
-      room_id: 'room-101',
-      name: 'Industrial Robotic Arm Controller Rigs',
-      quantity: 4,
-      rated_power_w: 750,
-      declared_state: 'ON',
-      state_declared_at: '2024-10-15T09:00:00Z',
-      nonessential: true,
-      safety_exclusion: false
-    },
-    {
-      id: 'eq-101-3',
-      room_id: 'room-101',
-      name: 'Emergency Exhaust & Negative Pressure Hood',
-      quantity: 2,
-      rated_power_w: 1100,
-      declared_state: 'ON',
-      state_declared_at: '2024-10-15T07:30:00Z',
-      nonessential: false,
-      safety_exclusion: true // Critical safety: must never auto-power down
-    },
-
-    // Room 102 - Bio-Analytical Suite
-    {
-      id: 'eq-102-1',
-      room_id: 'room-102',
-      name: 'Spectrophotometer & Centrifuge Bench',
-      quantity: 3,
-      rated_power_w: 450,
-      declared_state: 'ON',
-      state_declared_at: '2024-10-15T08:30:00Z',
-      nonessential: true,
-      safety_exclusion: false
-    },
-    {
-      id: 'eq-102-2',
-      room_id: 'room-102',
-      name: 'Ultra-Low Temperature Cryo-Freezer (-80C)',
-      quantity: 2,
-      rated_power_w: 1250,
-      declared_state: 'ON',
-      state_declared_at: '2024-10-15T06:00:00Z',
-      nonessential: false,
-      safety_exclusion: true // Biological sample integrity
-    },
-    {
-      id: 'eq-102-3',
-      room_id: 'room-102',
-      name: 'Benchtop Workstation Displays',
-      quantity: 8,
-      rated_power_w: 85,
-      declared_state: 'ON',
-      state_declared_at: '2024-10-15T08:45:00Z',
-      nonessential: true,
-      safety_exclusion: false
-    },
-
-    // Room 201 - Turing GPU Lab
-    {
-      id: 'eq-201-1',
-      room_id: 'room-201',
-      name: 'AI Engineering Workstations (Dual 4K + Rig)',
-      quantity: 20,
-      rated_power_w: 380,
-      declared_state: 'ON',
-      state_declared_at: '2024-10-15T08:15:00Z',
-      nonessential: true,
-      safety_exclusion: false
-    },
-    {
-      id: 'eq-201-2',
-      room_id: 'room-201',
-      name: 'Server Rack Supplemental Precision CRAC A/C',
-      quantity: 1,
-      rated_power_w: 3200,
-      declared_state: 'ON',
-      state_declared_at: '2024-10-15T07:00:00Z',
-      nonessential: false,
-      safety_exclusion: true
-    },
-
-    // Room 202 - Seminar Auditorium
-    {
-      id: 'eq-202-1',
-      room_id: 'room-202',
-      name: 'Laser Projection System & Stage Par-Cans',
-      quantity: 2,
-      rated_power_w: 1400,
-      declared_state: 'ON',
-      state_declared_at: '2024-10-15T10:00:00Z',
-      nonessential: true,
-      safety_exclusion: false
-    },
-    {
-      id: 'eq-202-2',
-      room_id: 'room-202',
-      name: 'Auditorium Variable Air Volume HVAC Damper',
-      quantity: 1,
-      rated_power_w: 2400,
-      declared_state: 'ON',
-      state_declared_at: '2024-10-15T09:30:00Z',
-      nonessential: true,
-      safety_exclusion: false
-    },
-
-    // Room 301 - Fabrication Hall
-    {
-      id: 'eq-301-1',
-      room_id: 'room-301',
-      name: 'High-Speed FDM 3D Printers Array',
-      quantity: 6,
-      rated_power_w: 350,
-      declared_state: 'OFF',
-      state_declared_at: '2024-10-15T06:00:00Z',
-      nonessential: true,
-      safety_exclusion: false
-    },
-    {
-      id: 'eq-301-2',
-      room_id: 'room-301',
-      name: 'HEPA Particulate Dust Scrubber',
-      quantity: 2,
-      rated_power_w: 600,
-      declared_state: 'OFF',
-      state_declared_at: '2024-10-15T06:00:00Z',
-      nonessential: false,
-      safety_exclusion: true
-    }
-  ],
-  observations: [
-    // Zero face embeddings, zero student IDs, zero continuous location tracking
-    {
-      id: 'obs-001',
-      room_id: 'room-101',
-      camera_session_id: 'cam-sess-curie-101-alpha',
-      people_detected: 0, // Unoccupied! Yet 4,440W of equipment is declared ON!
-      observed_at: '2024-10-15T12:15:00Z',
-      received_at: '2024-10-15T12:15:02Z',
-      coverage: 0.98,
-      source: 'Ceiling Edge Optical Sensor 101-North'
-    },
-    {
-      id: 'obs-002',
-      room_id: 'room-102',
-      camera_session_id: 'cam-sess-curie-102-beta',
-      people_detected: 6,
-      observed_at: '2024-10-15T12:18:00Z',
-      received_at: '2024-10-15T12:18:01Z',
-      coverage: 0.92,
-      source: 'Ceiling Edge Optical Sensor 102-Central'
-    },
-    {
-      id: 'obs-003',
-      room_id: 'room-201',
-      camera_session_id: 'cam-sess-turing-201-gpu',
-      people_detected: 18,
-      observed_at: '2024-10-15T12:20:00Z',
-      received_at: '2024-10-15T12:20:03Z',
-      coverage: 0.99,
-      source: 'Turing Hallway Edge Unit 201'
-    },
-    {
-      id: 'obs-004',
-      room_id: 'room-202',
-      camera_session_id: 'cam-sess-turing-202-aud',
-      people_detected: 0, // Auditorium empty, projector & stage lights ON!
-      observed_at: '2024-10-15T12:22:00Z',
-      received_at: '2024-10-15T12:22:01Z',
-      coverage: 0.95,
-      source: 'Auditorium Panoramic Edge Node'
-    },
-    {
-      id: 'obs-005',
-      room_id: 'room-301',
-      camera_session_id: 'cam-sess-franklin-301',
-      people_detected: 0,
-      observed_at: '2024-10-15T12:10:00Z',
-      received_at: '2024-10-15T12:10:02Z',
-      coverage: 0.94,
-      source: 'Franklin Hall Overhead Mesh'
-    }
-  ],
+  rooms: [],
+  equipment: [],
+  observations: [],
   emission_factors: [
+    {
+      id: 'CEA_V19_FY2022_23_DEMO',
+      name: 'Central Electricity Authority (CEA) India Baseline v19',
+      value: 0.716,
+      unit: 'kg CO2e / kWh',
+      geography: 'India National Grid',
+      reporting_year: 2024,
+      source_reference: 'CEA CO2 Baseline Database for Indian Power Sector v19',
+      gas_basis: 'CO2',
+      factor_type: 'GRID_ELECTRICITY'
+    },
     {
       id: 'ef-egrid-camx',
       name: 'US EPA eGRID CAMX Grid Subregion',
@@ -305,143 +81,33 @@ const defaultData = {
       source_reference: 'IEA World Energy Outlook GHG Statistics',
       gas_basis: 'CO2',
       factor_type: 'GRID_ELECTRICITY'
-    }
-  ],
-  scenarios: [
-    {
-      id: 'scen-001',
-      room_id: 'room-101',
-      created_at: '2024-10-10T14:30:00Z',
-      // CRITICAL REQUIREMENT: Store the equipment and factor values used in the snapshot.
-      // Otherwise, editing an equipment rating tomorrow could silently change the meaning of yesterday’s scenario.
-      input_snapshot_json: {
-        room_id: 'room-101',
-        room_name: 'Advanced Robotics & Automation Lab',
-        building_name: 'Curie Science Complex',
-        policy_name: 'Automate Idle Robotics Lab Standby & High-Bay Lighting',
-        target_hours_saved_per_day: 5.5,
-        emission_factor_used: {
-          id: 'ef-egrid-rfcw',
-          name: 'US EPA eGRID RFC West (PJM Interconnection)',
-          value: 0.4412,
-          unit: 'kg CO2e / kWh',
-          gas_basis: 'CO2E'
-        },
-        equipment_snapshot: [
-          {
-            id: 'eq-101-1',
-            name: 'Overhead High-Lumen LED Bay Matrix',
-            quantity: 12,
-            rated_power_w: 120,
-            nonessential: true,
-            safety_exclusion: false,
-            effective_controllable_power_w: 1440
-          },
-          {
-            id: 'eq-101-2',
-            name: 'Industrial Robotic Arm Controller Rigs',
-            quantity: 4,
-            rated_power_w: 750,
-            nonessential: true,
-            safety_exclusion: false,
-            effective_controllable_power_w: 3000
-          }
-          // Note: eq-101-3 excluded because safety_exclusion = true
-        ],
-        total_controllable_power_w: 4440
-      },
-      result_snapshot_json: {
-        daily_kwh_avoided: 24.42,
-        annual_kwh_avoided: 6349.2,
-        annual_avoided_emissions_kg_co2e: 2801.27,
-        annual_avoided_emissions_t_co2e: 2.80,
-        estimated_annual_cost_savings_usd: 1079.36,
-        confidence_score: 0.94,
-        payback_period_months: 1.8
-      }
     },
     {
-      id: 'scen-002',
-      room_id: 'room-202',
-      created_at: '2024-10-12T16:00:00Z',
-      input_snapshot_json: {
-        room_id: 'room-202',
-        room_name: 'Collaborative Seminar Auditorium A',
-        building_name: 'Turing Computing Institute',
-        policy_name: 'Occupancy-Triggered AV & HVAC Setback Interlock',
-        target_hours_saved_per_day: 6.0,
-        emission_factor_used: {
-          id: 'ef-egrid-rfcw',
-          name: 'US EPA eGRID RFC West (PJM Interconnection)',
-          value: 0.4412,
-          unit: 'kg CO2e / kWh',
-          gas_basis: 'CO2E'
-        },
-        equipment_snapshot: [
-          {
-            id: 'eq-202-1',
-            name: 'Laser Projection System & Stage Par-Cans',
-            quantity: 2,
-            rated_power_w: 1400,
-            nonessential: true,
-            safety_exclusion: false,
-            effective_controllable_power_w: 2800
-          },
-          {
-            id: 'eq-202-2',
-            name: 'Auditorium Variable Air Volume HVAC Damper',
-            quantity: 1,
-            rated_power_w: 2400,
-            nonessential: true,
-            safety_exclusion: false,
-            effective_controllable_power_w: 2400
-          }
-        ],
-        total_controllable_power_w: 5200
-      },
-      result_snapshot_json: {
-        daily_kwh_avoided: 31.2,
-        annual_kwh_avoided: 8112.0,
-        annual_avoided_emissions_kg_co2e: 3578.96,
-        annual_avoided_emissions_t_co2e: 3.58,
-        estimated_annual_cost_savings_usd: 1379.04,
-        confidence_score: 0.96,
-        payback_period_months: 1.2
-      }
-    }
-  ],
-  actions: [
-    {
-      id: 'act-001',
-      scenario_id: 'scen-001',
-      status: 'COMPLETED',
-      approved_at: '2024-10-11T09:00:00Z',
-      completed_at: '2024-10-14T15:30:00Z',
-      completion_method: 'HUMAN_CONFIRMED',
-      completion_note: 'Facility Engineer J. Martinez verified hardware relay interlock installed on robotics bench power circuits. Idle standby confirmed at 0W when room sensor reads vacant for >15 mins.'
+      id: 'RENEWABLE_GREEN_TARIFF',
+      name: 'Certified Green Power / Solar Microgrid PPA',
+      value: 0.045,
+      unit: 'kg CO2e / kWh',
+      geography: 'Campus Rooftop Solar & Renewable PPA',
+      reporting_year: 2024,
+      source_reference: 'On-site PV Generation Lifecycle Assessment',
+      gas_basis: 'CO2E',
+      factor_type: 'RENEWABLE'
     },
     {
-      id: 'act-002',
-      scenario_id: 'scen-002',
-      status: 'APPROVED',
-      approved_at: '2024-10-13T11:20:00Z',
-      completed_at: null,
-      completion_method: 'HUMAN_CONFIRMED',
-      completion_note: 'Approved by Campus Energy Manager. Work order #WO-9921 scheduled with electrical team for Crestron AV automation setback.'
+      id: 'HIGH_CARBON_PEAKER',
+      name: 'Thermal Coal Peaker Plant Grid Mix',
+      value: 0.885,
+      unit: 'kg CO2e / kWh',
+      geography: 'Regional Coal Sub-grid',
+      reporting_year: 2024,
+      source_reference: 'Regional Dispatch Telemetry',
+      gas_basis: 'CO2E',
+      factor_type: 'GRID_ELECTRICITY'
     }
   ],
-  users: [
-    {
-      id: 'usr-admin',
-      name: 'Dr. Elena Vance',
-      email: 'director@carbontwin.edu',
-      password: 'admin123',
-      role: 'Chief Sustainability Officer',
-      badge: 'CSO',
-      department: 'Campus Climate & Sustainability Office',
-      created_at: '2024-01-01T00:00:00Z'
-    }
-  ]
+  scenarios: [],
+  actions: [],
+  users: []
 };
 
 // Privacy policy validation: explicitly block prohibited telemetry
@@ -481,28 +147,57 @@ class Database {
       this.save();
     }
 
-    // Ensure users array exists
-    if (!this.data.users || !Array.isArray(this.data.users) || this.data.users.length === 0) {
-      this.data.users = JSON.parse(JSON.stringify(defaultData.users || []));
-      this.save();
+    // Ensure collections exist
+    if (!this.data.rooms) this.data.rooms = [];
+    if (!this.data.equipment) this.data.equipment = [];
+    if (!this.data.observations) this.data.observations = [];
+    if (!this.data.scenarios) this.data.scenarios = [];
+    if (!this.data.actions) this.data.actions = [];
+    if (!this.data.emission_factors || this.data.emission_factors.length === 0) {
+      this.data.emission_factors = JSON.parse(JSON.stringify(defaultData.emission_factors));
+    } else if (!this.data.emission_factors.some(f => f.id === 'CEA_V19_FY2022_23_DEMO')) {
+      this.data.emission_factors.unshift({
+        id: 'CEA_V19_FY2022_23_DEMO',
+        name: 'Central Electricity Authority (CEA) India Baseline v19',
+        value: 0.716,
+        unit: 'kg CO2e / kWh',
+        geography: 'India National Grid',
+        reporting_year: 2024,
+        source_reference: 'CEA CO2 Baseline Database for Indian Power Sector v19',
+        gas_basis: 'CO2',
+        factor_type: 'GRID_ELECTRICITY'
+      });
     }
 
-    // Purge any legacy demo entries from active storage
-    let modified = false;
+    // Purge any legacy synthetic or demo entries from active storage
+    let modified = true;
+    const SYNTHETIC_ROOM_IDS = new Set(['room-101', 'room-102', 'room-201', 'room-202', 'room-301', 'room-demo', 'A-101', 'ROOM-SCI-204', 'ROOM-SCI-101', 'ROOM-ENG-220', 'ROOM-LIB-100']);
+    const SYNTHETIC_USER_EMAILS = new Set(['director@carbontwin.edu', 'marcus@carbontwin.edu', 'award@carbontwin.edu', 'test@carbontwin.edu']);
+
     if (this.data.rooms) {
       const before = this.data.rooms.length;
-      this.data.rooms = this.data.rooms.filter(r => r.id !== 'room-demo' && !r.demo_room);
+      this.data.rooms = this.data.rooms.filter(r => !SYNTHETIC_ROOM_IDS.has(r.id) && !r.demo_room);
       if (this.data.rooms.length !== before) modified = true;
     }
     if (this.data.equipment) {
       const before = this.data.equipment.length;
-      this.data.equipment = this.data.equipment.filter(e => e.room_id !== 'room-demo' && !e.id.startsWith('eq-demo'));
+      this.data.equipment = this.data.equipment.filter(e => !SYNTHETIC_ROOM_IDS.has(e.room_id) && !e.id.startsWith('eq-demo'));
       if (this.data.equipment.length !== before) modified = true;
     }
     if (this.data.observations) {
       const before = this.data.observations.length;
-      this.data.observations = this.data.observations.filter(o => o.room_id !== 'room-demo' && o.id !== 'obs-006');
+      this.data.observations = this.data.observations.filter(o => !SYNTHETIC_ROOM_IDS.has(o.room_id) && o.id !== 'obs-006');
       if (this.data.observations.length !== before) modified = true;
+    }
+    if (this.data.scenarios) {
+      const before = this.data.scenarios.length;
+      this.data.scenarios = this.data.scenarios.filter(s => !SYNTHETIC_ROOM_IDS.has(s.room_id));
+      if (this.data.scenarios.length !== before) modified = true;
+    }
+    if (this.data.users) {
+      const before = this.data.users.length;
+      this.data.users = this.data.users.filter(u => !SYNTHETIC_USER_EMAILS.has(u.email));
+      if (this.data.users.length !== before) modified = true;
     }
     if (modified) {
       this.save();
@@ -759,7 +454,7 @@ class Database {
     const annualKwhAvoided = dailyKwhAvoided * 260; // 260 operating days/year
     const annualAvoidedKgCO2e = annualKwhAvoided * emissionFactor.value;
     const annualAvoidedTonnesCO2e = annualAvoidedKgCO2e / 1000;
-    const annualCostSavingsUSD = annualKwhAvoided * 0.17; // ~$0.17/kWh institutional rate
+    const annualCostSavingsUSD = annualKwhAvoided * 8.50; // ~₹8.50/kWh institutional tariff
 
     // SNAPSHOT IMMUTABILITY GUARANTEE:
     // Store exact equipment specifications and factor values at creation moment
@@ -1063,7 +758,7 @@ class Database {
         const hoursSavedPerDay = 6.0;
         const annualKwhSaved = wasteKw * hoursSavedPerDay * 260;
         const annualTco2eSaved = Math.round(((annualKwhSaved * defaultEf.value) / 1000) * 100) / 100;
-        const annualCostSavedUsd = Math.round(annualKwhSaved * 0.14);
+        const annualCostSavedUsd = Math.round(annualKwhSaved * 8.50);
 
         recommendations.push({
           id: `ai-rec-${room.id}-vacant-cutoff`,
@@ -1108,7 +803,7 @@ class Database {
             engineering_rationale: `DALI-2 daylight harvesting photocell integration dims peripheral fixture banks by 30-40% when solar lux exceeds 500 lx, saving substantial grid energy without violating educational standards.`,
             potential_hourly_saving_kwh: Math.round((lightingWatts * 0.35 / 1000) * 100) / 100,
             potential_annual_saving_tco2e: Math.round((((lightingWatts * 0.35 / 1000) * 6 * 260 * defaultEf.value) / 1000) * 100) / 100,
-            estimated_annual_cost_savings_usd: Math.round((lightingWatts * 0.35 / 1000) * 6 * 260 * 0.14),
+            estimated_annual_cost_savings_usd: Math.round((lightingWatts * 0.35 / 1000) * 6 * 260 * 8.50),
             estimated_payback_months: 5.2,
             action_scenario_params: {
               room_id: room.id,

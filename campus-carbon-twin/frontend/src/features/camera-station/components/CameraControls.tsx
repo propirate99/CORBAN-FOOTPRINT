@@ -14,14 +14,6 @@ interface CameraControlsProps {
   onToggleHidePreview: (hide: boolean) => void;
 }
 
-const AVAILABLE_ROOMS = [
-  { id: 'ROOM-SCI-204', label: 'ROOM-SCI-204: Physics Lecture Hall 204' },
-  { id: 'ROOM-SCI-101', label: 'ROOM-SCI-101: Bio-Lab 101' },
-  { id: 'ROOM-ENG-220', label: 'ROOM-ENG-220: Computer Architecture Lab' },
-  { id: 'ROOM-LIB-100', label: 'ROOM-LIB-100: Main Reading Room' },
-  { id: 'A-101', label: 'A-101: Demonstration Room' },
-];
-
 export const CameraControls: React.FC<CameraControlsProps> = ({
   roomId,
   onRoomChange,
@@ -42,11 +34,14 @@ export const CameraControls: React.FC<CameraControlsProps> = ({
       {/* Room Selector */}
       <div>
         <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 600, color: '#334155', marginBottom: '0.375rem' }}>
-          Target Classroom / Zone
+          Target Classroom / Zone ID
         </label>
-        <select
+        <input
+          type="text"
           value={roomId}
           onChange={(e) => onRoomChange(e.target.value)}
+          placeholder="Enter verified Room ID"
+          disabled={isRunning || isTransitioning}
           style={{
             width: '100%',
             padding: '0.5rem',
@@ -54,14 +49,9 @@ export const CameraControls: React.FC<CameraControlsProps> = ({
             border: '1px solid #cbd5e1',
             fontSize: '0.875rem',
             color: '#0f172a',
+            background: isRunning || isTransitioning ? '#f8fafc' : '#ffffff',
           }}
-        >
-          {AVAILABLE_ROOMS.map((r) => (
-            <option key={r.id} value={r.id}>
-              {r.label}
-            </option>
-          ))}
-        </select>
+        />
         {isRunning && (
           <span style={{ fontSize: '0.75rem', color: '#d97706', marginTop: '0.25rem', display: 'block' }}>
             ⚠️ Changing room stops active capture and requires manual restart.

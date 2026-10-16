@@ -34,7 +34,7 @@ export const ScenarioComparison: React.FC<ScenarioComparisonProps> = ({ result }
       </div>
 
       <div style={{ padding: '0.75rem 1rem', background: '#f0fdf4', borderRadius: '0.5rem', color: '#15803d', fontSize: '0.875rem' }}>
-        💡 <strong>Estimated Annual Cost Savings:</strong> ${(result.annualCostSavingsUsd).toLocaleString()} USD
+        💡 <strong>Estimated Annual Cost Savings:</strong> ₹{(result.annualCostSavingsUsd).toLocaleString('en-IN')} INR
       </div>
     </div>
   );

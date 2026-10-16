@@ -8,13 +8,15 @@ import { ObservationPublisher } from './observationPublisher';
 export const CameraPage: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
-  const [detection, setDetection] = useState<DetectionResult>({ personCount: 1, confidenceScore: 0.94 });
-  const [isPublishing] = useState<boolean>(true);
+  const [roomId, setRoomId] = useState<string>('');
+  const [detection, setDetection] = useState<DetectionResult>({ personCount: 0, confidenceScore: 0 });
+  const [isPublishing, setIsPublishing] = useState<boolean>(false);
   const [lastSync, setLastSync] = useState<string>(new Date().toISOString());
 
   useEffect(() => {
     const detector = new EdgeDetector();
     let animFrame: number;
+    let publisher: ObservationPublisher | null = null;
 
     const start = async () => {
       await detector.loadModel();
@@ -35,15 +37,20 @@ export const CameraPage: React.FC = () => {
 
     start();
 
-    const publisher = new ObservationPublisher('ROOM-SCI-204', (ts) => setLastSync(ts));
-    publisher.startPublishing(() => ({ count: detection.personCount, confidence: detection.confidenceScore }));
+    if (roomId.trim()) {
+      publisher = new ObservationPublisher(roomId.trim(), (ts) => {
+        setLastSync(ts);
+        setIsPublishing(true);
+      });
+      publisher.startPublishing(() => ({ count: detection.personCount, confidence: detection.confidenceScore }));
+    }
 
     return () => {
       cancelAnimationFrame(animFrame);
       stopCamera(stream);
-      publisher.stopPublishing();
+      if (publisher) publisher.stopPublishing();
     };
-  }, []);
+  }, [roomId]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -54,7 +61,26 @@ export const CameraPage: React.FC = () => {
           No images or video leave this workstation. Only numerical occupancy counts are synced to the twin.
         </p>
 
-        <ObservationStatus isPublishing={isPublishing} lastSuccessTimestamp={lastSync} count={detection.personCount} />
+        <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <label style={{ fontSize: '0.85rem', fontWeight: 600, color: '#334155' }}>
+            Target Monitored Room ID:
+          </label>
+          <input
+            type="text"
+            value={roomId}
+            onChange={(e) => setRoomId(e.target.value)}
+            placeholder="Enter active Room ID to publish observations"
+            style={{
+              padding: '0.45rem 0.75rem',
+              borderRadius: '6px',
+              border: '1px solid #cbd5e1',
+              fontSize: '0.85rem',
+              width: '320px'
+            }}
+          />
+        </div>
+
+        <ObservationStatus isPublishing={isPublishing && !!roomId} lastSuccessTimestamp={lastSync} count={detection.personCount} />
 
         <div style={{ marginTop: '1.5rem', position: 'relative', maxWidth: '640px', background: '#0f172a', borderRadius: '0.5rem', overflow: 'hidden' }}>
           <video

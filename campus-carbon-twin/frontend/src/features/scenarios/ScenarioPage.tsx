@@ -15,14 +15,13 @@ export const ScenarioPage: React.FC = () => {
   const totalSavings = Math.min(baselineCo2e * 0.45, hvacSavings + shutoffSavings + solarSavings);
   const projectedCo2e = baselineCo2e - totalSavings;
   const pct = (totalSavings / baselineCo2e) * 100;
-  const dollarSavings = totalSavings * 0.18; // ~$0.18 per kg CO2e saved
-
+  const rupeeSavings = totalSavings * 15.0; // ~₹15.0 per kg CO2e saved
   const result: ScenarioResult = {
     scenarioName: 'Combined Campus Efficiency Optimization',
     baselineMonthlyCo2eKg: baselineCo2e,
     projectedMonthlyCo2eKg: projectedCo2e,
     netReductionPercentage: pct,
-    annualCostSavingsUsd: dollarSavings * 12,
+    annualCostSavingsUsd: rupeeSavings * 12,
   };
 
   return (

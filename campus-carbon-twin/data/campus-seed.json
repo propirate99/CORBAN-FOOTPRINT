@@ -1,39 +1,9 @@
 {
   "campus": {
     "id": "CAMPUS-MAIN-01",
-    "name": "North Metro Institute of Technology",
-    "location": "Boston, MA",
-    "gridZone": "US-NE-ISO",
-    "buildings": [
-      {
-        "id": "BLDG-SCI",
-        "name": "Science & Innovation Hall",
-        "floors": 4,
-        "rooms": [
-          { "id": "ROOM-SCI-101", "name": "Bio-Lab 101", "floor": 1, "capacity": 30 },
-          { "id": "ROOM-SCI-204", "name": "Physics Lecture Hall 204", "floor": 2, "capacity": 120 },
-          { "id": "ROOM-SCI-302", "name": "Chemistry Seminar 302", "floor": 3, "capacity": 45 }
-        ]
-      },
-      {
-        "id": "BLDG-ENG",
-        "name": "Turing Engineering Center",
-        "floors": 5,
-        "rooms": [
-          { "id": "ROOM-ENG-110", "name": "Robotics Studio", "floor": 1, "capacity": 25 },
-          { "id": "ROOM-ENG-220", "name": "Computer Architecture Lab", "floor": 2, "capacity": 60 },
-          { "id": "ROOM-ENG-401", "name": "Graduate Research Suite", "floor": 4, "capacity": 20 }
-        ]
-      },
-      {
-        "id": "BLDG-LIB",
-        "name": "W.E.B. Du Bois Central Library",
-        "floors": 3,
-        "rooms": [
-          { "id": "ROOM-LIB-100", "name": "Main Reading Room", "floor": 1, "capacity": 200 },
-          { "id": "ROOM-LIB-205", "name": "Group Study Pod B", "floor": 2, "capacity": 12 }
-        ]
-      }
-    ]
+    "name": "Main Campus",
+    "location": "Regional Grid Hub",
+    "gridZone": "INDIA-NAT-GRID",
+    "buildings": []
   }
 }

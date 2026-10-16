@@ -15,7 +15,7 @@ interface CameraStationProps {
 }
 
 export const CameraStation: React.FC<CameraStationProps> = ({
-  initialRoomId = 'A-101',
+  initialRoomId = '',
   transport,
   onLocalObservation,
 }) => {

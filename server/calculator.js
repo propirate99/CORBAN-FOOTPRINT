@@ -109,13 +109,13 @@ class CarbonCalculatorService {
   calculateElectricity({
     kwh,
     bill_amount,
-    tariff_rate = 0.14,
+    tariff_rate = 8.50,
     factor_id = 'CEA_V19_FY2022_23_DEMO',
     period = 'MONTHLY'
   }) {
     let computedKwh = Number(kwh);
     if ((computedKwh === undefined || isNaN(computedKwh) || computedKwh <= 0) && bill_amount && Number(bill_amount) > 0) {
-      computedKwh = Number(bill_amount) / (Number(tariff_rate) || 0.14);
+      computedKwh = Number(bill_amount) / (Number(tariff_rate) || 8.50);
     }
     computedKwh = Math.max(0, computedKwh || 0);
 
@@ -198,7 +198,7 @@ class CarbonCalculatorService {
   calculateEquipment({
     items = [],
     factor_id = 'CEA_V19_FY2022_23_DEMO',
-    cost_per_kwh = 0.14
+    cost_per_kwh = 8.50
   }) {
     const factorObj = EMISSION_FACTORS.grid.find(f => f.id === factor_id) || EMISSION_FACTORS.grid[0];
     

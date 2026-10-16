@@ -38,26 +38,31 @@ export const CampusMap: React.FC<CampusMapProps> = ({ rooms, onSelectRoom, selec
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
-        {rooms.map((room) => {
-          const isSelected = room.id === selectedRoomId;
-          const statusColor = getStatusColor(room.status);
-          return (
-            <button
-              key={room.id}
-              onClick={() => onSelectRoom(room.id)}
-              style={{
-                background: isSelected ? '#334155' : '#0f172a',
-                border: `2px solid ${isSelected ? '#60a5fa' : statusColor}`,
-                borderRadius: '0.5rem',
-                padding: '1rem',
-                textAlign: 'left',
-                cursor: 'pointer',
-                color: '#fff',
-                transition: 'all 0.2s',
-              }}
-            >
-              <div style={{ fontWeight: 600, fontSize: '0.9rem', marginBottom: '0.25rem' }}>{room.name}</div>
+      {rooms.length === 0 ? (
+        <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: '#94a3b8', fontSize: '0.875rem' }}>
+          No campus spatial zones mapped yet. Connect edge camera observation streams to display live zones.
+        </div>
+      ) : (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
+          {rooms.map((room) => {
+            const isSelected = room.id === selectedRoomId;
+            const statusColor = getStatusColor(room.status);
+            return (
+              <button
+                key={room.id}
+                onClick={() => onSelectRoom(room.id)}
+                style={{
+                  background: isSelected ? '#334155' : '#0f172a',
+                  border: `2px solid ${isSelected ? '#60a5fa' : statusColor}`,
+                  borderRadius: '0.5rem',
+                  padding: '1rem',
+                  textAlign: 'left',
+                  cursor: 'pointer',
+                  color: '#fff',
+                  transition: 'all 0.2s',
+                }}
+              >
+                <div style={{ fontWeight: 600, fontSize: '0.9rem', marginBottom: '0.25rem' }}>{room.name}</div>
               <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Cap: {room.capacity} | Occ: {room.currentOccupancy}</div>
               <div style={{ marginTop: '0.5rem', display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem' }}>
                 <span>{room.powerDrawKw.toFixed(1)} kW</span>

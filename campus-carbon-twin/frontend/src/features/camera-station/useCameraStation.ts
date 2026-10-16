@@ -14,7 +14,7 @@ import {
 import { CAMERA_CONFIG } from './config';
 
 export function useCameraStation(
-  initialRoomId: string = 'ROOM-SCI-204',
+  initialRoomId: string = '',
   customTransport?: ObservationTransport,
   onLocalObservation?: (roomId: string, count: number, timestamp: string) => void
 ) {

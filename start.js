@@ -6,8 +6,7 @@ console.log('🌿 Starting Carbon Twin Decarbonization Platform...');
 console.log('============================================================');
 console.log('📍 Client Dashboard : http://localhost:3000');
 console.log('📍 Backend API       : http://localhost:5001');
-console.log('🔑 Demo User (CSO)   : director@carbontwin.edu / admin123');
-console.log('🔑 Demo User (Staff) : marcus@carbontwin.edu / facilitypass2026');
+console.log('🛡️  Verified Mode     : Production Edge Telemetry (Zero Synthetic Data)');
 console.log('============================================================\n');
 
 const isWin = process.platform === 'win32';
