@@ -707,19 +707,24 @@ export default function ArchitecturalPlanSvg({
             const count = runtime.people || 0;
             const isLab1 = r.id === 'room_1';
 
-            // For Lab 1 with active camera vision: map real bounding boxes!
-            if (isLab1 && isCameraActive && lab1Detections.length > 0) {
+            // For Lab 1 with active camera vision or simulated detections: map real/simulated bounding boxes!
+            if (isLab1 && lab1Detections && lab1Detections.length > 0) {
               return (
                 <g key="lab1-real-people">
                   {lab1Detections.map((det, idx) => {
-                    // Normalize detection bbox [x, y, w, h] across 320x240 video
-                    const [bx, by, bw, bh] = det.bbox || [0, 0, 0, 0];
-                    const normCenterX = (bx + bw / 2) / 320;
-                    const normFootY = (by + bh) / 240;
+                    const normBbox = det.normBbox || [
+                      (det.bbox?.[0] || 0) / (det.vw || 640),
+                      (det.bbox?.[1] || 0) / (det.vh || 480),
+                      (det.bbox?.[2] || 0) / (det.vw || 640),
+                      (det.bbox?.[3] || 0) / (det.vh || 480)
+                    ];
+                    const [normX, normY, normW, normH] = normBbox;
+                    const normCenterX = Math.max(0.08, Math.min(0.92, normX + normW / 2));
+                    const normFootY = Math.max(0.12, Math.min(0.90, normY + normH));
 
-                    // Map within Lab 1 floor boundaries: x (50 to 300), y (60 to 260)
-                    const mappedX = 60 + normCenterX * 240;
-                    const mappedY = 70 + normFootY * 180;
+                    // Map within Lab 1 floor boundaries: x: 30, y: 30, width: 290, height: 250
+                    const mappedX = r.x + 30 + normCenterX * (r.width - 60);
+                    const mappedY = r.y + 40 + normFootY * (r.height - 70);
 
                     return (
                       <g key={`person-det-${idx}`} transform={`translate(${mappedX}, ${mappedY})`}>
@@ -737,10 +742,16 @@ export default function ArchitecturalPlanSvg({
               );
             }
 
-            // Fallback / simulated occupant dots for other rooms or simulated mode
+            // Fallback / simulated occupant dots for other rooms or generic room occupancy
             if (count > 0) {
               const dots = [];
-              const basePos = [
+              const basePos = isLab1 ? [
+                { x: r.x + 80, y: r.y + 110 },
+                { x: r.x + 150, y: r.y + 110 },
+                { x: r.x + 80, y: r.y + 170 },
+                { x: r.x + 150, y: r.y + 170 },
+                { x: r.x + 210, y: r.y + 140 }
+              ] : [
                 { x: r.x + 70, y: r.y + 110 },
                 { x: r.x + 130, y: r.y + 110 },
                 { x: r.x + 70, y: r.y + 170 },
@@ -752,8 +763,13 @@ export default function ArchitecturalPlanSvg({
                 const pos = basePos[i] || { x: r.x + 80 + i * 20, y: r.y + 120 };
                 dots.push(
                   <g key={`sim-person-${r.id}-${i}`} transform={`translate(${pos.x}, ${pos.y})`}>
-                    <circle cx="0" cy="0" r="10" fill="none" stroke="#10b981" strokeWidth="1" opacity="0.6" />
-                    <circle cx="0" cy="0" r="5.5" fill="#059669" stroke="#ffffff" strokeWidth="1.8" filter="url(#chip-shadow)" />
+                    <circle cx="0" cy="0" r="10" fill="none" stroke={isLab1 ? "#06b6d4" : "#10b981"} strokeWidth="1" opacity="0.6" className={isLab1 ? "twin-radar-pulse" : ""} />
+                    <circle cx="0" cy="0" r="5.5" fill={isLab1 ? "#0284c7" : "#059669"} stroke="#ffffff" strokeWidth="1.8" filter="url(#chip-shadow)" />
+                    {isLab1 && (
+                      <text y="15" textAnchor="middle" fill="#0284c7" fontSize="8" fontWeight="800">
+                        Person {i + 1}
+                      </text>
+                    )}
                   </g>
                 );
               }

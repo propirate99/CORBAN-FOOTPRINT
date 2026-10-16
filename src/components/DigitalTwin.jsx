@@ -64,7 +64,7 @@ export default function DigitalTwin({ onBackToDashboard }) {
   const [cameraError, setCameraError] = useState('');
   const [currentBrightness, setCurrentBrightness] = useState(null);
   const [simulatedCameraMode, setSimulatedCameraMode] = useState(false);
-  const [simulatedPeopleCount, setSimulatedPeopleCount] = useState(0);
+  const [simulatedPeopleCount, setSimulatedPeopleCount] = useState(2);
   const [simulatedLightsOn, setSimulatedLightsOn] = useState(true);
   const [rawDetections, setRawDetections] = useState([]);
 
@@ -156,11 +156,14 @@ export default function DigitalTwin({ onBackToDashboard }) {
         if (personDetectorRef.current) {
           const res = personDetectorRef.current.detectFrame(video);
           if (res && res.boxes) {
-            peopleDetected = res.peopleDetected;
+            peopleDetected = res.personCount ?? res.peopleDetected ?? res.boxes.length;
             personDetections = res.boxes.map((b) => ({
               bbox: [b.x * vw, b.y * vh, b.width * vw, b.height * vh],
+              normBbox: [b.x, b.y, b.width, b.height],
               score: b.score,
-              class: 'person'
+              class: 'person',
+              vw,
+              vh
             }));
           }
         } else if (modelRef.current) {
@@ -168,7 +171,12 @@ export default function DigitalTwin({ onBackToDashboard }) {
           const predictions = await modelRef.current.detect(video);
           personDetections = predictions.filter(
             p => p.class === 'person' && p.score >= 0.40
-          );
+          ).map(p => ({
+            ...p,
+            normBbox: [p.bbox[0] / vw, p.bbox[1] / vh, p.bbox[2] / vw, p.bbox[3] / vh],
+            vw,
+            vh
+          }));
           peopleDetected = personDetections.length;
         } else {
           // Background warm-up detector
@@ -195,21 +203,39 @@ export default function DigitalTwin({ onBackToDashboard }) {
           peopleDetected = 1;
           personDetections = [{
             bbox: [vw * 0.2, vh * 0.15, vw * 0.6, vh * 0.7],
+            normBbox: [0.2, 0.15, 0.6, 0.7],
             score: 0.91,
-            class: 'person'
+            class: 'person',
+            vw,
+            vh
           }];
         }
 
         setRawDetections(personDetections);
 
-        // Update Lab 1 telemetry with REAL camera vision values
+        // Update Lab 1 telemetry with REAL camera vision values & recalculate kW / leak state
         setRooms(prev => prev.map((r, i) => {
           if (i === 0) {
+            const nextAc = r.forget ? r.ac : peopleDetected > 0;
+            const nextKw = calculateRoomPower({
+              ...r,
+              ac: nextAc,
+              lights: detectedLightsOn
+            });
+            const isUnoccupiedWithLoad = peopleDetected === 0 && (nextAc || detectedLightsOn);
+            const nextIdle = isUnoccupiedWithLoad ? r.idle : 0;
+            const nextStatus = isUnoccupiedWithLoad
+              ? (nextIdle >= leakThresholdSeconds ? 'leak' : nextIdle > 0 ? 'warn' : 'ok')
+              : 'ok';
+
             return {
               ...r,
               people: peopleDetected,
               lights: detectedLightsOn,
-              ac: r.forget ? r.ac : peopleDetected > 0
+              ac: nextAc,
+              kw: nextKw,
+              idle: nextIdle,
+              status: nextStatus
             };
           }
           return r;
@@ -222,7 +248,7 @@ export default function DigitalTwin({ onBackToDashboard }) {
     if (isCameraActiveRef.current) {
       detectionTimeoutRef.current = setTimeout(runVisionDetection, TWIN_CONFIG.VISION_DETECTION_INTERVAL_MS);
     }
-  }, [lightThreshold, getOrInitDetector]);
+  }, [lightThreshold, leakThresholdSeconds, getOrInitDetector]);
 
   // Start Webcam or selected phone-as-webcam
   const startCamera = async (targetDeviceId = selectedDeviceId) => {
@@ -324,19 +350,54 @@ export default function DigitalTwin({ onBackToDashboard }) {
   // Update Lab 1 when in Simulated Camera mode
   useEffect(() => {
     if (simulatedCameraMode) {
+      const simBoxes = [];
+      const presets = [
+        { bbox: [80, 50, 180, 320], normBbox: [0.15, 0.1, 0.32, 0.7], score: 0.94 },
+        { bbox: [320, 60, 180, 310], normBbox: [0.55, 0.12, 0.32, 0.68], score: 0.91 },
+        { bbox: [210, 90, 140, 260], normBbox: [0.38, 0.2, 0.24, 0.55], score: 0.86 },
+        { bbox: [450, 110, 130, 240], normBbox: [0.72, 0.22, 0.22, 0.5], score: 0.82 },
+        { bbox: [20, 120, 120, 230], normBbox: [0.05, 0.25, 0.2, 0.48], score: 0.78 }
+      ];
+      for (let i = 0; i < Math.min(simulatedPeopleCount, 5); i++) {
+        simBoxes.push({
+          ...presets[i],
+          class: 'person',
+          vw: 640,
+          vh: 480
+        });
+      }
+      setRawDetections(simBoxes);
+
       setRooms(prev => prev.map((r, i) => {
         if (i === 0) {
+          const nextAc = r.forget ? r.ac : simulatedPeopleCount > 0;
+          const nextKw = calculateRoomPower({
+            ...r,
+            ac: nextAc,
+            lights: simulatedLightsOn
+          });
+          const isUnoccupiedWithLoad = simulatedPeopleCount === 0 && (nextAc || simulatedLightsOn);
+          const nextIdle = isUnoccupiedWithLoad ? r.idle : 0;
+          const nextStatus = isUnoccupiedWithLoad
+            ? (nextIdle >= leakThresholdSeconds ? 'leak' : nextIdle > 0 ? 'warn' : 'ok')
+            : 'ok';
+
           return {
             ...r,
             people: simulatedPeopleCount,
             lights: simulatedLightsOn,
-            ac: r.forget ? r.ac : simulatedPeopleCount > 0
+            ac: nextAc,
+            kw: nextKw,
+            idle: nextIdle,
+            status: nextStatus
           };
         }
         return r;
       }));
+    } else if (!isCameraActiveRef.current) {
+      setRawDetections([]);
     }
-  }, [simulatedCameraMode, simulatedPeopleCount, simulatedLightsOn]);
+  }, [simulatedCameraMode, simulatedPeopleCount, simulatedLightsOn, leakThresholdSeconds]);
 
   // Main Meter Engine Tick: runs every 1000ms (1 second = 1 minute of demo simulation)
   useEffect(() => {
