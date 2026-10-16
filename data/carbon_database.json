@@ -493,6 +493,16 @@
       "department": "School of Architecture & Sustainability",
       "badge": "STAFF",
       "created_at": "2026-10-15T10:38:51.459Z"
+    },
+    {
+      "id": "usr-1792133942593",
+      "name": "rudra",
+      "email": "rudra818@gmail.com",
+      "password": "rudra@818",
+      "role": "Facility Operations Engineer",
+      "department": "faculty",
+      "badge": "STAFF",
+      "created_at": "2026-10-16T06:59:02.593Z"
     }
   ]
 }

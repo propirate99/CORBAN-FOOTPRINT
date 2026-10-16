@@ -56,6 +56,8 @@ export interface ObservationInput {
   confidenceScore: number;
   deviceId?: string;
   timestamp?: string;
+  sessionId?: string;
+  observedAt?: string;
 }
 
 export interface ObservationReceipt {

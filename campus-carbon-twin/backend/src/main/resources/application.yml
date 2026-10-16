@@ -6,3 +6,10 @@ spring:
 
 gemini:
   api-key: ${GEMINI_API_KEY:mock_key}
+
+supabase:
+  url: ${SUPABASE_URL:https://xyzcompany.supabase.co}
+  jwt:
+    issuer: ${SUPABASE_JWT_ISSUER:${supabase.url}/auth/v1}
+    jwk-set-uri: ${SUPABASE_JWK_SET_URI:${supabase.url}/auth/v1/.well-known/jwks.json}
+    audience: ${SUPABASE_JWT_AUDIENCE:authenticated}

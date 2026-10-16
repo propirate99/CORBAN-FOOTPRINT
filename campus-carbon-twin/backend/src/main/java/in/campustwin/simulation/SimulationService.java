@@ -6,7 +6,9 @@ import java.util.Map;
 @Service
 public class SimulationService {
 
+    @SuppressWarnings("unused")
     private final EnergyCalculator energyCalculator;
+    @SuppressWarnings("unused")
     private final EligibilityRules eligibilityRules;
 
     public SimulationService(EnergyCalculator energyCalculator, EligibilityRules eligibilityRules) {

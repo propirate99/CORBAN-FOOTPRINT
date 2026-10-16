@@ -6,6 +6,7 @@ import { CameraStation } from './features/camera-station/CameraStation';
 import { ScenarioPage } from './features/scenarios/ScenarioPage';
 import { ActionTimeline } from './features/actions/ActionTimeline';
 import { PersonalCalculatorPage } from './features/calculator/PersonalCalculatorPage';
+import { AuthHeaderWidget } from './auth/AuthHeaderWidget';
 import { Room } from './types/api';
 
 type Tab = 'campus' | 'room' | 'camera-station' | 'camera' | 'scenarios' | 'actions' | 'calculator';
@@ -46,8 +47,11 @@ export const App: React.FC = () => {
               <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Zero-PII Edge Intelligence & Energy Mitigation</span>
             </div>
           </div>
-          <div style={{ fontSize: '0.8rem', background: '#1e293b', padding: '4px 10px', borderRadius: '9999px', border: '1px solid #334155' }}>
-            Grid: <strong style={{ color: '#38bdf8' }}>0.428 kg CO2e/kWh</strong>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div style={{ fontSize: '0.8rem', background: '#1e293b', padding: '4px 10px', borderRadius: '9999px', border: '1px solid #334155' }}>
+              Grid: <strong style={{ color: '#38bdf8' }}>0.428 kg CO2e/kWh</strong>
+            </div>
+            <AuthHeaderWidget />
           </div>
         </div>
 

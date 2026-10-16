@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TemplateExplanationService implements ExplanationService {
 
+    @SuppressWarnings("unused")
     private final LlmClient llmClient;
 
     public TemplateExplanationService(LlmClient llmClient) {

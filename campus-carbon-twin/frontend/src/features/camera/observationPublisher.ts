@@ -2,11 +2,13 @@ import { submitObservation } from '../../api/observations';
 
 export class ObservationPublisher {
   private roomId: string;
+  private sessionId: string;
   private intervalId: any = null;
   private onSyncCallback?: (ts: string) => void;
 
   constructor(roomId: string, onSync?: (ts: string) => void) {
     this.roomId = roomId;
+    this.sessionId = 'sess_' + Math.random().toString(36).substring(2, 10);
     this.onSyncCallback = onSync;
   }
 
@@ -15,18 +17,21 @@ export class ObservationPublisher {
 
     this.intervalId = setInterval(async () => {
       const { count, confidence } = getCount();
+      const nowIso = new Date().toISOString();
       try {
         await submitObservation({
           roomId: this.roomId,
           personCount: count,
           confidenceScore: confidence,
-          timestamp: new Date().toISOString(),
+          timestamp: nowIso,
+          sessionId: this.sessionId,
+          observedAt: nowIso,
         });
         if (this.onSyncCallback) {
-          this.onSyncCallback(new Date().toISOString());
+          this.onSyncCallback(nowIso);
         }
-      } catch (err) {
-        console.warn('Edge observation publish fallback:', err);
+      } catch (err: any) {
+        console.warn('Edge observation publish error:', err?.message || 'Publish failed');
       }
     }, intervalMs);
   }
