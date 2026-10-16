@@ -3,8 +3,8 @@ import {
   Leaf, Zap, Users, Camera, ShieldCheck, PlayCircle, CheckCircle2,
   AlertTriangle, RefreshCw, Plus, Clock, Globe, ArrowUpRight,
   TrendingDown, Building2, HardDrive, Filter, Download, Eye, X,
-  Check, AlertCircle, FileText, Lock, Sliders, ChevronRight, ChevronLeft, LogOut, User,
-  Calculator, Activity, ExternalLink, Menu, Layers
+  Check, AlertCircle, FileText, Lock, Sliders, ChevronRight, LogOut, User,
+  Calculator, Activity, ExternalLink
 } from 'lucide-react';
 import LoginPage from './components/LoginPage';
 import DigitalTwin from './components/DigitalTwin';
@@ -45,7 +45,7 @@ export default function App() {
       if (h === 'database' || h.startsWith('database')) return 'database';
       if (h === 'overview') return 'overview';
     }
-    let p = window.location.pathname.toLowerCase().replace(/^\/corban-footprint\/?/, '').replace(/^\/+/, '');
+    let p = window.location.pathname.toLowerCase().replace(/^\/corban-footprint\/?/, '').replace(/^docs\/?/, '').replace(/^\/+/, '');
     if (p === 'twin' || p.startsWith('twin')) return 'twin';
     if (p === 'secondary-station' || p.startsWith('secondary-station') || p === 'live' || p.startsWith('live')) return 'secondary-station';
     if (p === 'calculator' || p.startsWith('calculator')) return 'calculator';
@@ -62,12 +62,9 @@ export default function App() {
   };
 
   const [activeTab, setActiveTab] = useState(getTabFromRoute);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navigateTo = (tab) => {
     setActiveTab(tab);
-    setMobileMenuOpen(false);
     if (typeof window !== 'undefined') {
       const targetHash = tab === 'overview' ? '' : `#${tab}`;
       if (window.location.hash !== targetHash) {
@@ -339,49 +336,8 @@ export default function App() {
     );
   }
 
-  const navSections = [
-    {
-      title: 'Decarbonization Twin',
-      items: [
-        { id: 'overview', label: 'Executive Carbon Overview', icon: Leaf },
-        { id: 'facilities', label: 'Facilities & Digital Twin', icon: Building2, badge: rooms.length, badgeType: 'slate' },
-        { id: 'twin', label: 'Digital Twin (2D)', icon: Layers, badge: '2D Twin', badgeType: 'emerald' },
-        { id: 'secondary-station', label: 'Secondary Station', isPulse: true, badge: 'Port 5173', badgeType: 'slate' },
-      ]
-    },
-    {
-      title: 'Vision AI & Occupancy',
-      items: [
-        { id: 'observations', label: 'Vision Observations', icon: Camera, badge: 'Live', badgeType: 'emerald' },
-        { id: 'camera-station', label: 'Camera Station', icon: Camera, badge: 'Edge AI', badgeType: 'emerald' },
-        { id: 'room-status', label: 'Room Status', icon: Building2, badge: 'Station', badgeType: 'slate' },
-        { id: 'equipment', label: 'Equipment & Load Inventory', icon: HardDrive, badge: equipment.length, badgeType: 'slate' },
-      ]
-    },
-    {
-      title: 'Decarbonization Engine',
-      items: [
-        { id: 'calculator', label: 'Carbon Calculator', icon: Calculator, badge: 'ISO 14064', badgeType: 'emerald' },
-        { id: 'scenarios', label: 'Scenario Modeler', icon: Sliders, badge: scenarios.length, badgeType: 'slate' },
-        { id: 'actions', label: 'Climate Action Plan', icon: CheckCircle2, badge: actions.length, badgeType: 'indigo' },
-      ]
-    },
-    {
-      title: 'Standards & Registry',
-      items: [
-        { id: 'emission-factors', label: 'Emission Factors', icon: Globe, badge: emissionFactors.length, badgeType: 'slate' },
-        { id: 'database', label: 'Carbon Database', icon: FileText, badge: '7 Tables', badgeType: 'slate' },
-      ]
-    }
-  ];
-
-  const currentTabItem = navSections
-    .flatMap(s => s.items)
-    .find(item => item.id === activeTab || (item.id === 'secondary-station' && activeTab === 'live'))
-    || { label: 'Executive Carbon Overview', icon: Leaf };
-
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', backgroundColor: '#f8fafc' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Toast */}
       {toastMessage && (
         <div style={{
@@ -405,271 +361,120 @@ export default function App() {
         </div>
       )}
 
-      {/* Mobile Drawer Backdrop */}
-      {mobileMenuOpen && (
-        <div
-          onClick={() => setMobileMenuOpen(false)}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'rgba(6, 24, 20, 0.75)',
-            backdropFilter: 'blur(3px)',
-            zIndex: 998
-          }}
-        />
-      )}
-
-      {/* Left Navigation Sidebar */}
-      <aside
-        className={`dashboard-sidebar ${mobileMenuOpen ? 'mobile-open' : ''}`}
-        style={{
-          width: sidebarCollapsed ? '76px' : '265px',
-          minWidth: sidebarCollapsed ? '76px' : '265px',
-          backgroundColor: '#061814',
-          borderRight: '1px solid #13382f',
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100vh',
-          position: 'sticky',
-          top: 0,
-          zIndex: 999,
-          transition: 'width 0.25s cubic-bezier(0.4, 0, 0.2, 1), min-width 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-          flexShrink: 0
-        }}
-      >
-        {/* Brand & Collapse Header */}
-        <div style={{
-          padding: sidebarCollapsed ? '1rem 0.5rem' : '1.15rem 1.15rem 0.9rem',
-          borderBottom: '1px solid #13382f',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: sidebarCollapsed ? 'center' : 'space-between',
-          gap: '0.5rem'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', overflow: 'hidden' }}>
+      {/* Carbon Twin Top Brand Header */}
+      <header style={{
+        backgroundColor: '#061814',
+        borderBottom: '1px solid #13382f',
+        color: '#ffffff',
+        padding: '0.85rem 1.5rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '1rem'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+          {/* Carbon Twin Logo Emblem */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <div style={{
-              width: '34px',
-              height: '34px',
-              borderRadius: '9px',
+              width: '32px',
+              height: '32px',
+              borderRadius: '8px',
               background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 2px 10px rgba(16, 185, 129, 0.45)',
-              flexShrink: 0
+              boxShadow: '0 2px 8px rgba(16, 185, 129, 0.4)'
             }}>
-              <Leaf size={19} color="#ffffff" />
+              <Leaf size={18} color="#ffffff" />
             </div>
-            {!sidebarCollapsed && (
-              <div style={{ lineHeight: 1.15, overflow: 'hidden' }}>
-                <div style={{ fontWeight: 800, fontSize: '1rem', letterSpacing: '-0.02em', color: '#ffffff', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                  CARBON TWIN
-                  <span style={{ fontSize: '0.6rem', fontWeight: 700, background: '#13382f', color: '#34d399', padding: '0.1rem 0.35rem', borderRadius: '4px' }}>
-                    PRO
-                  </span>
-                </div>
-                <div style={{ fontSize: '0.68rem', color: '#6ee7b7', fontWeight: 500, whiteSpace: 'nowrap', marginTop: '2px' }}>
-                  Decarbonization Twin
-                </div>
+            <div>
+              <div style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                CARBON TWIN
+                <span style={{ fontSize: '0.65rem', fontWeight: 600, background: '#13382f', color: '#10b981', padding: '0.1rem 0.45rem', borderRadius: '4px', textTransform: 'uppercase' }}>
+                  Enterprise
+                </span>
               </div>
-            )}
+              <div style={{ fontSize: '0.7rem', color: '#6ee7b7', fontWeight: 500 }}>
+                Campus Energy & Decarbonization Intelligence
+              </div>
+            </div>
           </div>
+
+          <div style={{ height: '24px', width: '1px', background: '#1a473b' }} />
+
+          {/* Org Selector */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.825rem', color: '#e2e8f0' }}>
+            <Building2 size={16} color="#10b981" />
+            <span style={{ fontWeight: 600 }}>St. Jude Research Campus</span>
+            <span style={{ color: '#94a3b8' }}>• Scope 2 Facilities</span>
+          </div>
+        </div>
+
+        {/* Right side stats & privacy guarantee badge */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
+          {/* Privacy badge */}
+          <div style={{
+            background: '#09231d',
+            border: '1px solid #14493b',
+            borderRadius: '6px',
+            padding: '0.35rem 0.75rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            fontSize: '0.75rem',
+            color: '#a7f3d0'
+          }}>
+            <ShieldCheck size={16} color="#10b981" />
+            <span><strong>Privacy Verified:</strong> Zero Face Embeddings | Anonymous Headcounts</span>
+          </div>
+
+          {/* Quick simulation button */}
+          <button
+            onClick={() => handleSimulateTelemetry()}
+            className="btn-secondary"
+            style={{
+              padding: '0.4rem 0.85rem',
+              fontSize: '0.775rem',
+              background: '#0f3229',
+              color: '#d1fae5',
+              border: '1px solid #1a5646'
+            }}
+            title="Inject an edge camera telemetry update"
+          >
+            <PlayCircle size={14} color="#10b981" />
+            Simulate Edge Telemetry
+          </button>
 
           <button
-            onClick={() => {
-              if (window.innerWidth < 1024) {
-                setMobileMenuOpen(false);
-              } else {
-                setSidebarCollapsed(!sidebarCollapsed);
-              }
-            }}
+            onClick={handleResetData}
+            className="btn-secondary"
             style={{
-              padding: '0.35rem',
-              background: '#0d2822',
+              padding: '0.4rem 0.85rem',
+              fontSize: '0.775rem',
+              background: 'transparent',
               color: '#94a3b8',
-              border: '1px solid #1a473b',
-              borderRadius: '6px',
-              cursor: 'pointer',
+              border: '1px solid #1a473b'
+            }}
+          >
+            <RefreshCw size={14} />
+            Reset Data
+          </button>
+
+          {/* User Profile & Logout */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', borderLeft: '1px solid #1a473b', paddingLeft: '0.85rem' }}>
+            <div style={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
-            }}
-            title={sidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
-          >
-            {sidebarCollapsed ? <ChevronRight size={15} color="#34d399" /> : <ChevronLeft size={15} color="#34d399" />}
-          </button>
-        </div>
-
-        {/* Campus Context Badge */}
-        {!sidebarCollapsed && (
-          <div style={{
-            margin: '0.75rem 0.85rem 0.25rem',
-            padding: '0.55rem 0.75rem',
-            backgroundColor: '#0a231d',
-            border: '1px solid #14493b',
-            borderRadius: '8px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}>
-            <Building2 size={15} color="#10b981" style={{ flexShrink: 0 }} />
-            <div style={{ overflow: 'hidden', lineHeight: 1.2 }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#f1f5f9', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                St. Jude Research Campus
-              </div>
-              <div style={{ fontSize: '0.65rem', color: '#6ee7b7', whiteSpace: 'nowrap' }}>
-                Scope 2 Facilities • Cambridge MA
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Navigation Categories and Items */}
-        <div className="sidebar-scroll" style={{
-          flex: 1,
-          overflowY: 'auto',
-          padding: sidebarCollapsed ? '0.75rem 0.4rem' : '0.6rem 0.75rem',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.2rem'
-        }}>
-          {navSections.map((section, sIdx) => (
-            <div key={sIdx} style={{ marginBottom: '0.45rem' }}>
-              {!sidebarCollapsed && (
-                <div className="sidebar-section-title">
-                  {section.title}
-                </div>
-              )}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
-                {section.items.map((item) => {
-                  const isActive = activeTab === item.id || (item.id === 'secondary-station' && activeTab === 'live');
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => navigateTo(item.id)}
-                      className={`sidebar-item ${isActive ? 'active' : ''}`}
-                      style={{
-                        justifyContent: sidebarCollapsed ? 'center' : 'space-between',
-                        padding: sidebarCollapsed ? '0.6rem 0' : '0.55rem 0.75rem',
-                      }}
-                      title={item.label}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', minWidth: 0 }}>
-                        {item.isPulse ? (
-                          <span
-                            className="animate-pulse-live"
-                            style={{
-                              width: '9px',
-                              height: '9px',
-                              borderRadius: '50%',
-                              backgroundColor: '#38bdf8',
-                              display: 'inline-block',
-                              boxShadow: '0 0 6px #38bdf8',
-                              flexShrink: 0,
-                              margin: sidebarCollapsed ? '0 auto' : '0 4px'
-                            }}
-                          />
-                        ) : (
-                          <item.icon size={17} style={{ flexShrink: 0, color: isActive ? '#34d399' : '#94a3b8' }} />
-                        )}
-                        {!sidebarCollapsed && (
-                          <span style={{
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            fontSize: '0.825rem'
-                          }}>
-                            {item.label}
-                          </span>
-                        )}
-                      </div>
-
-                      {!sidebarCollapsed && item.badge !== undefined && (
-                        <span
-                          className={`sidebar-badge pill-${item.badgeType || 'slate'}`}
-                          style={{ marginLeft: 'auto', flexShrink: 0 }}
-                        >
-                          {item.badge}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Sidebar Footer */}
-        <div style={{
-          padding: sidebarCollapsed ? '0.65rem 0.4rem' : '0.85rem 0.85rem',
-          borderTop: '1px solid #13382f',
-          backgroundColor: '#04120f',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.55rem'
-        }}>
-          {/* Simulation & Reset controls */}
-          <div style={{ display: 'flex', flexDirection: sidebarCollapsed ? 'column' : 'row', gap: '0.35rem' }}>
-            <button
-              onClick={() => handleSimulateTelemetry()}
-              className="btn-secondary"
-              style={{
-                flex: 1,
-                padding: '0.4rem 0.5rem',
-                fontSize: '0.725rem',
-                background: '#0f3229',
-                color: '#d1fae5',
-                border: '1px solid #1a5646',
-                borderRadius: '6px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.35rem'
-              }}
-              title="Simulate edge camera telemetry update"
-            >
-              <PlayCircle size={13} color="#10b981" />
-              {!sidebarCollapsed && <span>Simulate</span>}
-            </button>
-
-            <button
-              onClick={handleResetData}
-              className="btn-secondary"
-              style={{
-                flex: sidebarCollapsed ? undefined : '0 0 auto',
-                padding: '0.4rem 0.5rem',
-                fontSize: '0.725rem',
-                background: 'transparent',
-                color: '#94a3b8',
-                border: '1px solid #1a473b',
-                borderRadius: '6px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-              title="Reset data to baseline"
-            >
-              <RefreshCw size={13} />
-              {!sidebarCollapsed && <span>Reset</span>}
-            </button>
-          </div>
-
-          {/* User Card */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: sidebarCollapsed ? 'center' : 'space-between',
-            gap: '0.5rem',
-            backgroundColor: '#0a261f',
-            padding: sidebarCollapsed ? '0.4rem' : '0.45rem 0.65rem',
-            borderRadius: '7px',
-            border: '1px solid #15513f'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', overflow: 'hidden' }}>
+              gap: '0.45rem',
+              background: '#0a261f',
+              padding: '0.3rem 0.6rem',
+              borderRadius: '6px',
+              border: '1px solid #15513f'
+            }}>
               <div style={{
-                width: '26px',
-                height: '26px',
+                width: '24px',
+                height: '24px',
                 borderRadius: '50%',
                 background: '#059669',
                 display: 'flex',
@@ -677,127 +482,183 @@ export default function App() {
                 justifyContent: 'center',
                 fontSize: '0.75rem',
                 fontWeight: 700,
-                color: '#ffffff',
-                flexShrink: 0
+                color: '#ffffff'
               }}>
                 {currentUser?.name ? currentUser.name.charAt(0) : 'U'}
               </div>
-              {!sidebarCollapsed && (
-                <div style={{ lineHeight: 1.15, overflow: 'hidden' }}>
-                  <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#f1f5f9', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                    {currentUser?.name || 'Authorized User'}
-                  </div>
-                  <div style={{ fontSize: '0.63rem', color: '#6ee7b7', whiteSpace: 'nowrap' }}>
-                    {currentUser?.role || 'Sustainability Officer'}
-                  </div>
+              <div style={{ lineHeight: 1.2 }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#f1f5f9' }}>
+                  {currentUser?.name || 'Authorized User'}
                 </div>
-              )}
-            </div>
-
-            {!sidebarCollapsed && (
-              <button
-                onClick={handleLogout}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: '#fca5a5',
-                  cursor: 'pointer',
-                  padding: '0.25rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  borderRadius: '4px'
-                }}
-                title="Sign out of Carbon Twin"
-              >
-                <LogOut size={14} />
-              </button>
-            )}
-          </div>
-        </div>
-      </aside>
-
-      {/* Main Content Area */}
-      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        {/* Top App Header */}
-        <header style={{
-          backgroundColor: '#ffffff',
-          borderBottom: '1px solid #e2e8f0',
-          padding: '0.75rem 1.5rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '1rem',
-          position: 'sticky',
-          top: 0,
-          zIndex: 40
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-            {/* Mobile Hamburger Menu Toggle */}
-            <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="btn-secondary mobile-menu-btn"
-              style={{
-                padding: '0.4rem',
-                background: '#f8fafc',
-                border: '1px solid #cbd5e1',
-                borderRadius: '6px'
-              }}
-              title="Open menu"
-            >
-              <Menu size={18} color="#0f172a" />
-            </button>
-
-            {/* Breadcrumb / Page Title */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-              <currentTabItem.icon size={18} color="#059669" />
-              <span style={{ color: '#64748b', fontSize: '0.825rem', fontWeight: 500 }}>Dashboard</span>
-              <ChevronRight size={13} color="#94a3b8" />
-              <span style={{ color: '#0f172a', fontSize: '0.925rem', fontWeight: 700 }}>
-                {currentTabItem.label}
-              </span>
-            </div>
-          </div>
-
-          {/* Right Header Status Badges & Quick Action */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <div style={{
-              background: '#ecfdf5',
-              border: '1px solid #a7f3d0',
-              borderRadius: '6px',
-              padding: '0.35rem 0.75rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.45rem',
-              fontSize: '0.75rem',
-              color: '#065f46'
-            }}>
-              <ShieldCheck size={16} color="#059669" />
-              <span className="hidden-mobile">
-                <strong>Privacy Verified:</strong> Zero Face Embeddings | Anonymous Headcounts
-              </span>
-              <span className="visible-mobile-only">Privacy Verified</span>
+                <div style={{ fontSize: '0.65rem', color: '#6ee7b7' }}>
+                  {currentUser?.role || 'Staff'}
+                </div>
+              </div>
             </div>
 
             <button
-              onClick={() => handleSimulateTelemetry()}
-              className="btn-primary"
+              onClick={handleLogout}
+              className="btn-secondary"
               style={{
-                padding: '0.35rem 0.75rem',
-                fontSize: '0.775rem',
+                padding: '0.35rem 0.65rem',
+                fontSize: '0.75rem',
+                background: '#1f1315',
+                color: '#fca5a5',
+                border: '1px solid #5c1d24',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.4rem'
+                gap: '0.35rem'
               }}
-              title="Inject edge camera telemetry"
+              title="Sign out of Carbon Twin"
             >
-              <PlayCircle size={14} />
-              <span>Simulate Edge Telemetry</span>
+              <LogOut size={13} />
+              Sign Out
             </button>
           </div>
-        </header>
+        </div>
+      </header>
 
-        {/* Main Body Content */}
-        <main style={{ flex: 1, padding: '1.5rem', maxWidth: '1440px', width: '100%', margin: '0 auto' }}>
+      {/* Carbon Twin Navigation Tabs */}
+      <nav style={{
+        backgroundColor: '#ffffff',
+        borderBottom: '1px solid #e2e8f0',
+        padding: '0 1.5rem',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+        overflowX: 'auto'
+      }}>
+        <button
+          className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
+          onClick={() => navigateTo('overview')}
+        >
+          <Leaf size={16} />
+          Executive Carbon Overview
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'facilities' ? 'active' : ''}`}
+          onClick={() => navigateTo('facilities')}
+        >
+          <Building2 size={16} />
+          Facilities & Digital Twin
+          <span className="pill pill-slate" style={{ fontSize: '0.7rem' }}>{rooms.length}</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'equipment' ? 'active' : ''}`}
+          onClick={() => navigateTo('equipment')}
+        >
+          <HardDrive size={16} />
+          Equipment & Load Inventory
+          <span className="pill pill-slate" style={{ fontSize: '0.7rem' }}>{equipment.length}</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'observations' ? 'active' : ''}`}
+          onClick={() => navigateTo('observations')}
+        >
+          <Camera size={16} />
+          Vision Observations
+          <span className="pill pill-emerald" style={{ fontSize: '0.7rem' }}>Live</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'camera-station' ? 'active' : ''}`}
+          onClick={() => navigateTo('camera-station')}
+        >
+          <Camera size={16} />
+          Camera Station
+          <span className="pill pill-emerald" style={{ fontSize: '0.7rem' }}>Edge AI</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'room-status' ? 'active' : ''}`}
+          onClick={() => navigateTo('room-status')}
+        >
+          <Building2 size={16} />
+          Room Status
+          <span className="pill pill-slate" style={{ fontSize: '0.7rem' }}>Station</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'calculator' ? 'active' : ''}`}
+          onClick={() => navigateTo('calculator')}
+        >
+          <Calculator size={16} />
+          Carbon Calculator
+          <span className="pill pill-emerald" style={{ fontSize: '0.7rem' }}>ISO 14064</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'twin' ? 'active' : ''}`}
+          onClick={() => navigateTo('twin')}
+        >
+          <Leaf size={16} />
+          Twin
+          <span className="pill pill-emerald" style={{ fontSize: '0.7rem' }}>2D Twin</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'secondary-station' || activeTab === 'live' ? 'active' : ''}`}
+          onClick={() => navigateTo('secondary-station')}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}
+          title="Campus Carbon Twin Secondary Station (Port 5173)"
+        >
+          <span
+            className="animate-pulse-live"
+            style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              backgroundColor: '#38bdf8',
+              display: 'inline-block',
+              boxShadow: '0 0 6px #38bdf8'
+            }}
+          />
+          Secondary Station
+          <span className="pill pill-slate" style={{ fontSize: '0.7rem' }}>Port 5173</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'scenarios' ? 'active' : ''}`}
+          onClick={() => navigateTo('scenarios')}
+        >
+          <Sliders size={16} />
+          Scenario Modeler
+          <span className="pill pill-slate" style={{ fontSize: '0.7rem' }}>{scenarios.length}</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'actions' ? 'active' : ''}`}
+          onClick={() => navigateTo('actions')}
+        >
+          <CheckCircle2 size={16} />
+          Climate Action Plan
+          <span className="pill pill-indigo" style={{ fontSize: '0.7rem' }}>{actions.length}</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'emission-factors' ? 'active' : ''}`}
+          onClick={() => navigateTo('emission-factors')}
+        >
+          <Globe size={16} />
+          Emission Factors
+          <span className="pill pill-slate" style={{ fontSize: '0.7rem' }}>{emissionFactors.length}</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'database' ? 'active' : ''}`}
+          onClick={() => navigateTo('database')}
+        >
+          <FileText size={16} />
+          Carbon Database
+          <span className="pill pill-slate" style={{ fontSize: '0.7rem' }}>7 Tables</span>
+        </button>
+      </nav>
+
+      {/* Main Body Content */}
+      <main style={{ flex: 1, padding: '1.5rem', maxWidth: '1440px', width: '100%', margin: '0 auto' }}>
         {/* Loading Spinner */}
         {loading && !analytics && (
           <div style={{ textAlign: 'center', padding: '4rem 0', color: '#64748b' }}>
@@ -2002,7 +1863,6 @@ export default function App() {
           </div>
         )}
       </main>
-      </div>
 
       {/* MODAL 1: NEW SCENARIO SIMULATION */}
       {showNewScenarioModal && (

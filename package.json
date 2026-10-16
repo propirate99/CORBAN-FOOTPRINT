@@ -7,7 +7,7 @@
     "start": "node start.js",
     "server": "node server/index.js",
     "client": "vite --port 3000 --host",
-    "build": "vite build",
+    "build": "vite build && node -e \"const fs = require('fs'); fs.cpSync('dist', 'docs', { recursive: true });\"",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist --dotfiles --nojekyll",
     "preview": "vite preview",
