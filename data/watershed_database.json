@@ -231,6 +231,16 @@
   ],
   "observations": [
     {
+      "id": "obs-1792131594817",
+      "room_id": "ROOM-SCI-204",
+      "camera_session_id": "sess-live-test",
+      "people_detected": 4,
+      "observed_at": "2026-10-16T06:19:54.817Z",
+      "received_at": "2026-10-16T06:19:54.817Z",
+      "coverage": 0.98,
+      "source": "BROWSER_CAMERA"
+    },
+    {
       "id": "obs-001",
       "room_id": "ROOM-SCI-101",
       "camera_session_id": "cam-sess-sci-101",
@@ -279,6 +289,16 @@
       "received_at": "2024-10-15T12:23:02Z",
       "coverage": 0.99,
       "source": "Architecture Lab Precision Edge"
+    },
+    {
+      "id": "obs-006",
+      "room_id": "ROOM-ENG-401",
+      "camera_session_id": "cam-sess-eng-401",
+      "people_detected": 5,
+      "observed_at": "2024-10-15T12:24:00Z",
+      "received_at": "2024-10-15T12:24:01Z",
+      "coverage": 0.94,
+      "source": "Grad Research Suite Edge Sensor"
     },
     {
       "id": "obs-007",
@@ -337,6 +357,48 @@
     }
   ],
   "scenarios": [
+    {
+      "id": "scen-1792129558404",
+      "room_id": "ROOM-SCI-101",
+      "created_at": "2026-10-16T05:45:58.404Z",
+      "input_snapshot_json": {
+        "room_id": "ROOM-SCI-101",
+        "room_name": "Bio-Lab 101",
+        "building_name": "Science & Innovation Hall",
+        "policy_name": "Automated Vacancy Power Down (15m Idle Timeout)",
+        "target_hours_saved_per_day": 5,
+        "emission_factor_used": {
+          "id": "ef-egrid-camx",
+          "name": "US EPA eGRID CAMX Grid Subregion",
+          "value": 0.2185,
+          "unit": "kg CO2e / kWh",
+          "gas_basis": "CO2E",
+          "source_reference": "EPA eGRID 2024v1 Table 1"
+        },
+        "equipment_snapshot": [
+          {
+            "id": "EQ-SCI-101-2",
+            "name": "Lab Bench Workstation LED Luminaires",
+            "quantity": 10,
+            "rated_power_w": 95,
+            "declared_state": "ON",
+            "nonessential": true,
+            "safety_exclusion": false,
+            "effective_controllable_power_w": 950
+          }
+        ],
+        "total_controllable_power_w": 950
+      },
+      "result_snapshot_json": {
+        "daily_kwh_avoided": 4.75,
+        "annual_kwh_avoided": 1235,
+        "annual_avoided_emissions_kg_co2e": 269.85,
+        "annual_avoided_emissions_t_co2e": 0.27,
+        "estimated_annual_cost_savings_usd": 209.95,
+        "confidence_score": 0.95,
+        "payback_period_months": 3
+      }
+    },
     {
       "id": "scen-001",
       "room_id": "ROOM-SCI-204",
