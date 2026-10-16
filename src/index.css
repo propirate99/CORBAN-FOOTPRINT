@@ -3,7 +3,7 @@
   --font-display: 'Plus Jakarta Sans', var(--font-sans);
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* Watershed Signature Palette */
+  /* Carbon Database Signature Palette */
   --color-obsidian: #061814;
   --color-obsidian-card: #0b231d;
   --color-obsidian-border: #13382f;
@@ -72,7 +72,8 @@ body {
   font-feature-settings: 'tnum';
 }
 
-/* Watershed Card Styles */
+/* Carbon Database Card Styles */
+.carbon-card,
 .watershed-card {
   background: #ffffff;
   border: 1px solid var(--color-border-subtle);
@@ -81,11 +82,13 @@ body {
   transition: all 0.2s ease;
 }
 
+.carbon-card:hover,
 .watershed-card:hover {
   border-color: #cbd5e1;
   box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.06);
 }
 
+.carbon-dark-card,
 .watershed-dark-card {
   background: var(--color-obsidian-card);
   border: 1px solid var(--color-obsidian-border);
@@ -225,6 +228,7 @@ body {
 }
 
 /* Tables */
+.carbon-table,
 .watershed-table {
   width: 100%;
   border-collapse: separate;
@@ -232,6 +236,7 @@ body {
   font-size: 0.875rem;
 }
 
+.carbon-table th,
 .watershed-table th {
   background: #f8fafc;
   color: #64748b;

@@ -79,7 +79,7 @@ export const CameraStation: React.FC<CameraStationProps> = ({
       <ObservationSettings
         settings={settings}
         onChange={(updated) => setSettings((prev) => ({ ...prev, ...updated }))}
-        disabled={cameraState === 'RUNNING'}
+        disabled={false}
       />
 
       <CameraStatusPanel

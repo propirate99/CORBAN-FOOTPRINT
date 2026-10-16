@@ -1,0 +1,407 @@
+/* Scoped Styles for Isolated Carbon Footprint Calculator */
+/* All styles are strictly scoped under .isolated-calc-root to prevent any style leakage into the host app */
+
+.isolated-calc-root {
+  --calc-bg: #ffffff;
+  --calc-surface: #f8fafc;
+  --calc-border: #e2e8f0;
+  --calc-border-focus: #10b981;
+  --calc-text: #0f172a;
+  --calc-text-muted: #64748b;
+  --calc-primary: #059669;
+  --calc-primary-hover: #047857;
+  --calc-primary-light: #ecfdf5;
+  --calc-accent: #0284c7;
+  --calc-danger: #dc2626;
+  --calc-danger-light: #fef2f2;
+  --calc-warning-bg: #fffbeb;
+  --calc-warning-border: #fef3c7;
+  --calc-warning-text: #92400e;
+  --calc-radius: 0.75rem;
+  --calc-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  color: var(--calc-text);
+  line-height: 1.5;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.isolated-calc-root * {
+  box-sizing: border-box;
+}
+
+/* Header & Banner */
+.isolated-calc-header {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.isolated-calc-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: var(--calc-text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.isolated-calc-subtitle {
+  color: var(--calc-text-muted);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.isolated-calc-notice-banner {
+  background-color: var(--calc-warning-bg);
+  border: 1px solid var(--calc-warning-border);
+  color: var(--calc-warning-text);
+  padding: 0.75rem 1rem;
+  border-radius: var(--calc-radius);
+  font-size: 0.85rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Tab Navigation */
+.isolated-calc-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--calc-border);
+  margin-bottom: 1.5rem;
+}
+
+.isolated-calc-tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--calc-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  margin-bottom: -2px;
+}
+
+.isolated-calc-tab-btn:hover {
+  color: var(--calc-primary);
+}
+
+.isolated-calc-tab-btn.active {
+  color: var(--calc-primary);
+  border-bottom-color: var(--calc-primary);
+  background-color: var(--calc-primary-light);
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+/* Layout Grid */
+.isolated-calc-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .isolated-calc-grid {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: start;
+  }
+}
+
+/* Form Container */
+.isolated-calc-card {
+  background: var(--calc-bg);
+  border: 1px solid var(--calc-border);
+  border-radius: var(--calc-radius);
+  padding: 1.5rem;
+  box-shadow: var(--calc-shadow);
+}
+
+.isolated-calc-form-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  color: var(--calc-text);
+}
+
+.isolated-calc-form-group {
+  margin-bottom: 1.25rem;
+}
+
+.isolated-calc-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--calc-text);
+  margin-bottom: 0.35rem;
+}
+
+.isolated-calc-input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--calc-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.isolated-calc-input-wrapper:focus-within {
+  border-color: var(--calc-border-focus);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.isolated-calc-input {
+  flex: 1;
+  padding: 0.65rem 0.85rem;
+  border: none;
+  font-size: 0.95rem;
+  outline: none;
+  color: var(--calc-text);
+  background: transparent;
+}
+
+.isolated-calc-unit-badge {
+  background: var(--calc-surface);
+  color: var(--calc-text-muted);
+  padding: 0.65rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-left: 1px solid var(--calc-border);
+  white-space: nowrap;
+}
+
+.isolated-calc-field-error {
+  color: var(--calc-danger);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+/* Radio & Select Buttons */
+.isolated-calc-radio-group {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+}
+
+.isolated-calc-radio-card {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--calc-border);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.isolated-calc-radio-card.active {
+  border-color: var(--calc-primary);
+  background: var(--calc-primary-light);
+  font-weight: 600;
+  color: var(--calc-primary);
+}
+
+/* Actions */
+.isolated-calc-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.isolated-calc-btn-primary {
+  flex: 1;
+  background-color: var(--calc-primary);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.isolated-calc-btn-primary:hover:not(:disabled) {
+  background-color: var(--calc-primary-hover);
+}
+
+.isolated-calc-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.isolated-calc-btn-secondary {
+  background: var(--calc-surface);
+  color: var(--calc-text-muted);
+  border: 1px solid var(--calc-border);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.isolated-calc-btn-secondary:hover {
+  background: #e2e8f0;
+  color: var(--calc-text);
+}
+
+/* Error Banner */
+.isolated-calc-error-banner {
+  background: var(--calc-danger-light);
+  border: 1px solid #fecaca;
+  color: var(--calc-danger);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+/* Stale Results Notice */
+.isolated-calc-stale-notice {
+  background: #f1f5f9;
+  border: 1px dashed #cbd5e1;
+  color: #64748b;
+  font-size: 0.75rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.375rem;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+/* Results Card */
+.isolated-calc-result-box {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+  border: 1px solid #a7f3d0;
+  border-radius: var(--calc-radius);
+  padding: 1.5rem;
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.isolated-calc-result-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #047857;
+  font-weight: 600;
+}
+
+.isolated-calc-result-number {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #065f46;
+  margin: 0.5rem 0;
+  line-height: 1;
+}
+
+.isolated-calc-result-unit {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #047857;
+}
+
+.isolated-calc-allocated-box {
+  background: #f8fafc;
+  border: 1px solid var(--calc-border);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+}
+
+.isolated-calc-allocated-number {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--calc-accent);
+}
+
+/* Expandable Details */
+.isolated-calc-accordion {
+  border-top: 1px solid var(--calc-border);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.isolated-calc-accordion-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--calc-text);
+  text-align: left;
+}
+
+.isolated-calc-accordion-header:hover {
+  color: var(--calc-primary);
+}
+
+.isolated-calc-accordion-body {
+  padding: 0.75rem 0;
+  font-size: 0.825rem;
+  color: var(--calc-text-muted);
+}
+
+.isolated-calc-formula-code {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #1e293b;
+  margin: 0.5rem 0;
+  word-break: break-all;
+}
+
+.isolated-calc-assumptions-list {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.isolated-calc-assumptions-list li {
+  margin-bottom: 0.35rem;
+}
+
+/* Provenance Card */
+.isolated-calc-provenance-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.8rem;
+}
+
+.isolated-calc-provenance-title {
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.25rem;
+}
