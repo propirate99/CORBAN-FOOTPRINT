@@ -15,10 +15,14 @@ interface CameraControlsProps {
 }
 
 const AVAILABLE_ROOMS = [
+  { id: 'ROOM-SCI-101', label: 'ROOM-SCI-101: Bio-Lab 101 (Science Hall)' },
   { id: 'ROOM-SCI-204', label: 'ROOM-SCI-204: Physics Lecture Hall 204' },
-  { id: 'ROOM-SCI-101', label: 'ROOM-SCI-101: Bio-Lab 101' },
+  { id: 'ROOM-SCI-302', label: 'ROOM-SCI-302: Chemistry Seminar 302' },
+  { id: 'ROOM-ENG-110', label: 'ROOM-ENG-110: Robotics Studio (Turing Center)' },
   { id: 'ROOM-ENG-220', label: 'ROOM-ENG-220: Computer Architecture Lab' },
-  { id: 'ROOM-LIB-100', label: 'ROOM-LIB-100: Main Reading Room' },
+  { id: 'ROOM-ENG-401', label: 'ROOM-ENG-401: Graduate Research Suite' },
+  { id: 'ROOM-LIB-100', label: 'ROOM-LIB-100: Main Reading Room (Library)' },
+  { id: 'ROOM-LIB-205', label: 'ROOM-LIB-205: Group Study Pod B' },
   { id: 'A-101', label: 'A-101: Demonstration Room' },
 ];
 

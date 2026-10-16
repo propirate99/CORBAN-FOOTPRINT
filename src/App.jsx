@@ -3,9 +3,15 @@ import {
   Leaf, Zap, Users, Camera, ShieldCheck, PlayCircle, CheckCircle2,
   AlertTriangle, RefreshCw, Plus, Clock, Globe, ArrowUpRight,
   TrendingDown, Building2, HardDrive, Filter, Download, Eye, X,
-  Check, AlertCircle, FileText, Lock, Sliders, ChevronRight, LogOut, User
+  Check, AlertCircle, FileText, Lock, Sliders, ChevronRight, LogOut, User,
+  Calculator
 } from 'lucide-react';
 import LoginPage from './components/LoginPage';
+import CameraStation from './components/camera-station/CameraStation';
+import CarbonCalculator from './components/calculator/CarbonCalculator';
+import RoomStatusInterface from './components/room-status/RoomStatusInterface';
+import './components/camera-station/CameraStation.css';
+import './components/calculator/styles/calculator.css';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(() => {
@@ -466,6 +472,33 @@ export default function App() {
         </button>
 
         <button
+          className={`tab-btn ${activeTab === 'camera-station' ? 'active' : ''}`}
+          onClick={() => setActiveTab('camera-station')}
+        >
+          <Camera size={16} />
+          Camera Station
+          <span className="pill pill-emerald" style={{ fontSize: '0.7rem' }}>Edge AI</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'room-status' ? 'active' : ''}`}
+          onClick={() => setActiveTab('room-status')}
+        >
+          <Building2 size={16} />
+          Room Status
+          <span className="pill pill-slate" style={{ fontSize: '0.7rem' }}>Station</span>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'calculator' ? 'active' : ''}`}
+          onClick={() => setActiveTab('calculator')}
+        >
+          <Calculator size={16} />
+          Carbon Calculator
+          <span className="pill pill-emerald" style={{ fontSize: '0.7rem' }}>ISO 14064</span>
+        </button>
+
+        <button
           className={`tab-btn ${activeTab === 'scenarios' ? 'active' : ''}`}
           onClick={() => setActiveTab('scenarios')}
         >
@@ -796,6 +829,34 @@ export default function App() {
                     ))}
                   </tbody>
                 </table>
+              </div>
+            </div>
+
+            {/* Campus Carbon Activity Calculator Section on Main Page */}
+            <div style={{ marginTop: '2.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+                <div>
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                    <Calculator size={22} color="#059669" />
+                    Campus Activity Carbon Calculator
+                    <span className="pill pill-emerald" style={{ fontSize: '0.75rem' }}>ISO 14064 Verified</span>
+                  </h3>
+                  <p style={{ fontSize: '0.85rem', color: '#64748b', margin: '0.2rem 0 0' }}>
+                    Independent emissions calculation engine for campus electricity, equipment loads, and commuter transport.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setActiveTab('calculator')}
+                  className="btn-secondary"
+                  style={{ fontSize: '0.8rem', padding: '0.45rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+                >
+                  <ArrowUpRight size={14} /> Full Screen Calculator Mode
+                </button>
+              </div>
+
+              {/* Embedded Carbon Calculator */}
+              <div style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '1rem' }}>
+                <CarbonCalculator />
               </div>
             </div>
           </div>
@@ -1505,6 +1566,50 @@ export default function App() {
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* TAB: CAMERA STATION (SECONDARY STATION INTEGRATION) */}
+        {activeTab === 'camera-station' && (
+          <div>
+            <CameraStation
+              initialRoomId={rooms[0]?.id || 'ROOM-LIB-100'}
+              onLocalObservation={(roomId, count, timestamp) => {
+                setObservations(prev => [
+                  {
+                    id: `obs-cam-${Date.now().toString().slice(-4)}`,
+                    room_id: roomId,
+                    camera_session_id: 'cam-sess-edge-local',
+                    people_detected: count,
+                    observed_at: timestamp,
+                    received_at: new Date().toISOString(),
+                    coverage: 0.98,
+                    source: 'Edge Browser Camera (Local AI)'
+                  },
+                  ...prev.slice(0, 49)
+                ]);
+                fetch('/api/analytics').then(r => r.json()).then(setAnalytics).catch(() => {});
+              }}
+            />
+          </div>
+        )}
+
+        {/* TAB: ROOM STATUS INTERFACE (SECONDARY STATION INTEGRATION) */}
+        {activeTab === 'room-status' && (
+          <div>
+            <RoomStatusInterface
+              rooms={rooms}
+              equipment={equipment}
+              observations={observations}
+              analytics={analytics}
+            />
+          </div>
+        )}
+
+        {/* TAB: CARBON CALCULATOR FULL VIEW */}
+        {activeTab === 'calculator' && (
+          <div>
+            <CarbonCalculator />
           </div>
         )}
       </main>
