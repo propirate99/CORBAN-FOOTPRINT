@@ -147,6 +147,16 @@ app.get('/api/rooms', (req, res) => {
   }
 });
 
+app.get('/api/rooms/:id', (req, res) => {
+  try {
+    const room = db.getRoomById(req.params.id);
+    if (!room) return res.status(404).json({ error: 'Room not found' });
+    res.json(room);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.post('/api/rooms', (req, res) => {
   try {
     const room = db.createRoom(req.body);
@@ -187,6 +197,21 @@ app.patch('/api/equipment/:id', (req, res) => {
 });
 
 // --- Observations ---
+app.get('/api/observations/latest', (req, res) => {
+  try {
+    const observations = db.getObservations();
+    const latestMap = {};
+    for (const obs of observations) {
+      if (!latestMap[obs.room_id] || new Date(obs.observed_at) > new Date(latestMap[obs.room_id].observed_at)) {
+        latestMap[obs.room_id] = obs;
+      }
+    }
+    res.json(Object.values(latestMap));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.get('/api/observations', (req, res) => {
   try {
     const { room_id } = req.query;
@@ -327,6 +352,32 @@ app.post(['/api/reset-demo', '/api/reset-data'], (req, res) => {
   try {
     const fresh = db.reset();
     res.json({ success: true, message: 'Database reset to original institutional baseline' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// --- Database Metadata & Tables Inspection ---
+app.get('/api/database', (req, res) => {
+  try {
+    res.json(db.data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/database/tables', (req, res) => {
+  try {
+    const data = db.data;
+    const tables = Object.keys(data).map(name => ({
+      name,
+      count: Array.isArray(data[name]) ? data[name].length : 0
+    }));
+    res.json({
+      database: 'Carbon Database (data/carbon_database.json & data/watershed_database.json)',
+      table_count: tables.length,
+      tables
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

@@ -7,6 +7,8 @@
     "start": "node start.js",
     "server": "node server/index.js",
     "client": "vite --port 3000 --host",
+    "build": "vite build",
+    "preview": "vite preview",
     "dev": "node start.js"
   },
   "keywords": [],
