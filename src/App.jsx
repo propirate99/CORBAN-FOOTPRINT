@@ -25,6 +25,7 @@ export default function App() {
   const [emissionFactors, setEmissionFactors] = useState([]);
   const [scenarios, setScenarios] = useState([]);
   const [actions, setActions] = useState([]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBuilding, setSelectedBuilding] = useState('ALL');
   const [toastMessage, setToastMessage] = useState(null);
@@ -55,14 +56,15 @@ export default function App() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const [resAna, resRooms, resEq, resObs, resEf, resScen, resAct] = await Promise.all([
+      const [resAna, resRooms, resEq, resObs, resEf, resScen, resAct, resUsers] = await Promise.all([
         fetch('/api/analytics').then(r => r.json()),
         fetch('/api/rooms').then(r => r.json()),
         fetch('/api/equipment').then(r => r.json()),
         fetch('/api/observations').then(r => r.json()),
         fetch('/api/emission-factors').then(r => r.json()),
         fetch('/api/scenarios').then(r => r.json()),
-        fetch('/api/actions').then(r => r.json())
+        fetch('/api/actions').then(r => r.json()),
+        fetch('/api/users').then(r => r.json()).catch(() => [])
       ]);
 
       setAnalytics(resAna);
@@ -72,6 +74,7 @@ export default function App() {
       setEmissionFactors(resEf);
       setScenarios(resScen);
       setActions(resAct);
+      setUsers(resUsers || []);
 
       if (!scenarioForm.room_id && resRooms.length > 0) {
         setScenarioForm(prev => ({
@@ -260,7 +263,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Watershed Top Brand Header */}
+      {/* Carbon Twin Top Brand Header */}
       <header style={{
         backgroundColor: '#061814',
         borderBottom: '1px solid #13382f',
@@ -273,7 +276,7 @@ export default function App() {
         gap: '1rem'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          {/* Watershed Logo Emblem */}
+          {/* Carbon Twin Logo Emblem */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <div style={{
               width: '32px',
@@ -417,7 +420,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* Watershed Navigation Tabs */}
+      {/* Carbon Twin Navigation Tabs */}
       <nav style={{
         backgroundColor: '#ffffff',
         borderBottom: '1px solid #e2e8f0',
@@ -494,7 +497,8 @@ export default function App() {
           onClick={() => setActiveTab('database')}
         >
           <FileText size={16} />
-          Database Explorer
+          Carbon Database
+          <span className="pill pill-slate" style={{ fontSize: '0.7rem' }}>7 Tables</span>
         </button>
       </nav>
 
@@ -512,7 +516,7 @@ export default function App() {
         {activeTab === 'overview' && analytics && (
           <div>
             {/* Net-Zero Target Progress Bar */}
-            <div className="watershed-dark-card" style={{ padding: '1.25rem 1.5rem', marginBottom: '1.5rem' }}>
+            <div className="carbon-dark-card" style={{ padding: '1.25rem 1.5rem', marginBottom: '1.5rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                 <div>
                   <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#34d399', fontWeight: 700, letterSpacing: '0.05em' }}>
@@ -576,7 +580,7 @@ export default function App() {
 
             {/* KPI Cards Grid */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
-              <div className="watershed-card" style={{ padding: '1.25rem' }}>
+              <div className="carbon-card" style={{ padding: '1.25rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
                   <span style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600 }}>LIVE POWER DRAW</span>
                   <div style={{ padding: '0.35rem', background: '#ecfdf5', borderRadius: '6px' }}>
@@ -592,7 +596,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="watershed-card" style={{ padding: '1.25rem', borderColor: analytics.wasted_power_kw > 0 ? '#fde68a' : '#e2e8f0' }}>
+              <div className="carbon-card" style={{ padding: '1.25rem', borderColor: analytics.wasted_power_kw > 0 ? '#fde68a' : '#e2e8f0' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
                   <span style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600 }}>WASTED POWER (EMPTY ROOMS)</span>
                   <div style={{ padding: '0.35rem', background: '#fffbeb', borderRadius: '6px' }}>
@@ -607,7 +611,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="watershed-card" style={{ padding: '1.25rem' }}>
+              <div className="carbon-card" style={{ padding: '1.25rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
                   <span style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600 }}>CURRENT HOURLY EMISSIONS</span>
                   <div style={{ padding: '0.35rem', background: '#ecfdf5', borderRadius: '6px' }}>
@@ -622,7 +626,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="watershed-card" style={{ padding: '1.25rem' }}>
+              <div className="carbon-card" style={{ padding: '1.25rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
                   <span style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600 }}>POTENTIAL ANNUAL ABATEMENT</span>
                   <div style={{ padding: '0.35rem', background: '#eef2ff', borderRadius: '6px' }}>
@@ -639,7 +643,7 @@ export default function App() {
             </div>
 
             {/* Interactive Energy & Occupancy Timeline (SVG Visualizer) */}
-            <div className="watershed-card" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
+            <div className="carbon-card" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                 <div>
                   <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#0f172a' }}>
@@ -717,7 +721,7 @@ export default function App() {
             </div>
 
             {/* Room Summary Quick Table */}
-            <div className="watershed-card" style={{ padding: '1.25rem' }}>
+            <div className="carbon-card" style={{ padding: '1.25rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                 <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0f172a' }}>
                   Live Facility Energy & Occupancy Telemetry
@@ -732,7 +736,7 @@ export default function App() {
               </div>
 
               <div style={{ overflowX: 'auto' }}>
-                <table className="watershed-table">
+                <table className="carbon-table">
                   <thead>
                     <tr>
                       <th>Room & Building</th>
@@ -846,7 +850,7 @@ export default function App() {
                 const isWasting = isUnoccupied && nonessentialActiveWatts > 0;
 
                 return (
-                  <div key={room.id} className="watershed-card" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div key={room.id} className="carbon-card" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
                         <div>
@@ -969,8 +973,8 @@ export default function App() {
             </div>
 
             {/* Equipment Table */}
-            <div className="watershed-card" style={{ overflowX: 'auto' }}>
-              <table className="watershed-table">
+            <div className="carbon-card" style={{ overflowX: 'auto' }}>
+              <table className="carbon-table">
                 <thead>
                   <tr>
                     <th>Equipment Name</th>
@@ -1095,8 +1099,8 @@ export default function App() {
               </button>
             </div>
 
-            <div className="watershed-card" style={{ overflowX: 'auto' }}>
-              <table className="watershed-table">
+            <div className="carbon-card" style={{ overflowX: 'auto' }}>
+              <table className="carbon-table">
                 <thead>
                   <tr>
                     <th>Observation ID</th>
@@ -1207,7 +1211,7 @@ export default function App() {
                 const linkedAction = actions.find(a => a.scenario_id === scen.id);
 
                 return (
-                  <div key={scen.id} className="watershed-card" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div key={scen.id} className="carbon-card" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
                         <div>
@@ -1314,8 +1318,8 @@ export default function App() {
               </div>
             </div>
 
-            <div className="watershed-card" style={{ overflowX: 'auto' }}>
-              <table className="watershed-table">
+            <div className="carbon-card" style={{ overflowX: 'auto' }}>
+              <table className="carbon-table">
                 <thead>
                   <tr>
                     <th>Action ID</th>
@@ -1411,8 +1415,8 @@ export default function App() {
               </div>
             </div>
 
-            <div className="watershed-card" style={{ overflowX: 'auto' }}>
-              <table className="watershed-table">
+            <div className="carbon-card" style={{ overflowX: 'auto' }}>
+              <table className="carbon-table">
                 <thead>
                   <tr>
                     <th>Factor Name</th>
@@ -1453,14 +1457,14 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 8: DATABASE EXPLORER */}
+        {/* TAB 8: CARBON DATABASE EXPLORER */}
         {activeTab === 'database' && (
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '1rem' }}>
               <div>
-                <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>Database Model & Table Inspector</h2>
+                <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>Carbon Database Model & Table Inspector</h2>
                 <p style={{ fontSize: '0.85rem', color: '#64748b' }}>
-                  Inspect all 6 exact database tables: <code>rooms</code>, <code>equipment</code>, <code>observations</code>, <code>emission_factors</code>, <code>scenarios</code>, <code>actions</code>.
+                  Custom institutional database backed by <code>data/carbon_database.json</code> with 7 core tables: <code>rooms</code>, <code>equipment</code>, <code>observations</code>, <code>emission_factors</code>, <code>scenarios</code>, <code>actions</code>, <code>users</code>.
                 </p>
               </div>
             </div>
@@ -1468,14 +1472,15 @@ export default function App() {
             {/* Quick table cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem' }}>
               {[
-                { title: 'rooms', count: rooms.length, desc: 'id, building_name, name, capacity, demo_room, created_at', data: rooms },
+                { title: 'rooms', count: rooms.length, desc: 'id, building_name, name, capacity, created_at', data: rooms },
                 { title: 'equipment', count: equipment.length, desc: 'id, room_id, name, quantity, rated_power_w, declared_state, state_declared_at, nonessential, safety_exclusion', data: equipment },
                 { title: 'observations', count: observations.length, desc: 'id, room_id, camera_session_id, people_detected, observed_at, received_at, coverage, source', data: observations },
                 { title: 'emission_factors', count: emissionFactors.length, desc: 'id, name, value, unit, geography, reporting_year, source_reference, gas_basis, factor_type', data: emissionFactors },
                 { title: 'scenarios', count: scenarios.length, desc: 'id, room_id, created_at, input_snapshot_json, result_snapshot_json', data: scenarios },
-                { title: 'actions', count: actions.length, desc: 'id, scenario_id, status, approved_at, completed_at, completion_method, completion_note', data: actions }
+                { title: 'actions', count: actions.length, desc: 'id, scenario_id, status, approved_at, completed_at, completion_method, completion_note', data: actions },
+                { title: 'users', count: users.length, desc: 'id, name, email, role, department, badge, created_at', data: users }
               ].map(table => (
-                <div key={table.title} className="watershed-card" style={{ padding: '1.25rem' }}>
+                <div key={table.title} className="carbon-card" style={{ padding: '1.25rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       <FileText size={18} color="#059669" />

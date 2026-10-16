@@ -14,7 +14,8 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'healthy',
     platform: 'Carbon Twin Campus Carbon Intelligence',
-    version: '2.4.0',
+    database: 'Carbon Database (data/carbon_database.json)',
+    version: '2.5.0',
     compliance: {
       privacy_preserving_vision: true,
       face_embeddings_stored: false,
@@ -22,6 +23,16 @@ app.get('/api/health', (req, res) => {
       continuous_location_tracking: false
     }
   });
+});
+
+// --- User Profiles ---
+app.get('/api/users', (req, res) => {
+  try {
+    const users = db.getUsers().map(({ password, ...u }) => u);
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // --- Authentication Endpoints ---

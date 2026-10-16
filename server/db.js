@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const DB_FILE = path.join(__dirname, '..', 'data', 'watershed_database.json');
+const DB_FILE = path.join(__dirname, '..', 'data', 'carbon_database.json');
+const LEGACY_DB_FILE = path.join(__dirname, '..', 'data', 'watershed_database.json');
 
 // Ensure data folder exists
 const dataDir = path.dirname(DB_FILE);
@@ -470,12 +471,17 @@ class Database {
       if (fs.existsSync(DB_FILE)) {
         const raw = fs.readFileSync(DB_FILE, 'utf8');
         this.data = JSON.parse(raw);
+      } else if (fs.existsSync(LEGACY_DB_FILE)) {
+        const raw = fs.readFileSync(LEGACY_DB_FILE, 'utf8');
+        this.data = JSON.parse(raw);
+        this.save();
+        try { fs.unlinkSync(LEGACY_DB_FILE); } catch (err) {}
       } else {
         this.data = JSON.parse(JSON.stringify(defaultData));
         this.save();
       }
     } catch (e) {
-      console.error('Error loading DB, initializing default data:', e);
+      console.error('Error loading Carbon Database, initializing default data:', e);
       this.data = JSON.parse(JSON.stringify(defaultData));
       this.save();
     }
