@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Carbon Twin | Redirecting...</title>
+    <script type="text/javascript">
+      (function() {
+        var path = window.location.pathname;
+        var repoName = '/CORBAN-FOOTPRINT';
+        var cleanPath = path;
+        if (cleanPath.startsWith(repoName)) {
+          cleanPath = cleanPath.slice(repoName.length);
+        }
+        var isDocs = cleanPath.startsWith('/docs') || cleanPath.startsWith('docs');
+        cleanPath = cleanPath.replace(/^\/?docs\/?/, '').replace(/^\/+/, '');
+        var hash = cleanPath ? '#' + cleanPath : '';
+        var search = window.location.search || '';
+        var basePrefix = (path.startsWith(repoName) ? repoName : '') + (isDocs ? '/docs/' : '/');
+        var target = basePrefix + search + hash;
+        window.location.replace(target);
+      })();
+    </script>
+  </head>
+  <body style="background: #061814; color: #fff; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
+    <p>Redirecting to Carbon Twin...</p>
+  </body>
+</html>
