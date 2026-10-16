@@ -1,4 +1,4 @@
-﻿/**
+/**
  * supabase.ts
  *
  * Single shared Supabase client for browser use.
@@ -13,46 +13,41 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabasePublishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+const supabasePublishableKey = 
+  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || 
+  import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl) {
-  throw new Error(
-    'VITE_SUPABASE_URL is not set. ' +
-    'Copy .env.example to .env.local and fill in your Supabase project URL.'
+export const isSupabaseConfigured = (): boolean => {
+  return Boolean(
+    supabaseUrl &&
+    supabasePublishableKey &&
+    !supabaseUrl.includes('YOUR_PROJECT') &&
+    !supabaseUrl.includes('your-project') &&
+    !supabasePublishableKey.includes('YOUR_ANON') &&
+    !supabasePublishableKey.includes('your-anon')
   );
-}
-
-if (!supabasePublishableKey) {
-  throw new Error(
-    'VITE_SUPABASE_PUBLISHABLE_KEY is not set. ' +
-    'This must be the anon/publishable key — never the service-role key.'
-  );
-}
+};
 
 // Validate that a service-role key was not accidentally pasted.
-// Service-role keys start with "eyJ" and contain ".service_role" after decoding.
-// This is a best-effort guard; the real protection is keeping secret keys out
-// of environment files that are bundled with the frontend.
-if (supabasePublishableKey.includes('service_role')) {
+if (supabasePublishableKey && supabasePublishableKey.includes('service_role')) {
   throw new Error(
     'VITE_SUPABASE_PUBLISHABLE_KEY appears to be a service-role key. ' +
     'Service-role keys bypass RLS and must NEVER be placed in frontend code.'
   );
 }
 
-export const supabase: SupabaseClient = createClient(
-  supabaseUrl,
-  supabasePublishableKey,
-  {
-    auth: {
-      // Persist session in localStorage so the user stays signed in
-      // across page reloads.
-      persistSession: true,
-      // Auto-refresh the access token before it expires.
-      autoRefreshToken: true,
-    },
-  }
-);
+export const supabase: SupabaseClient = isSupabaseConfigured()
+  ? createClient(
+      supabaseUrl!,
+      supabasePublishableKey!,
+      {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true,
+        },
+      }
+    )
+  : (null as unknown as SupabaseClient);
 
 // ---------------------------------------------------------------------------
 // Auth helpers
